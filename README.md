@@ -61,7 +61,7 @@ This set's up the basic node.js work area. I've added the readme.md as the secon
 ###Install packages
 Packages are libraries that are available to any node.js application. It makes sharing code, dependencies, libraries, and keeping track of versions of libraries automatic.
 
-npm install package_name //installs packages
+npm install package_name --save //installs packages
 npm remove package_name //removes the packages
 npm update // upgrades the packages
 
@@ -72,7 +72,7 @@ For this project we'll have most everything already in the project folder. But h
 The followig is the log of what happened.
 
 ```
-rumakervr% npm install johnny-five
+rumakervr% npm install johnny-five --save
 
 > serialport@3.1.2 install /Users/rickanderson/projects/ricklon/HelloLab/node_modules/serialport
 > node-pre-gyp install --fallback-to-build
@@ -93,7 +93,10 @@ rumakervr% cat package.json
     "test": "node blnk.js"
   },
   "author": "Rick Anderson",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "johnny-five": "^0.9.53"
+  }
 }
 ```
 
