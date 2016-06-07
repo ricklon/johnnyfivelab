@@ -1,0 +1,11 @@
+{
+  "name": "hellolab",
+  "version": "1.0.0",
+  "description": "Hello World for chipKIT, Node.js with Johny-Five",
+  "main": "blink.js",
+  "scripts": {
+    "test": "node blnk.js"
+  },
+  "author": "Rick Anderson",
+  "license": "Apache-2.0"
+}
