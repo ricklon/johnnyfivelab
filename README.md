@@ -197,17 +197,24 @@ board.on("ready", function() {
 ###HelloTemperature
 We'll read temperature from A0 as well
 ```
-var five = require("johnny-five"),
+var five = require("johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
-  // Assuming a sensor is attached to pin "A1"
-  this.pinMode(A0, five.Pin.ANALOG);
-  this.analogRead(A0, function(value) {
-    console.log("Temp: " + value +  ": " + value*3.3/1024);
+
+  // Create a new generic sensor instance for
+  // a sensor connected to an analog (ADC) pin
+  var temp = new five.Sensor({
+            pin: "A0", 
+        freq: 250, 
+        threshold: 5
+  });
+
+  // When the sensor value changes, log the value
+  temp.on("change", function(value) {
+    console.log(value*3300/1024);
   });
 });
-
 ```
 
 ###Exploring the REPL: Command line for Johnny-five
