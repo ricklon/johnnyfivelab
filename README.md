@@ -107,7 +107,7 @@ Examining the dependencies for johnny-five:
 ```
 ls node_modules
 ansi-regex              commander               escape-string-regexp    johnny-five             nanotimer               temporal
-ansi-styles             debug                   firmata                 lodash._baseclone       object-keys
+ansi-styles             debug                   firmata                       object-keys
 bindings                define-properties       foreach                 lodash.clonedeep        object.assign
 browser-serialport      ease-component          function-bind           lodash.debounce         serialport
 chalk                   es6-promise             graceful-readlink       ms                      strip-ansi
@@ -205,8 +205,8 @@ board.on("ready", function() {
   // Create a new generic sensor instance for
   // a sensor connected to an analog (ADC) pin
   var temp = new five.Sensor({
-            pin: "A0", 
-        freq: 250, 
+            pin: "A0",
+        freq: 250,
         threshold: 5
   });
 
@@ -221,5 +221,40 @@ board.on("ready", function() {
 
 
 ###Connect these to a REST application
+Connect the LED, button, and temperature sensor to a CRUD Rest Application.
+
+Create, Read, Update, Delete (CRUD) features.
+| Action | URL | HTTP Verb | POST body | Result |
+| ------ | :-------: | :------: | :-----: |  ------: |
+| Create /api/parts | POST | JSON String | Create new part |
+| Read "Get all"| /api/parts | GET | empty | return all parts |
+| Read "Get one"| /api/parts/:id  | GET | empty | get one part |
+| Update | /api/parts/:id | PUT | JSON string |Update an existing part |
+| Delete | /api/parts/:id | DELETE | empty | delete specifc part |
+
+
+What does this mean for:
+INPUTS
+* button
+ * Create
+ * Read
+* temperature sensor
+ * Create
+ * Read
+
+OUTPUTS
+* led
+  * Create
+  * Update
+* led strip
+ * Create
+ * Update
+
+INPUT/OUTPUT
+  * SD Card
+   * Create
+   * Read
+   * Update
+   * Delete  
 
 ###Connect to a Web page
