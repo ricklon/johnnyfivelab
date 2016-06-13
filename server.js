@@ -6,6 +6,7 @@ var button;
 var led;
 var temp;
 var tempValue;
+var btnStatus;
 var PIN_LED1 = 21; //0
 var PIN_BTN1 = 23; //16
 var board = new five.Board();
@@ -18,17 +19,20 @@ board.on("ready", function() {
   });
   // "down" the button is pressed
    button.on("down", function() {
+     btnStatus = "down";
      led.on();
      console.log("down");
    });
 
    // "hold" the button is pressed for specified time.
    button.on("hold", function() {
+     btnStatus = "hold";
      console.log("hold");
    });
 
    // "up" the button is released
    button.on("up", function() {
+     btnStatus = "up";
      console.log("up");
    });
 
@@ -47,7 +51,7 @@ board.on("ready", function() {
 
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.send('Devices Connected:');
 });
 
 app.get('/led/on', function (req, res) {
@@ -70,7 +74,14 @@ app.get('/temp', function (req, res) {
   //res.status(status).send(body);
   res.send('Temperature:' + val);
 });
+app.get('/button', function (req, res) {
 
+   if(board.isReady){
+     res.send('Button:' + btnStatus);
+   } else {
+     res.status(status).send("button not ready");
+   }
+});
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
