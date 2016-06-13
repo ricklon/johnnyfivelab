@@ -224,13 +224,14 @@ board.on("ready", function() {
 Connect the LED, button, and temperature sensor to a CRUD Rest Application.
 
 Create, Read, Update, Delete (CRUD) features.
+
 | Action | URL | HTTP Verb | POST body | Result |
-| ------ | :-------: | :------: | :-----: |  ------: |
+| ------ | ------- | ------ | ----- |  ------ |
 | Create /api/parts | POST | JSON String | Create new part |
 | Read "Get all"| /api/parts | GET | empty | return all parts |
 | Read "Get one"| /api/parts/:id  | GET | empty | get one part |
 | Update | /api/parts/:id | PUT | JSON string |Update an existing part |
-| Delete | /api/parts/:id | DELETE | empty | delete specifc part |
+| Delete | /api/parts/:id | DELETE | empty | delete specific part |
 
 
 What does this mean for:
