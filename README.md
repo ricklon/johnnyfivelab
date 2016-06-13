@@ -259,3 +259,5 @@ INPUT/OUTPUT
    * Delete  
 
 ###Connect to a Web page
+
+For this lab all of the steps above will be completed and we'll just examine the server and part relationship with a complete example.
