@@ -122,6 +122,7 @@ johnny-five is now installed.
 
 Go to the Arduino IDE with the chipKIT-core installed. Scroll down to the Firmata library examples. Then select and load "StandardFirmataChipKIT" once that is loaded onto the Fubarino Mini we are ready to talk to it via Node.js and Johnny-five.
 
+
 ###Blink Hello
 First Fubarino_Mini has the LED on pin 0.
 ```
@@ -221,12 +222,18 @@ board.on("ready", function() {
 ```
 
 ###Exploring the REPL: Command line for Johnny-five
+Read, Evaluate, Print Loop (REPL)
+This is a command line interface to the objects created using Johnny-five.
+```
+>>>led.on()
+>>>led.off()
+```
 
 
-###Connect these to a REST application
+###Connect Johnny-five devices to a RESTful application
 Connect the LED, button, and temperature sensor to a CRUD Rest Application.
 
-Create, Read, Update, Delete (CRUD) features.
+Create, Read, Update, Delete (CRUD) features mapped to the HTTP protocol.
 
 | Action | URL | HTTP Verb | POST body | Result |
 | ------ | ------- | ------ | ----- |  ------ |
@@ -261,7 +268,7 @@ INPUT/OUTPUT
    * Update
    * Delete  
 
-###Connect to a Web page
+###Connect to a Web Server and Page using Express
 
 For this lab all of the steps above will be completed and we'll just examine the server and part relationship with a complete example.
 
