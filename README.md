@@ -5,13 +5,25 @@
 
 This configures the project from scratch and all examples will start from here.
 
+###Useful command line commands:
+* mkdir
+* pwd
+* npm
+* node
+* cd
+*  
+
 ###Setup
+
+Let's set up the basic project we'll use for the workshop.
+
 ```
-machine1% mkdir HelloLab
-machine1 [mkdir HelloLab] ~/projects/ricklon                                                                                          
-machine1% cd HelloLab
-machine1 [cd HelloLab] ~/projects/ricklon/HelloLab                                                                                    
-machine1% npm init
+$ mkdir HelloLab
+$ [mkdir HelloLab] ~/projects/ricklon                                                                                          
+$ cd HelloLab
+$[cd HelloLab] ~/projects/ricklon/HelloLab                                                                                    
+$ npm init
+```
 This utility will walk you through creating a package.json file.
 It only covers the most common items, and tries to guess sensible defaults.
 
@@ -21,6 +33,7 @@ and exactly what they do.
 Use `npm install <pkg> --save` afterwards to install a package and
 save it as a dependency in the package.json file.
 
+```
 Press ^C at any time to quit.
 name: (HelloLab)
 Sorry, name can no longer contain capital letters.
@@ -38,7 +51,10 @@ license: (ISC) apache2.0
 Sorry, license should be a valid SPDX license expression (without "LicenseRef"), "UNLICENSED", or "SEE LICENSE IN <filename>" and license is similar to the valid expression "Apache-2.0".
 license: (ISC) Apache-2.0
 About to write to /Users/rickanderson/projects/ricklon/HelloLab/package.json:
+```
+It then creates a package.json file that describes the project and keeps track of the modules you use in your project.
 
+```
 {
   "name": "hellolab",
   "version": "1.0.0",
@@ -72,7 +88,7 @@ For this project we'll have most everything already in the project folder. But h
 The following is the log of what happened.
 
 ```
-$% npm install johnny-five --save
+$ npm install johnny-five --save
 
 > serialport@3.1.2 install /Users/rickanderson/projects/ricklon/HelloLab/node_modules/serialport
 > node-pre-gyp install --fallback-to-build
@@ -83,7 +99,7 @@ hellolab@1.0.0 /Users/rickanderson/projects/ricklon/HelloLab
 
 npm WARN hellolab@1.0.0 No repository field.
 $ [npm install johnny-five] ~/projects/ricklon/HelloLab                                                                                
-$% cat package.json
+$ cat package.json
 {
   "name": "hellolab",
   "version": "1.0.0",
