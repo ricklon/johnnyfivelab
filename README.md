@@ -69,10 +69,10 @@ For this project we'll have most everything already in the project folder. But h
 
 ```npm install johnny-five```
 
-The followig is the log of what happened.
+The following is the log of what happened.
 
 ```
-rumakervr% npm install johnny-five --save
+$% npm install johnny-five --save
 
 > serialport@3.1.2 install /Users/rickanderson/projects/ricklon/HelloLab/node_modules/serialport
 > node-pre-gyp install --fallback-to-build
@@ -82,8 +82,8 @@ hellolab@1.0.0 /Users/rickanderson/projects/ricklon/HelloLab
 └── johnny-five@0.9.53  extraneous
 
 npm WARN hellolab@1.0.0 No repository field.
-rumakervr [npm install johnny-five] ~/projects/ricklon/HelloLab                                                                                
-rumakervr% cat package.json
+$ [npm install johnny-five] ~/projects/ricklon/HelloLab                                                                                
+$% cat package.json
 {
   "name": "hellolab",
   "version": "1.0.0",
@@ -228,11 +228,11 @@ Create, Read, Update, Delete (CRUD) features.
 
 | Action | URL | HTTP Verb | POST body | Result |
 | ------ | ------- | ------ | ----- |  ------ |
-| Create /api/parts | POST | JSON String | Create new part |
-| Read "Get all"| /api/parts | GET | empty | return all parts |
-| Read "Get one"| /api/parts/:id  | GET | empty | get one part |
-| Update | /api/parts/:id | PUT | JSON string |Update an existing part |
-| Delete | /api/parts/:id | DELETE | empty | delete specific part |
+| Create /api/devices | POST | JSON String | Create new part |
+| Read "Get all"| /api/devices | GET | empty | return all devices |
+| Read "Get one"| /api/devices/:id  | GET | empty | get one part |
+| Update | /api/devices/:id | PUT | JSON string |Update an existing part |
+| Delete | /api/devices/:id | DELETE | empty | delete specific part |
 
 
 What does this mean for:
@@ -269,4 +269,4 @@ Node.js tools:
 * ejs
 * johnny-five
 
-```npm install express body-parser ejs johnny-five"```
+```npm install express body-parser ejs johnny-five --save```
