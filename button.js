@@ -1,8 +1,9 @@
-var five = require("johnny-five"),board,button;
+var five = require("johnny-five");
+var button;
 var board = new five.Board();
 
 board.on("ready", function() {
-  var ledAnalog = five.Led(1);
+  var ledAnalog = five.Led(0);
 
   var button = new five.Button({
           pin: 16,
@@ -28,7 +29,7 @@ board.on("ready", function() {
   // "up" the button is released
   button.on("up", function() {
     console.log("up");
-  });   
+  });
 
   led.blink(250);
 //  ledAnalog.fadeIn();

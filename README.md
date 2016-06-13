@@ -139,13 +139,14 @@ board.on("ready", function() {
 ###Hello Button
 The button for the Fubarion_Mini is on pin 16.
 ```
-var five = require("johnny-five"),board,button;
+var five = require("johnny-five"),board;
+var button;
 var board = new five.Board();
 
 board.on("ready", function() {
   var ledAnalog = five.Led(1);
 
-  var button = new five.Button({
+  button = new five.Button({
           pin: 16,
           invert: true
   });
@@ -199,12 +200,12 @@ We'll read temperature from A0 as well
 ```
 var five = require("johnny-five");
 var board = new five.Board();
-
+var temp;
 board.on("ready", function() {
 
   // Create a new generic sensor instance for
   // a sensor connected to an analog (ADC) pin
-  var temp = new five.Sensor({
+  temp = new five.Sensor({
             pin: "A0",
         freq: 250,
         threshold: 5
@@ -252,7 +253,7 @@ OUTPUTS
  * Update
 
 INPUT/OUTPUT
-  * SD Card
+  * SD Card (SPI, I2C, Serial)
    * Create
    * Read
    * Update
@@ -261,3 +262,11 @@ INPUT/OUTPUT
 ###Connect to a Web page
 
 For this lab all of the steps above will be completed and we'll just examine the server and part relationship with a complete example.
+
+Node.js tools:
+* express
+* body-parser
+* ejs
+* johnny-five
+
+```npm install express body-parser ejs johnny-five"```
