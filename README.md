@@ -122,17 +122,18 @@ johnny-five is now installed.
 
 Go to the Arduino IDE with the chipKIT-core installed. Scroll down to the Firmata library examples. Then select and load "StandardFirmataChipKIT" once that is loaded onto the Fubarino Mini we are ready to talk to it via Node.js and Johnny-five.
 
+Important note about scope. The "var" declares where a variables scope starts. More explanation here.
 
 ###Blink Hello
 First Fubarino_Mini has the LED on pin 0.
 ```
 var five = require("johnny-five");
 var board = new five.Board();
-
+var led;
 
 board.on("ready", function() {
   // Create an Led on pin 13
-  var led = new five.Led(0);
+  led = new five.Led(0);
 
   // Strobe the pin on/off, defaults to 100ms phases
   led.strobe();
@@ -233,10 +234,13 @@ This is a command line interface to the objects created using Johnny-five.
 ###Connect Johnny-five devices to a RESTful application
 Connect the LED, button, and temperature sensor to a CRUD Rest Application.
 
+What is a RESTful application?
+TODO: Answer:
+
 Create, Read, Update, Delete (CRUD) features mapped to the HTTP protocol.
 
-| Action | URL | HTTP Verb | POST body | Result |
-| ------ | ------- | ------ | ----- |  ------ |
+| Action    | URL | HTTP Verb | POST body | Result |
+| -------------------- | ------- | ------ | ----- |  ------ |
 | Create /api/devices | POST | JSON String | Create new part |
 | Read "Get all"| /api/devices | GET | empty | return all devices |
 | Read "Get one"| /api/devices/:id  | GET | empty | get one part |
@@ -268,6 +272,39 @@ INPUT/OUTPUT
    * Update
    * Delete  
 
+###Create a RESTful mapping for LED, button, temperature sensor
+
+LED
+
+Action    | URL | HTTP Verb | POST body | Result |
+| -------------------- | ------- | ------ | ----- |  ------ |
+| Create /dev/led | POST | JSON String | Turn led on with a pattern/command |
+| Read "Get all"| /dev/led | GET | empty | get status |
+| Read "Get one"| /dev/led/:id  | GET | empty | get status |
+| Update | /dev/led/:id | PUT | JSON string |Update parameters and values for command |
+| Delete | /dev/led/:id | DELETE | empty | turn off led |
+
+The commands correspond to the johnny-five LED object library methods:
+LED API parameters
+http://johnny-five.io/api/led/
+* on
+* off
+* toggle
+* blink
+* strobe
+* brightness
+* fade
+* stop
+* pulse
+* fadeIn
+* fadeOut
+
+
+Groups of leds
+http://johnny-five.io/api/leds/
+
+
+
 ###Connect to a Web Server and Page using Express
 
 For this lab all of the steps above will be completed and we'll just examine the server and part relationship with a complete example.
@@ -281,7 +318,7 @@ Node.js tools:
 ```npm install express body-parser ejs johnny-five --save```
 
 Examples:
-
+* Review the issue of scope for combining two kinds of programs.
 ```
 var express = require('express');
 var app = express();
@@ -334,10 +371,12 @@ board.on("ready", function() {
   console.log("Board is Ready!");
 });
 
-
+//Express section
 app.get('/', function (req, res) {
   res.send('Devices Connected:');
 });
+
+//app.route('/').get(callback).post(toggle)
 
 app.get('/led/on', function (req, res) {
    if(board.isReady){
