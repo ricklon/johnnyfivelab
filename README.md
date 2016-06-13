@@ -278,7 +278,7 @@ LED
 
 Action    | URL | HTTP Verb | POST body | Result |
 | -------------------- | ------- | ------ | ----- |  ------ |
-| Create /dev/led | POST | JSON String | Turn led on with a pattern/command |
+| Create /dev/led | POST | JSON String | | Turn led on with a pattern/command |
 | Read "Get all"| /dev/led | GET | empty | get status |
 | Read "Get one"| /dev/led/:id  | GET | empty | get status |
 | Update | /dev/led/:id | PUT | JSON string |Update parameters and values for command |
