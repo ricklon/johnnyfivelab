@@ -83,9 +83,9 @@ npm update // upgrades the packages
 
 For this project we'll have most everything already in the project folder. But here's how you install what we need to get started with.
 
-```npm install johnny-five```
+```npm install johnny-five --save```
 
-The following is the log of what happened.
+The following is the log of what happened. The  johnny-five module is download and the dependencies  are created. The flag "--save" saves the module johnny-five into the package.json file.
 
 ```
 $ npm install johnny-five --save
@@ -116,21 +116,7 @@ $ cat package.json
 }
 ```
 
-Need to check why Johnny-five is not added to the package.json file.
-
-Examining the dependencies for johnny-five:
-
-```
-ls node_modules
-ansi-regex              commander               escape-string-regexp    johnny-five             nanotimer               temporal
-ansi-styles             debug                   firmata                       object-keys
-bindings                define-properties       foreach                 lodash.clonedeep        object.assign
-browser-serialport      ease-component          function-bind           lodash.debounce         serialport
-chalk                   es6-promise             graceful-readlink       ms                      strip-ansi
-color-convert           es6-shim                has-ansi                nan                     supports-color
-```
-
-In any case johnny-five is now installed.
+johnny-five is now installed.
 
 ###Configure Fubarino Mini
 
