@@ -1,0 +1,22 @@
+{
+  "name": "hellolab",
+  "description": "Hello World for chipKIT, Node.js with Johny-Five",
+  "main": "server-io.js",
+  "authors": [
+    "Rick Anderson"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/ricklon/johnnyfivelab",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-socket-io": "^0.7.0",
+    "socket.io-client": "^1.4.6",
+    "angular": "angularjs#^1.5.6"
+  }
+}
