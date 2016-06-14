@@ -1,13 +1,13 @@
 var five = require("johnny-five");
 var board = new five.Board();
-var temp;
+
 
 board.on("ready", function() {
 
   // Create a new generic  temperature sensor instance for
   // a sensor connected to an analog (ADC) pin
-  temp = new five.Sensor({
-	    pin: "A0",
+  var temp = new five.Sensor({
+	    pin: "A0", //sensor supports the analog naming scheme
         freq: 250,
         threshold: 5
   });

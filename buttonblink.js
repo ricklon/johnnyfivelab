@@ -1,38 +1,40 @@
-var five = require("johnny-five"),board,button;
+var five = require("johnny-five");
 var board = new five.Board();
+var PIN_LED1 = 21; //0
+var PIN_BTN1 = 23; //16
 
 board.on("ready", function() {
-  var led = new five.Led(1);
-  var ledAnalog = five.Led(0);
+    var led = new five.Led(PIN_LED1);
+    var ledAnalog = five.Led(2);
+    var button = new five.Button({
+        pin: PIN_BTN1,
+        invert: true
+    });
 
-  var button = new five.Button({
-	  pin: 16,
-          invert: true
-  });
+    board.repl.inject({
+        button: button,
+        led: led,
+        ledAnalog: ledAnalog
+    });
 
-  board.repl.inject({
-	  button: button
-  });
+    // "down" the button is pressed
+    button.on("down", function() {
+        console.log("down");
+    });
 
- // "down" the button is pressed
-  button.on("down", function() {
-    console.log("down");
-  });
+    // "hold" the button is pressed for specified time.
+    //        defaults to 500ms (1/2 second)
+    //        set
+    button.on("hold", function() {
+        console.log("hold");
+    });
 
-  // "hold" the button is pressed for specified time.
-  //        defaults to 500ms (1/2 second)
-  //        set
-  button.on("hold", function() {
-    console.log("hold");
-  });
+    // "up" the button is released
+    button.on("up", function() {
+        console.log("up");
+    });
 
-  // "up" the button is released
-  button.on("up", function() {
-    console.log("up");
-  });	
-
-  led.blink(250);
-//  ledAnalog.fadeIn();
+    led.blink(250);
+    ledAnalog.fadeIn();
 
 });
-
