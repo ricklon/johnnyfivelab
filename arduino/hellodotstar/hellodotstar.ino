@@ -7,18 +7,14 @@
 #define CLOCKPIN   MOSI
 #define NUMPIXELS 30 // Number of LEDs in strip
 
-#define red  0xFF0000
-#define green  0x00FF00
-#define blue  0x0000FF
+#define RED  0xFF0000
+#define GREEN  0x00FF00
+#define BLUE  0x0000FF
 
 uint32_t frame[NUMPIXELS];
+uint32_t colors[3] = {RED, GREEN, BLUE };
 
-
-uint32_t colors[3] = {green, red, blue };
-
-Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DATAPIN, CLOCKPIN, DOTSTAR_BRG);
-
-
+Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DATAPIN, CLOCKPIN, DOTSTAR_BGR);
 
 void setup() {
   strip.begin(); // Initialize pins for output
@@ -26,10 +22,25 @@ void setup() {
 
   //initialize strip array
   for (int ii = 0; ii < NUMPIXELS; ii++) {
-    frame[ii] = 0xFF0000; //initialize all to red
+    frame[ii] = RED; //initialize all to red
     strip.setPixelColor(ii, frame[ii]);
   }
   strip.show();
+  delay(1000);
+  //initialize strip array
+  for (int ii = 0; ii < NUMPIXELS; ii++) {
+    frame[ii] = GREEN; //initialize all to GREEN
+    strip.setPixelColor(ii, frame[ii]);
+  }
+  strip.show();
+  delay(1000);
+  //initialize strip array
+  for (int ii = 0; ii < NUMPIXELS; ii++) {
+    frame[ii] = BLUE; //initialize all to BLUE
+    strip.setPixelColor(ii, frame[ii]);
+  }
+  strip.show();
+  delay(1000);
 
 }
 
