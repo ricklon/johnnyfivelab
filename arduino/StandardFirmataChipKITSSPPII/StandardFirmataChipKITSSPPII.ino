@@ -31,8 +31,11 @@
 
 
 #define NUMPIXELS 30 // Number of LEDs in strip
-#define DATAPIN    4
-#define CLOCKPIN   5
+#define DATAPIN    27
+#define CLOCKPIN   29
+#define RED  0xFF0000
+#define GREEN  0x00FF00
+#define BLUE  0x0000FF
 
 #define I2C_WRITE                   B00000000
 #define I2C_READ                    B00001000
@@ -51,6 +54,8 @@
  * GLOBAL VARIABLES
  *============================================================================*/
 /* apa102c rgb led strip */
+uint32_t frame[NUMPIXELS];
+uint32_t colors[3] = {RED, GREEN, BLUE };
 Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DATAPIN, CLOCKPIN, DOTSTAR_BRG);
 
 
@@ -230,6 +235,21 @@ void checkDigitalInputs(void)
   if (TOTAL_PORTS > 15 && reportPINs[15]) outputPort(15, readPort(15, portConfigInputs[15]), false);
 }
 
+//----------------------------------
+/*
+ * contact DOTSTAR strip
+ */
+void dotstarHello() {
+ strip.clear();
+  for (int ii = 0; ii < NUMPIXELS; ii++) {
+    frame[ii] = BLUE; //initialize all to BLUE
+    strip.setPixelColor(ii, frame[ii]);
+  }
+  strip.show();
+  
+}
+
+
 // -----------------------------------------------------------------------------
 /* Sets a pin that is in Servo mode to a particular output value
  * (i.e. pulse width). Different boards may have different ways of
@@ -310,7 +330,6 @@ void setPinModeCallback(byte pin, int mode)
           attachServo(pin, -1, -1);
         }
       }
-      break;
     case I2C:
       if (IS_PIN_I2C(pin)) {
         // mark the pin as i2c
@@ -422,6 +441,9 @@ void sysexCallback(byte command, byte argc, byte *argv)
   unsigned int delayTime;
 
   switch (command) {
+    case 0x50:
+        dotstarHello();
+    break;
     case I2C_REQUEST:
       mode = argv[1] & I2C_READ_WRITE_MODE_MASK;
       if (argv[1] & I2C_10BIT_ADDRESS_MODE_MASK) {
@@ -685,6 +707,8 @@ void systemResetCallback()
 
 void setup()
 {
+ 
+  
   Firmata.setFirmwareVersion(FIRMATA_MAJOR_VERSION, FIRMATA_MINOR_VERSION);
 
   Firmata.attach(ANALOG_MESSAGE, analogWriteCallback);
@@ -703,6 +727,14 @@ void setup()
   Firmata.begin(57600);
 #endif
   systemResetCallback();  // reset to default config
+
+
+ strip.clear();
+  for (int ii = 0; ii < NUMPIXELS; ii++) {
+    frame[ii] = GREEN; //initialize all to BLUE
+    strip.setPixelColor(ii, frame[ii]);
+  }
+  strip.show();
 }
 
 /*==============================================================================
