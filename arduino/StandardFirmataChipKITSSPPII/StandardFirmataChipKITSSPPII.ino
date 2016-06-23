@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 /*
   Firmata is a generic protocol for communicating with microcontrollers
   from software on a host computer. It is intended to work with
@@ -30,6 +32,7 @@
 #include <Adafruit_DotStar.h>
 
 
+#define DOTSTAR_DATA 0x50
 #define NUMPIXELS 30 // Number of LEDs in strip
 #define DATAPIN    27
 #define CLOCKPIN   29
@@ -238,6 +241,7 @@ void checkDigitalInputs(void)
 //----------------------------------
 /*
  * contact DOTSTAR strip
+ * goup the dotstar functions to act as a callback from firmata commands
  */
 void dotstarHello() {
  strip.clear();
@@ -246,9 +250,22 @@ void dotstarHello() {
     strip.setPixelColor(ii, frame[ii]);
   }
   strip.show();
-  
+}
+//----------------------------------------------------------------
+/*
+*
+*/
+void dotstarShow() {
+  strip.show();
 }
 
+void dotstarClear() {
+  strip.clear();
+}
+
+void dotstarSetPixel(uint16_t pixel, uint32_t color)) {
+ strip.setPixelColor(pixel, color);
+}
 
 // -----------------------------------------------------------------------------
 /* Sets a pin that is in Servo mode to a particular output value
@@ -441,8 +458,20 @@ void sysexCallback(byte command, byte argc, byte *argv)
   unsigned int delayTime;
 
   switch (command) {
-    case 0x50:
+    case DOTSTAR_DATA:
         dotstarHello();
+        mode = argv[1];
+        switch(mode) {
+          case 0x51:
+            dotstarClear();
+          break;
+          case 0x52:
+            dotstarShow();
+          break;
+          case 0x53:
+            dotstarSetPixel(argv[2], argv[3]);
+          break;
+        }
     break;
     case I2C_REQUEST:
       mode = argv[1] & I2C_READ_WRITE_MODE_MASK;
@@ -707,8 +736,8 @@ void systemResetCallback()
 
 void setup()
 {
- 
-  
+
+
   Firmata.setFirmwareVersion(FIRMATA_MAJOR_VERSION, FIRMATA_MINOR_VERSION);
 
   Firmata.attach(ANALOG_MESSAGE, analogWriteCallback);

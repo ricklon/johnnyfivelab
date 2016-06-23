@@ -53,7 +53,7 @@ void loop() {
     strip.show();
   */
 
-  for (int ii = 0; ii < NUMPIXELS; ii++) {
+  for (int ii = 0; ii <= NUMPIXELS; ii++) {
     if (ii == 0)
     {
       frame[ii] = 0xFFFFFF;
