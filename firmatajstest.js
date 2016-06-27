@@ -1,5 +1,5 @@
 var Board = require("firmata");
-var board = new Board("/dev/cu.usbmodem1411");
+var board = new Board({port: "COM15"});
 
 
 board.on('ready', function(){

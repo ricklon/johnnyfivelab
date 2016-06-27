@@ -263,7 +263,7 @@ void dotstarClear() {
   strip.clear();
 }
 
-void dotstarSetPixel(uint16_t pixel, uint32_t color)) {
+void dotstarSetPixel(uint16_t pixel, uint32_t color) {
  strip.setPixelColor(pixel, color);
 }
 
