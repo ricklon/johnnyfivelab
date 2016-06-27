@@ -1,4 +1,4 @@
-int tempValue; 
+float tempValue; 
 
 void setup() {
     Serial.begin(9600);

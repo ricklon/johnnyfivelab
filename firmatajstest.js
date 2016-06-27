@@ -1,5 +1,6 @@
 var Board = require("firmata");
-var board = new Board("/dev/ttyACM0");
+//var board = new Board("/dev/ttyACM0");
+var board = new Board({port: "COM15"});
 
 var DOTSTAR = 0x50;
 var DOTSTAR_PIXEL=0x0;
@@ -28,5 +29,4 @@ board.on('ready', function()
 	} 
     },500);
 
-
-  });
+});
