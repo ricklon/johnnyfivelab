@@ -1,4 +1,3 @@
-#include <Arduino.h>
 
 /*
   Firmata is a generic protocol for communicating with microcontrollers
@@ -58,8 +57,6 @@
  * GLOBAL VARIABLES
  *============================================================================*/
 /* apa102c rgb led strip */
-uint32_t frame[NUMPIXELS];
-uint32_t colors[3] = {RED, GREEN, BLUE };
 Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DATAPIN, CLOCKPIN, DOTSTAR_BRG);
 
 
@@ -246,6 +243,7 @@ void checkDigitalInputs(void)
  */
 void dotstarHello() {
  strip.clear();
+ uint32_t frame[NUMPIXELS];
   for (int ii = 0; ii < NUMPIXELS; ii++) {
     frame[ii] = BLUE; //initialize all to BLUE
     strip.setPixelColor(ii, frame[ii]);
@@ -465,13 +463,13 @@ void sysexCallback(byte command, byte argc, byte *argv)
         }
         mode = argv[1];
         switch(mode) {
-          case 0x00:
+          case 0x12:
             dotstarClear();
           break;
-          case 0x01:
+          case 0x11:
             dotstarShow();
           break;
-          case 0x02:
+          case 0x10:
           uint16_t pixel;
           uint32_t color;
             byte ii = 2;
@@ -766,14 +764,6 @@ void setup()
   Firmata.begin(57600);
 #endif
   systemResetCallback();  // reset to default config
-
-
- strip.clear();
-  for (int ii = 0; ii < NUMPIXELS; ii++) {
-    frame[ii] = GREEN; //initialize all to BLUE
-    strip.setPixelColor(ii, frame[ii]);
-  }
-  strip.show();
 }
 
 /*==============================================================================
