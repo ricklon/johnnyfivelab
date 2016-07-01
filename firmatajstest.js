@@ -9,41 +9,40 @@ var CK_PIXEL_SET = 0x10;
 var CK_PIXEL_SHOW = 0x11;
 var CK_PIXEL_CLEAR = 0x12;
 var CK_PIXEL_BRIGHTNESS =  0x13;
-
+var PIXEL = 1;
+var PIXEL_MAX = 30;
 
 repl.start('firmata>').context.board = board;
 
 
 board.on('ready', function(){
 
-	//sysexCommand expects 7 bit arrays lsb first
-	//- `Board.encode(data)`
-	// data = ??????{
-        //
-    //mm = Board.encode([0x50,0x12]);
-    console.log("STAR");
-    //dotstar_cmd = Board.encode([80]);
-    //console.log("dotstar_cmd: ", dotstar_cmd);
-    //board.sysexCommand(dotstar_cmd);
-    //board.sysexCommand(mm);
-    board.sysexCommand([CK_COMMAND]);
+    console.log("START");
     board.sysexCommand([CK_COMMAND, CK_PIXEL_CLEAR]);
-    //board.sysexCommand([DOTSTAR,DOTSTAR_CLEAR]);
-    board.sysexCommand([CK_COMMAND]);
-    board.sysexCommand([CK_COMMAND, CK_PIXEL_SET,0x02, 0x5F, 0x67, 0x70]);
-    board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
-    board.sysexCommand([0x40,0x10,0x03,0x7F,0x5F,0x67,0x70]);
+    board.sysexCommand([CK_COMMAND, CK_PIXEL_SET,0, 0x7F, 0xFF, 0xFF, 0xFF]);
+    board.sysexCommand([CK_COMMAND, CK_PIXEL_SET,1, 0x7F, 0xFF, 0xFF, 0xFF]);
+    board.sysexCommand([CK_COMMAND, CK_PIXEL_SET,2, 0x7F, 0xFF, 0xFF, 0xFF]);
+    board.sysexCommand([CK_COMMAND, CK_PIXEL_SET,3, 0x7F, 0xFF, 0xFF, 0xFF]);
+    board.sysexCommand([CK_COMMAND, CK_PIXEL_SET,4, 0x7F, 0xFF, 0xFF, 0xFF]);
+    board.sysexCommand([CK_COMMAND, CK_PIXEL_SET,7, 0x7F, 0xFF, 0xFF, 0xFF]);
+    board.sysexCommand([CK_COMMAND, CK_PIXEL_SET,8, 0x7F, 0xFF, 0xFF, 0xFF]);
+    board.sysexCommand([CK_COMMAND, CK_PIXEL_SET,9, 0x7F, 0xFF, 0xFF, 0xFF]);
+    board.sysexCommand([CK_COMMAND, CK_PIXEL_SET,14, 0x7F, 255,255,255]);
+    board.sysexCommand([CK_COMMAND, CK_PIXEL_SET,15, 0x7F, 255,0,255]);
+    board.sysexCommand([CK_COMMAND, CK_PIXEL_SET,16, 0x7F, 255,255,0]);
+    board.sysexCommand([CK_COMMAND, CK_PIXEL_SET,17, 0x7F, 0,1,255]);
     board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
 
-    //board.sysexCommand([DOTSTAR,DOTSTAR_SHOW]);
-/*
     setInterval(function() {
-    	board.sysexCommand(Board.encode([DOTSTAR,DOTSTAR_SETPIXEL,DOTSTAR_PIXEL++,0xFFFFFF]));
-    	board.sysexCommand(Board.encode([DOTSTAR,DOTSTAR_SHOW]));
-        if (DOTSTAR_PIXEL > DOTSTAR_PIXEL_MAX) {
-	  DOTSTAR_PIXEL = 0;
-	}
-    },500);
-*/
+      board.sysexCommand([CK_COMMAND, CK_PIXEL_CLEAR]);
+      board.sysexCommand([CK_COMMAND,CK_PIXEL_SHOW]);
+      board.sysexCommand([CK_COMMAND,CK_PIXEL_SET,PIXEL++,0x7F, 0,128, 128]);
+      board.sysexCommand([CK_COMMAND,CK_PIXEL_SHOW]);
+      console.log(PIXEL);
+      if (PIXEL > PIXEL_MAX) {
+	        PIXEL = 0;
+	    }
+},250);
+
 
 });

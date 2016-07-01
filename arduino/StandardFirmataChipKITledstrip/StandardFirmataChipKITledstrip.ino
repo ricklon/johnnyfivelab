@@ -32,7 +32,12 @@
 #include <Adafruit_DotStar.h>
 
 
-#define DOTSTAR_DATA 0x50
+#define CK_COMMAND 0x40
+#define CK_PIXEL_SET 0x10
+#define CK_PIXEL_SHOW 0x11
+#define CK_PIXEL_CLEAR 0x12
+#define CK_PIXEL_BRIGHTNESS 0x13
+
 #define NUMPIXELS 30 // Number of LEDs in strip
 #define DATAPIN    MISO //27
 #define CLOCKPIN   MOSI //29
@@ -54,8 +59,8 @@
 
 
 /*==============================================================================
- * GLOBAL VARIABLES
- *============================================================================*/
+   GLOBAL VARIABLES
+  ============================================================================*/
 /* apa102c rgb led strip */
 Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DATAPIN, CLOCKPIN, DOTSTAR_BRG);
 
@@ -121,8 +126,8 @@ byte wireRead(void)
 }
 
 /*==============================================================================
- * FUNCTIONS
- *============================================================================*/
+   FUNCTIONS
+  ============================================================================*/
 
 void attachServo(byte pin, int minPulse, int maxPulse)
 {
@@ -211,13 +216,13 @@ void outputPort(byte portNumber, byte portValue, byte forceSend)
 }
 
 /* -----------------------------------------------------------------------------
- * check all the active digital inputs for change of state, then add any events
- * to the Serial output queue using Serial.print() */
+   check all the active digital inputs for change of state, then add any events
+   to the Serial output queue using Serial.print() */
 void checkDigitalInputs(void)
 {
   /* Using non-looping code allows constants to be given to readPort().
-   * The compiler will apply substantial optimizations if the inputs
-   * to readPort() are compile-time constants. */
+     The compiler will apply substantial optimizations if the inputs
+     to readPort() are compile-time constants. */
   if (TOTAL_PORTS > 0 && reportPINs[0]) outputPort(0, readPort(0, portConfigInputs[0]), false);
   if (TOTAL_PORTS > 1 && reportPINs[1]) outputPort(1, readPort(1, portConfigInputs[1]), false);
   if (TOTAL_PORTS > 2 && reportPINs[2]) outputPort(2, readPort(2, portConfigInputs[2]), false);
@@ -238,12 +243,12 @@ void checkDigitalInputs(void)
 
 //----------------------------------
 /*
- * contact DOTSTAR strip
- * goup the dotstar functions to act as a callback from firmata commands
- */
+   contact DOTSTAR strip
+   goup the dotstar functions to act as a callback from firmata commands
+*/
 void dotstarHello() {
- strip.clear();
- uint32_t frame[NUMPIXELS];
+  strip.clear();
+  uint32_t frame[NUMPIXELS];
   for (int ii = 0; ii < NUMPIXELS; ii++) {
     frame[ii] = BLUE; //initialize all to BLUE
     strip.setPixelColor(ii, frame[ii]);
@@ -252,25 +257,26 @@ void dotstarHello() {
 }
 //----------------------------------------------------------------
 /*
-*
-*/
-void dotstarShow() {
+
+
+  void dotstarShow() {
   strip.show();
-}
+  }
 
-void dotstarClear() {
+  void dotstarClear() {
   strip.clear();
-}
+  }
 
-void dotstarSetPixel(uint16_t pixel, uint32_t color) {
- strip.setPixelColor(pixel, color);
-}
+  void dotstarSetPixel(uint16_t pixel, uint32_t color) {
+  strip.setPixelColor(pixel, color);
+  }
+*/
 
 // -----------------------------------------------------------------------------
 /* Sets a pin that is in Servo mode to a particular output value
- * (i.e. pulse width). Different boards may have different ways of
- * setting servo values, so putting it in a function keeps things cleaner.
- */
+   (i.e. pulse width). Different boards may have different ways of
+   setting servo values, so putting it in a function keeps things cleaner.
+*/
 void servoWrite(byte pin, int value)
 {
   SoftPWMServoPWMWrite(PIN_TO_PWM(pin), value);
@@ -278,8 +284,8 @@ void servoWrite(byte pin, int value)
 
 // -----------------------------------------------------------------------------
 /* sets the pin mode to the correct state and sets the relevant bits in the
- * two bit-arrays that track Digital I/O and PWM status
- */
+   two bit-arrays that track Digital I/O and PWM status
+*/
 void setPinModeCallback(byte pin, int mode)
 {
   if (pinConfig[pin] == IGNORE)
@@ -404,7 +410,7 @@ void digitalWriteCallback(byte port, int value)
 
 // -----------------------------------------------------------------------------
 /* sets bits in a bit array (int) to toggle the reporting of the analogIns
- */
+*/
 //void FirmataClass::setAnalogPinReporting(byte pin, byte state) {
 //}
 void reportAnalogCallback(byte analogPin, int value)
@@ -444,9 +450,47 @@ void reportDigitalCallback(byte port, int value)
   // pins configured as analog
 }
 
+
+void ckCommand(byte command, byte argc, byte* argv) {
+  switch (command) {
+    case CK_PIXEL_CLEAR:
+      strip.clear();
+      //strip.setPixelColor(11, 0xFFFFFF);
+      break;
+    case CK_PIXEL_SHOW:
+      //strip.setPixelColor(12, 0xFFFFFF);
+      strip.show();
+      break;
+    case CK_PIXEL_SET:
+      //strip.setPixelColor(10, 0xFFFFFF);
+      //strip.show();
+      // This code is directly from the CircuitPlayground
+      // Set a NeoPixel to the specified RGB color.
+      // Expect: 1 byte pixel number, 4 bytes pixel RGB value (as 7-bit bytes)
+
+      if (argc >= 5) {
+        // Parse out the pixel number and R, G, B bytes.
+        uint8_t pixel = argv[0] & 0x7F;
+        uint8_t r = (argv[1] << 1) | ((argv[2] & 0x7F) >> 6);  // Red = 7 bits from byte 4 and 1 bit from byte 5
+        uint8_t g = ((argv[2] & 0x3F) << 2) | (((argv[3]) & 0x7F) >> 5);  // Green = 6 bits from byte 5 and 2 bits from byte 6
+        uint8_t b = ((argv[3] & 0x1F) << 3) | (((argv[4]) & 0x7F) >> 4);  // Blue = 5 bits from byte 6 and 3 bits from byte 7
+        strip.setPixelColor(pixel, r, g, b);
+      }
+      break;
+  }
+}
+
+void printPixels(int cc) {
+  for (int ii = 0; ii < cc; ii++)
+  {
+    //count argc in pixels
+    strip.setPixelColor(ii, 0x00FF00);
+  }
+  strip.show();
+}
 /*==============================================================================
- * SYSEX-BASED commands
- *============================================================================*/
+   SYSEX-BASED commands
+  ============================================================================*/
 
 void sysexCallback(byte command, byte argc, byte *argv)
 {
@@ -457,30 +501,14 @@ void sysexCallback(byte command, byte argc, byte *argv)
   unsigned int delayTime;
 
   switch (command) {
-    case DOTSTAR_DATA:
-        if (argc < 1) {
-          dotstarHello();
-        }
-        mode = argv[1];
-        switch(mode) {
-          case 0x12:
-            dotstarClear();
-          break;
-          case 0x11:
-            dotstarShow();
-          break;
-          case 0x10:
-          uint16_t pixel;
-          uint32_t color;
-            byte ii = 2;
-              pixel = argv[ii] + (argv[ii+1] << 7);
-              for (ii; ii < argc; ii+=2) {
-                color += argv[ii] + (argv[ii+1] << 7);
-              }
-            dotstarSetPixel(pixel, color);
-          break;
-        }
-    break;
+    case CK_COMMAND:
+      if (argc < 1) {
+        dotstarHello();
+        return;
+      }
+      //   printPixels(argc);
+      ckCommand(argv[0], argc - 1, argv + 1);
+      break;
     case I2C_REQUEST:
       mode = argv[1] & I2C_READ_WRITE_MODE_MASK;
       if (argv[1] & I2C_10BIT_ADDRESS_MODE_MASK) {
@@ -693,8 +721,8 @@ void disableI2CPins() {
 }
 
 /*==============================================================================
- * SETUP()
- *============================================================================*/
+   SETUP()
+  ============================================================================*/
 
 void systemResetCallback()
 {
@@ -731,13 +759,13 @@ void systemResetCallback()
   servoCount = 0;
 
   /* send digital inputs to set the initial state on the host computer,
-   * since once in the loop(), this firmware will only send on change */
+     since once in the loop(), this firmware will only send on change */
   /*
-  TODO: this can never execute, since no pins default to digital input
+    TODO: this can never execute, since no pins default to digital input
         but it will be needed when/if we support EEPROM stored config
-  for (byte i=0; i < TOTAL_PORTS; i++) {
+    for (byte i=0; i < TOTAL_PORTS; i++) {
     outputPort(i, readPort(i, portConfigInputs[i]), true);
-  }
+    }
   */
   isResetting = false;
 }
@@ -767,18 +795,18 @@ void setup()
 }
 
 /*==============================================================================
- * LOOP()
- *============================================================================*/
+   LOOP()
+  ============================================================================*/
 void loop()
 {
   byte pin, analogPin;
 
   /* DIGITALREAD - as fast as possible, check for changes and output them to the
-   * FTDI buffer using Serial.print()  */
+     FTDI buffer using Serial.print()  */
   checkDigitalInputs();
 
   /* STREAMREAD - processing incoming messagse as soon as possible, while still
-   * checking digital inputs.  */
+     checking digital inputs.  */
   while (Firmata.available())
     Firmata.processInput();
 
