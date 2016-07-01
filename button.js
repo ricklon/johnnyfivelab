@@ -31,5 +31,4 @@ board.on("ready", function() {
     button.on("up", function() {
         console.log("up");
     });
-
 });
