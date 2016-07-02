@@ -1,6 +1,8 @@
 void setup() {
-  Serial.begin(9600);	//init UART
+  Serial.begin(9600);	//init UART
+  delay(5000);
 }
+
 void loop() {
   Serial.println();
   Serial.println("Hello World!");
@@ -8,5 +10,5 @@ void loop() {
     Serial.print(" i = ");
     Serial.println(i, DEC);
   }
-  delay(5000); 	//wait five seconds
+  delay(5000); 	//wait five seconds
 }
