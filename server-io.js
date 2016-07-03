@@ -12,8 +12,17 @@ var btnStatus;
 var PIN_LED1 = 21; //0
 var PIN_BTN1 = 23; //16
 var board = new five.Board();
+var Ledstrip = require("./ledstrip.js");
+var ledstrip = new Ledstrip(board);
+
 
 board.on("ready", function() {
+  ledstrip.hello();
+  ledstrip.clear();
+  ledstrip.show();
+  ledstrip.setPixelColor();
+  ledstrip.hello();
+
     led = new five.Led(PIN_LED1);
     button = new five.Button({
         pin: PIN_BTN1,
