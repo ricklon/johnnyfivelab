@@ -1,5 +1,5 @@
 int pinLed = 9;		//Needs a PWM pin for analogWrite()
-int pinPot = A0;	//assume pot on analog 0
+int pinPot = A0;	//assume pot on analog 0
 
 void setup() {	//nothing needed
 }

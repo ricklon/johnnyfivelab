@@ -8,6 +8,7 @@
 #define RED    0xFF0000
 #define GREEN  0x00FF00
 #define BLUE   0x0000FF
+#define WHITE  0xFFFFFF
 
 uint32_t frame[NUMPIXELS];
 uint32_t colors[3] = {RED, GREEN, BLUE };
@@ -20,11 +21,11 @@ void setup() {
 
   //initialize strip array
   for (int i = 0; i < NUMPIXELS; i++) {
-    frame[i] = RED; //initialize all to red
+    frame[i] = WHITE; //initialize all to red
     strip.setPixelColor(i, frame[i]);
   }
   strip.show();
-  delay(1000);
+  delay(5000);
   //initialize strip array
   for (int i = 0; i < NUMPIXELS; i++) {
     frame[i] = GREEN; //initialize all to GREEN

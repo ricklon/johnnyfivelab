@@ -1,5 +1,5 @@
 var Board = require("firmata");
-var board = new Board("/dev/ttyACM0");
+var board = new Board("COM12");
 var    repl = require('repl');
 
 //var board = new Board({port: "COM15"});
