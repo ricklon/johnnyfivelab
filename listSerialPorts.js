@@ -5,7 +5,7 @@ var portName;
 
 prompt.start();
 // list serial ports:
-console.log("Select serial port by typing it's number into the prompt.")
+console.log("Select serial port by typing it's number into the prompt.");
 serialport.list(function (err, ports) {
   ports.forEach(function(port,ii) {
     console.log("(%d): %s",ii,port.comName);
