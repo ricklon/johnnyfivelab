@@ -9,12 +9,13 @@ var led;
 var temp;
 var tempValue;
 var btnStatus;
-var PIN_LED1 = 21; //0
-var PIN_BTN1 = 23; //16
+var PIN_LED1 = 0; //0
+var PIN_BTN1 = 16; //16
 var board = new five.Board();
 var Ledstrip = require("./ledstrip.js");
 var ledstrip = new Ledstrip(board);
-
+var pixels = 30;
+var pixel_cur = 0;
 
 board.on("ready", function() {
   ledstrip.hello();
@@ -32,6 +33,12 @@ board.on("ready", function() {
     button.on("down", function() {
         btnStatus = "down";
         led.on();
+        ledstrip.setPixelColor(pixel_cur++, 255, 0, 0);
+        ledstrip.show();
+        if (pixel_cur >= 30) {
+          pixel_cur = 0;
+          ledstrip.clear();
+        }
         console.log("down");
     });
 
