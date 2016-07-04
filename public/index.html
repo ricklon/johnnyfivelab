@@ -1,42 +1,112 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="myApp" class="no-js">
+<html lang="en"  class="no-js">
 <!--<![endif]-->
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>CODETutorial Mean seed</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+    <title>MEAN johnny-five and socket.io</title>
 </head>
 
 <body>
-    <script src="libs/socket.io-client/socket.io.js"></script>
-    <script src="libs/angular/angular.js"></script>
-    <script src="libs/angular-socket-io/socket.js"></script>
+    <script src="/bower_components/socket.io-client/socket.io.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-socket-io/socket.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/bower_components/angular-material/angular-material.js"></script>
 
-    <h1>{{"Led controller"}}</h1>
-    <div ng-controller="ArduController">
+    <div ng-app="myApp" ng-controller="ArduController">
+      <h1>{{"Led controller"}}</h1>
+
         <button ng-click="ledOn()">On</button>
         <button ng-click="ledOff()">Off</button>
-    </div>
+        <button ng-click="clear()">clear()</button>
+        <button ng-click="show()">show()</button>
+        <button ng-click="ledstriphello()">ledstriphello()</button>
+        <button ng-click="ledstripsetpixelcolor(3, 255, 255, 255)">ledstripsetpixel()</button>
 
+
+
+        <md-content style="margin: 16px; padding:16px">
+            <h3>
+       RGB <span ng-attr-style="border: 1px solid #333; background: rgb({{color.red}},{{color.green}},{{color.blue}})">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+     </h3>
+            <md-slider-container>
+                <span>R</span>
+                <md-slider flex min="0" max="255" ng-model="color.red" aria-label="red" id="red-slider">
+                </md-slider>
+                <md-input-container>
+                    <input flex type="number" ng-model="color.red" aria-label="red" aria-controls="red-slider">
+                </md-input-container>
+            </md-slider-container>
+            <md-slider-container>
+                <span>G</span>
+                <md-slider flex ng-model="color.green" min="0" max="255" aria-label="green" id="green-slider" class="md-accent">
+                </md-slider>
+                <md-input-container>
+                    <input flex type="number" ng-model="color.green" aria-label="green" aria-controls="green-slider">
+                </md-input-container>
+            </md-slider-container>
+            <md-slider-container>
+                <span class="md-body-1">B</span>
+                <md-slider flex ng-model="color.blue" min="0" max="255" aria-label="blue" id="blue-slider" class="md-primary">
+                </md-slider>
+                <md-input-container>
+                    <input flex type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider">
+                </md-input-container>
+            </md-slider-container>
+            <div style="margin-top: 50px;"></div>
+    </div>
     <script type="text/javascript">
-        var app = angular.module('myApp', ['btford.socket-io']).
+        var app = angular.module('myApp', ['btford.socket-io', 'ngMaterial']).
+        config(function($mdThemingProvider) {
+            $mdThemingProvider.theme('default')
+                .primaryPalette('indigo')
+                .accentPalette('red');
+        }).
         factory('mySocket', function(socketFactory) {
             return socketFactory();
         }).
         controller('ArduController', function($scope, mySocket) {
-
+            $scope.color = {
+                red: Math.floor(Math.random() * 255),
+                green: Math.floor(Math.random() * 255),
+                blue: Math.floor(Math.random() * 255)
+            };
             $scope.ledOn = function() {
-
                 mySocket.emit('led:on');
                 console.log('LED ON');
             };
-
-
             $scope.ledOff = function() {
-
                 mySocket.emit('led:off');
                 console.log('LED OFF');
+            };
+            $scope.clear = function() {
+                mySocket.emit('ledstrip:clear');
+                console.log('LED STRIP CLEAR');
+            };
+            $scope.show = function() {
+                mySocket.emit('ledstrip:show');
+                console.log('LED STRIP SHOW');
+            };
+            $scope.ledstriphello = function() {
+                mySocket.emit('ledstrip:hello');
+                console.log('LED STRIP HELLO');
+            };
+            $scope.ledstripsetpixelcolor = function(pixel, red, green, blue) {
+              var data = {
+                pixel: pixel,
+                red: red,
+                green: green,
+                blue: blue
+              }
+
+                mySocket.emit('ledstrip:setpixelcolor', data);
+                console.log('LED STRIP SETPIXELCOLOR pixel: %d, red: %d, green: %d, blue: %d', data.pixel, data.red, data.green, data.blue);
+
             };
         });
     </script>
