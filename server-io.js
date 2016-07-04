@@ -9,7 +9,7 @@ var led;
 var temp;
 var tempValue;
 var btnStatus;
-var PIN_LED1 = 0; //0
+var PIN_LED1 = 1; //0
 var PIN_BTN1 = 16; //16
 var board = new five.Board();
 var Ledstrip = require("./ledstrip.js");
@@ -75,11 +75,29 @@ io.on('connection', function(socket) {
         led.on();
         console.log('LED ON RECEIVED');
     });
-
     socket.on('led:off', function(data) {
         led.off();
         console.log('LED OFF RECEIVED');
 
+    });
+    socket.on('ledstrip:clear', function(data) {
+      ledstrip.clear();
+        console.log('LEDSTRIP CLEAR RECEIVED');
+
+    });
+    socket.on('ledstrip:show', function(data) {
+      ledstrip.show();
+      console.log('LEDSTRIP SHOW RECEIVED');
+
+    });
+    socket.on('ledstrip:hello', function(data) {
+      ledstrip.hello();
+      console.log('LEDSTRIP HELLO RECEIVED');
+
+    });
+    socket.on('ledstrip:setpixelcolor', function(data) {
+      ledstrip.setPixelColor(data.pixel, data.red, data.green, data.blue);
+      console.log('LEDSTRIP SETPIXELCOLOR pixel: %d, red: %d, green: %d, blue: %d',data.pixel, data.red, data.green, data.blue);
     });
 });
 
