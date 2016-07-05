@@ -28,8 +28,20 @@ Ledstrip.prototype.show = function() {
   board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
   console.log("ledstrip show");
 };
+packColor = function (red, green, blue) {
+  red &= 0xFF;
+  green &= 0xFF;
+  blue &= 0xFF;
+  var b1 = red >> 1;
+  var b2 = ((red & 0x01) << 6) | (green >> 2);
+  var b3 = ((green & 0x03) << 5) | (blue >> 3);
+  var b4 = (blue & 0x07) << 4;
+  var data = [b1, b2, b3, b4];
+  console.log(data);
+ return  data;
+};
 Ledstrip.prototype.setPixelColor = function(pixel, red, green, blue) {
-  board.sysexCommand([CK_COMMAND, CK_PIXEL_SET, pixel, 0x7F, red, green, blue]);
+  board.sysexCommand([CK_COMMAND, CK_PIXEL_SET, pixel].concat(packColor(red,green,blue)));
   console.log("ledstrip setPixelColor: r %d, g: %d, b:%d",red, green, blue);
 };
 };
