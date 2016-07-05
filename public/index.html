@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+    <link href="/bower_components/md-color-picker/dist/mdColorPicker.min.css" rel="stylesheet" />
     <title>MEAN johnny-five and socket.io</title>
 </head>
 
@@ -17,6 +18,8 @@
     <script src="/bower_components/angular-aria/angular-aria.js"></script>
     <script src="/bower_components/angular-animate/angular-animate.js"></script>
     <script src="/bower_components/angular-material/angular-material.js"></script>
+    <script src="/bower_components/tinycolor/dist/tinycolor-min.js"></script>
+    <script src="/bower_components/md-color-picker/dist/mdColorPicker.min.js"></script>
 
     <div ng-app="myApp" ng-controller="ArduController">
         <h1>{{"Led controller"}}</h1>
@@ -67,9 +70,10 @@
                     <input flex type="number" ng-model="color.blue"  aria-label="blue" aria-controls="blue-slider">
                 </md-input-container>
             </md-slider-container>
+	    <div md-color-picker ng-model="colorPicker"></div>
     </div>
     <script type="text/javascript">
-        var app = angular.module('myApp', ['btford.socket-io', 'ngMaterial']).
+        var app = angular.module('myApp', ['btford.socket-io', 'ngMaterial', 'mdColorPicker']).
         config(function($mdThemingProvider) {
             $mdThemingProvider.theme('default')
                 .primaryPalette('indigo')
