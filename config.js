@@ -1,1 +1,1 @@
-{port:"/dev/ttyS7"}
+{port:"/dev/ttyACM0"}
