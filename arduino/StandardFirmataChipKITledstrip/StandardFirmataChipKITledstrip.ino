@@ -62,7 +62,7 @@
    GLOBAL VARIABLES
   ============================================================================*/
 /* apa102c rgb led strip */
-Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DATAPIN, CLOCKPIN, DOTSTAR_BRG);
+Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DATAPIN, CLOCKPIN, DOTSTAR_BGR);
 
 
 /* analog inputs */
