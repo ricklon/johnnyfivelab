@@ -22,9 +22,11 @@
   <script src="/bower_components/md-color-picker/dist/mdColorPicker.min.js"></script>
 
   <div ng-app="myApp" ng-controller="ArduController">
-    <md-content>
-      <h1 class="md-display-2">Demo: Tying it all together</h1>
-    </md-content>
+    <md-toolbar md-scroll-shrink ng-if="true" ng-controller="TitleController">
+      <div class="md-toolbar-tools">
+        <h1 class="md-display-2">Demo: Tying it all together</h1>
+      </div>
+    </md-toolbar>
     <md-tabs md-dynamic-height md-border-bottom>
       <md-tab label="Board Commands">
         <md-content class="md-padding">
