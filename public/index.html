@@ -23,10 +23,10 @@
 
     <div ng-app="myApp" ng-controller="ArduController">
 	<md-content>
-          <h1 class="md-display-2">Web Based MultiUser Actions</h1>
+          <h1 class="md-display-2">Demo: Tying it all together</h1>
 	</md-content>
  <md-tabs md-dynamic-height md-border-bottom>
-      <md-tab label="Features">
+      <md-tab label="Board Commands">
         <md-content class="md-padding">
         <h2 class="md-display-2">Fubarino Mini - LED<h2>
         <button ng-click="ledOn()">On</button>
@@ -42,8 +42,16 @@
         <button ng-click="ledstripsetpixelcolor(3, 255, 255, 255)">ledstripsetpixel()</button>
        </md-content>
       </md-tab>
-
-      <md-tab label="Mixing">
+      <md-tab label="Temperature">
+        <md-content class="md-padding">
+        <h2 class="md-display-2">Ledstrip Commands<h2>
+        <button ng-click="clear()">clear()</button>
+        <button ng-click="show()">show()</button>
+        <button ng-click="ledstriphello()">ledstriphello()</button>
+        <button ng-click="ledstripsetpixelcolor(3, 255, 255, 255)">ledstripsetpixel()</button>
+       </md-content>
+      </md-tab>
+      <md-tab label="LED Mixing">
         <md-content class="md-padding">
             <h2 class="md-display-2">RGB Pixels and Sliders</h2>
             <md-slider-container flex>
