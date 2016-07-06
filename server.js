@@ -7,8 +7,8 @@ var led;
 var temp;
 var tempValue;
 var btnStatus;
-var PIN_LED1 = 21; //0
-var PIN_BTN1 = 23; //16
+var PIN_LED1 = 1; 
+var PIN_BTN1 = 16; 
 var board = new five.Board();
 
 board.on("ready", function() {
@@ -43,8 +43,8 @@ board.on("ready", function() {
     });
     // When the sensor value changes, log the value
     temp.on("change", function(value) {
-        tempvalue = value * (3300 / 1024);
-        console.log(value * (3300 / 1024));
+        tempvalue = value * 330 / 1024);
+        console.log(value * 330 / 1024);
     });
     console.log("Board is Ready!");
 });
