@@ -22,29 +22,35 @@
     <script src="/bower_components/md-color-picker/dist/mdColorPicker.min.js"></script>
 
     <div ng-app="myApp" ng-controller="ArduController">
-        <h1>{{"Led controller"}}</h1>
-        <h2>Fubarino Mini - LED<h2>
+	<md-content>
+          <h1 class="md-display-2">Web Based MultiUser Actions</h1>
+	</md-content>
+ <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="Features">
+        <md-content class="md-padding">
+        <h2 class="md-display-2">Fubarino Mini - LED<h2>
         <button ng-click="ledOn()">On</button>
         <button ng-click="ledOff()">Off</button>
-        <h2>Ledstrip Commands<h2>
+       </md-content>
+      </md-tab>
+      <md-tab label="LED Commands">
+        <md-content class="md-padding">
+        <h2 class="md-display-2">Ledstrip Commands<h2>
         <button ng-click="clear()">clear()</button>
         <button ng-click="show()">show()</button>
         <button ng-click="ledstriphello()">ledstriphello()</button>
         <button ng-click="ledstripsetpixelcolor(3, 255, 255, 255)">ledstripsetpixel()</button>
+       </md-content>
+      </md-tab>
 
-
-
-        <md-content style="margin: 16px; padding:16px">
-            <h3>RGB Pixels and Sliders
-              <span ng-attr-style="border: 1px solid #333; background: rgb({{color.red}},{{color.green}},{{color.blue}})">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            </h3>
-            <h5>pixels</h5>
+      <md-tab label="Mixing">
+        <md-content class="md-padding">
+            <h2 class="md-display-2">RGB Pixels and Sliders</h2>
             <md-slider-container flex>
                 <md-input-container>
                     <input flex type="number" ng-model="pix" aria-label="pixels" aria-controls="pixel-slider">
                 </md-input-container>
                 <md-slider ng-model="pix" ng-change="updatePixels(pix)" min="0" max="29" aria-label="pixels" id="pixel-slider" class="md-accent" md-vertical md-range></md-slider>
-                </md-slider>
             </md-slider-container>
             <md-slider-container>
                 <span class="md-body-1">Red</span>
@@ -71,6 +77,10 @@
                 </md-input-container>
             </md-slider-container>
 	    <div md-color-picker="colorPicker.options"  ng-model="colorPicker.color"></div>
+       </md-content>
+      </md-tab>
+	</md-tabs>
+
     </div>
     <script type="text/javascript">
         var app = angular.module('myApp', ['btford.socket-io', 'ngMaterial', 'mdColorPicker']).
