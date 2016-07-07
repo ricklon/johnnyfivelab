@@ -21,13 +21,46 @@
   <script src="/bower_components/tinycolor/dist/tinycolor-min.js"></script>
   <script src="/bower_components/md-color-picker/dist/mdColorPicker.min.js"></script>
 
-  <div ng-app="myApp" ng-controller="ArduController">
+  <div ng-app="myApp" ng-controller="ArduController" ng-cloak>
     <md-toolbar md-scroll-shrink ng-if="true" ng-controller="ArduController">
       <div class="md-toolbar-tools">
         <h1 class="md-display-2">Demo: Tying it all together</h1>
       </div>
     </md-toolbar>
     <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="Temperature">
+        <md-content class="md-padding">
+          <h2 class="md-display-2">Temperature Commands</h2>
+          <div>Current Temp:</div>
+          <div>min Temp:</div>
+          <div>Max Temp:</div>
+          <form layout layout-align="center" layout-padding>
+            <div layout="row" flex>
+            <md-input-container flex class="md-icon-float md-block md-title">
+              <label>Low Alarm Value</label>
+              <input type="number" />
+            </md-input-container>
+          </div>
+          <div>
+          <md-button ng-click="setLowAlarm()" class="md-rasied">Set
+          </md-button >
+           </div>
+         </form>
+         <form layout layout-align="center" layout-padding>
+           <div layout="row" flex>
+           <md-input-container flex class="md-icon-float md-block md-title">
+             <label>High Alarm Value</label>
+             <input type="number" />
+           </md-input-container>
+         </div>
+         <div>
+         <md-button ng-click="setHighAlarm()" class="md-rasied">Set
+         </md-button >
+          </div>
+        </form>
+
+        </md-content>
+      </md-tab>
       <md-tab label="Board Commands">
         <md-content class="md-padding">
           <h2 class="md-display-2">Fubarino Mini - LED</h2>
@@ -44,16 +77,7 @@
           <button ng-click="ledstripsetpixelcolor(3, 255, 255, 255)">ledstripsetpixel()</button>
         </md-content>
       </md-tab>
-      <md-tab label="Temperature">
-        <md-content class="md-padding">
-          <h2 class="md-display-2">Temperature  Commands</h2>
-          <button ng-click="setLowAlarm()">setLowAlarm()</button>
-          <button ng-click="setHighAlarm()">setHighAlarm()</button>
-          <div>Current Temp:</div>
-          <div>min Temp:</div>
-          <div>Max Temp:</div>
-        </md-content>
-      </md-tab>
+
       <md-tab label="LED Mixing">
         <h2 class="md-display-2">RGB Pixels and Sliders</h2>
         <md-slider-container flex>
@@ -64,7 +88,7 @@
         </md-slider-container>
         <md-slider-container>
           <span class="md-body-1">Red</span>
-          <md-slider  class="md-accent md-hue-1"  flex min="0" max="255" ng-model="color.red" ng-change="updateColor()" aria-label="red" id="red-slider">
+          <md-slider class="md-accent md-hue-1" flex min="0" max="255" ng-model="color.red" ng-change="updateColor()" aria-label="red" id="red-slider">
           </md-slider>
           <md-input-container>
             <input flex type="number" ng-model="color.red" aria-label="red" aria-controls="red-slider">
@@ -72,34 +96,64 @@
         </md-slider-container>
         <md-slider-container>
           <span class="md-body-1">Green</span>
-          <md-slider class="md-accent" flex ng-model="color.green" ng-change="updateColor()" min="0" max="255" aria-label="green" id="green-slider" md-colors="{color: 'green-A100'}" class="md-accent">
+          <md-slider class="md-accent md-hue-2" flex ng-model="color.green" ng-change="updateColor()" min="0" max="255" aria-label="green" id="green-slider" md-colors="{color: 'green-A100'}" class="md-accent">
           </md-slider>
           <md-input-container>
             <input flex type="number" ng-model="color.green" aria-label="green" aria-controls="green-slider">
           </md-input-container>
         </md-slider-container>
+
         <md-slider-container>
           <span class="md-body-1">Blue</span>
-          <md-slider class="md-accent" flex ng-model="color.blue" ng-change="updateColor()" min="0" max="255" aria-label="blue" id="blue-slider">
+          <md-slider  style="color: rgb(0,0,0)" flex ng-model="color.blue" ng-change="updateColor()" min="0" max="255" aria-label="blue" id="blue-slider">
           </md-slider>
           <md-input-container>
             <input flex type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider">
           </md-input-container>
         </md-slider-container>
+
+
         <div md-color-picker="colorPicker.options" ng-model="colorPicker.color"></div>
       </md-tab>
+
     </md-tabs>
 
   </div>
   <script type="text/javascript">
     var app = angular.module('myApp', ['btford.socket-io', 'ngMaterial', 'mdColorPicker']).
     config(function($mdThemingProvider) {
+
       var rgbMap = $mdThemingProvider.extendPalette('green', {
-        'hue-2' : '#00ff00',
-        'hue-1' : '#ff0000',
-        'bbb' : '#0000ff'
+        'A100': '#ff0000',
+        'A200' : '#00ff00',
+        'A300' : '#0000ff'
+
       });
       $mdThemingProvider.definePalette('rgb', rgbMap);
+      /*
+      $mdThemingProvider.definePalette('rgb', {
+        '50': '0000ff',
+    '100': '0000ff',
+    '200': '0000ff',
+    '300': '0000ff',
+    '400': '0000ff',
+    '500': '0000ff',
+    '600': '0000ff',
+    '700': '0000ff',
+    '800': '0000ff',
+    '900': '0000ff',
+    'A100': '00ffff',
+    'A200': '333333',
+    'A400': 'ff00ff',
+    'A700': 'ff00ff',
+    'contrastDefaultColor': 'light',    // whether, by default, text (contrast)
+                                        // on this palette should be dark or light
+    'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
+     '200', '300', '400', 'A100'],
+    'contrastLightColors': undefined    // could also specify this if default was 'dark'
+
+      });
+*/
 
       $mdThemingProvider.theme('default')
         .primaryPalette('indigo')
@@ -157,6 +211,12 @@
         mySocket.emit('ledstrip:show');
 
       };
+      $scope.setLowAlarm = function(data){
+        mySocket.emit('temp:setLowAlarm', data);
+      };
+      mySocket.on('emitting', function(data) {
+        console.log("Emitted temp:",data.curTemp);
+      });
       /*
       	    $scope.colorPicker.options = {
                     label: "Choose a color",
