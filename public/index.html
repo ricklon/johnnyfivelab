@@ -31,94 +31,109 @@
       <md-tab label="Temperature">
         <md-content class="md-padding">
           <h2 class="md-display-2">Temperature Commands</h2>
-          <div>Current Temp:</div>
-          <div>min Temp:</div>
-          <div>Max Temp:</div>
+          <div>
+            <div>Current Temp:{{temperature.curTemp}}</div>
+            <div>min Temp:{{temperature.minTemp}}</div>
+            <div>Max Temp:{{temperature.maxTemp}}</div>
+            <div>Alarm Low Temp:{{temperature.lowAlarm}}</div>
+            <div>Alarm High Temp:{{temperature.highAlarm}}</div>
+          </div>
           <form layout layout-align="center" layout-padding>
             <div layout="row" flex>
+
               <md-input-container flex class="md-icon-float md-block md-title">
                 <label>Low Alarm Value</label>
-                <input type="number" />
+                <input type="number">{{temperature.lowAlarm}}</input>
               </md-input-container>
             </div>
-            <div>
-              <md-button ng-click="setLowAlarm()" class="md-rasied">Set
-              </md-button>
-            </div>
-          </form>
-          <form layout layout-align="center" layout-padding>
             <div layout="row" flex>
-              <md-input-container flex class="md-icon-float md-block md-title">
-                <label>High Alarm Value</label>
-                <input type="number" />
-              </md-input-container>
-            </div>
-            <div>
-              <md-button ng-click="setHighAlarm()" class="md-rasied">Set
-              </md-button>
-            </div>
-          </form>
+            <md-button ng-click="setLowAlarm()" class="md-rasied">Set
+            </md-button>
+            <md-switch ng-model="temperature.enableLOW" aria-label="enable low">
+              <!--
+                enable: {{ temperature.enableLOW }}
 
-        </md-content>
-      </md-tab>
-      <md-tab label="Board Commands">
-        <md-content class="md-padding">
-          <h2 class="md-display-2">Fubarino Mini - LED</h2>
-          <button ng-click="ledOn()">On</button>
-          <button ng-click="ledOff()">Off</button>
-        </md-content>
-      </md-tab>
-      <md-tab label="LED Commands">
-        <md-content class="md-padding">
-          <h2 class="md-display-2">Ledstrip Commands</h2>
-          <button ng-click="clear()">clear()</button>
-          <button ng-click="show()">show()</button>
-          <button ng-click="ledstriphello()">ledstriphello()</button>
-          <button ng-click="ledstripsetpixelcolor(3, 255, 255, 255)">ledstripsetpixel()</button>
-        </md-content>
-      </md-tab>
+            -->
+            </md-switch>
+          </div>
+    </form>
+    <form layout layout-align="center" layout-padding>
+      <div layout="row" flex>
+        <md-input-container flex class="md-icon-float md-block md-title">
+          <label>High Alarm Value</label>
+          <input type="number">{{temperature.highAlarm}}</input>
+        </md-input-container>
 
-      <md-tab label="LED Mixing">
-        <h2 class="md-display-2">RGB Pixels and Sliders</h2>
-        <form layout layout-align="row" layout-padding>
+      </div>
+      <div layout="row" flex>
+        <md-button ng-click="setHighAlarm()" class="md-rasied">Set
+        </md-button>
+        <md-switch ng-model="temperature.enableHIGH" aria-label="enable high">
+          <!--enable: {{ temperature.enableHIGH }}-->
+        </md-switch>
+      </div>
+    </form>
 
-          <md-slider-container>
-            <span class="md-body-1">Animate Pixel</span>
-            <md-slider class="md-primary" flex ng-model="pix" ng-change="updatePixels(pix)" min="0" max="29" aria-label="pixels" id="pixel-slider">
-            </md-slider>
-            <md-input-container>
-              <input flex type="number" ng-model="pix" aria-label="pixels" aria-controls="pixel-slider">
-            </md-input-container>
-          </md-slider-container>
+    </md-content>
+    </md-tab>
+    <md-tab label="Board Commands">
+      <md-content class="md-padding">
+        <h2 class="md-display-2">Fubarino Mini - LED</h2>
+        <button ng-click="ledOn()">On</button>
+        <button ng-click="ledOff()">Off</button>
+      </md-content>
+    </md-tab>
+    <md-tab label="LED Commands">
+      <md-content class="md-padding">
+        <h2 class="md-display-2">Ledstrip Commands</h2>
+        <button ng-click="clear()">clear()</button>
+        <button ng-click="show()">show()</button>
+        <button ng-click="ledstriphello()">ledstriphello()</button>
+        <button ng-click="ledstripsetpixelcolor(3, 255, 255, 255)">ledstripsetpixel()</button>
+      </md-content>
+    </md-tab>
 
-          <md-slider-container>
-            <span class="md-body-1">Red</span>
-            <md-slider class="md-accent md-hue-1" flex min="0" max="255" ng-model="color.red" ng-change="updateColor()" aria-label="red" id="red-slider">
-            </md-slider>
-            <md-input-container>
-              <input flex type="number" ng-model="color.red" aria-label="red" aria-controls="red-slider">
-            </md-input-container>
-          </md-slider-container>
+    <md-tab label="LED Mixing">
+      <h2 class="md-display-2">RGB Pixels and Sliders</h2>
+      <form layout layout-align="row" layout-padding>
 
-          <md-slider-container>
-            <span class="md-body-1">Green</span>
-            <md-slider class="md-accent md-hue-2" flex ng-model="color.green" ng-change="updateColor()" min="0" max="255" aria-label="green" id="green-slider" md-colors="{color: 'green-A100'}" class="md-accent">
-            </md-slider>
-            <md-input-container>
-              <input flex type="number" ng-model="color.green" aria-label="green" aria-controls="green-slider">
-            </md-input-container>
-          </md-slider-container>
+        <md-slider-container>
+          <span class="md-body-1">Animate Pixel</span>
+          <md-slider class="md-primary" flex ng-model="pix" ng-change="updatePixels(pix)" min="0" max="29" aria-label="pixels" id="pixel-slider">
+          </md-slider>
+          <md-input-container>
+            <input flex type="number" ng-model="pix" aria-label="pixels" aria-controls="pixel-slider">
+          </md-input-container>
+        </md-slider-container>
 
-          <md-slider-container>
-            <span class="md-body-1">Blue</span>
-            <md-slider style="color: rgb(0,0,0)" flex ng-model="color.blue" ng-change="updateColor()" min="0" max="255" aria-label="blue" id="blue-slider">
-            </md-slider>
-            <md-input-container>
-              <input flex type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider">
-            </md-input-container>
-          </md-slider-container>
-        </form>
-      </md-tab>
+        <md-slider-container>
+          <span class="md-body-1">Red</span>
+          <md-slider class="md-accent md-hue-1" flex min="0" max="255" ng-model="color.red" ng-change="updateColor()" aria-label="red" id="red-slider">
+          </md-slider>
+          <md-input-container>
+            <input flex type="number" ng-model="color.red" aria-label="red" aria-controls="red-slider">
+          </md-input-container>
+        </md-slider-container>
+
+        <md-slider-container>
+          <span class="md-body-1">Green</span>
+          <md-slider class="md-accent md-hue-2" flex ng-model="color.green" ng-change="updateColor()" min="0" max="255" aria-label="green" id="green-slider" md-colors="{color: 'green-A100'}" class="md-accent">
+          </md-slider>
+          <md-input-container>
+            <input flex type="number" ng-model="color.green" aria-label="green" aria-controls="green-slider">
+          </md-input-container>
+        </md-slider-container>
+
+        <md-slider-container>
+          <span class="md-body-1">Blue</span>
+          <md-slider style="color: rgb(0,0,0)" flex ng-model="color.blue" ng-change="updateColor()" min="0" max="255" aria-label="blue" id="blue-slider">
+          </md-slider>
+          <md-input-container>
+            <input flex type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider">
+          </md-input-container>
+        </md-slider-container>
+      </form>
+    </md-tab>
     </md-tabs>
   </div>
   <script type="text/javascript">
@@ -218,6 +233,15 @@
       };
       $scope.setHighAlarm = function(data) {
         mySocket.emit('temp:setHighAlarm', data);
+      };
+      $scope.temperature = {
+        curTemp: 0,
+        highAlarm: 0,
+        lowAlarm: 0,
+        minTemp: 0,
+        maxTemp: 0,
+        enableLOW: false,
+        enableHIGH: false
       };
       mySocket.on('emitting', function(data) {
         console.log("Emitted temp:", data.curTemp);
