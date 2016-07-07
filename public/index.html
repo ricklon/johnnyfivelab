@@ -36,28 +36,28 @@
           <div>Max Temp:</div>
           <form layout layout-align="center" layout-padding>
             <div layout="row" flex>
-            <md-input-container flex class="md-icon-float md-block md-title">
-              <label>Low Alarm Value</label>
-              <input type="number" />
-            </md-input-container>
-          </div>
-          <div>
-          <md-button ng-click="setLowAlarm()" class="md-rasied">Set
-          </md-button >
-           </div>
-         </form>
-         <form layout layout-align="center" layout-padding>
-           <div layout="row" flex>
-           <md-input-container flex class="md-icon-float md-block md-title">
-             <label>High Alarm Value</label>
-             <input type="number" />
-           </md-input-container>
-         </div>
-         <div>
-         <md-button ng-click="setHighAlarm()" class="md-rasied">Set
-         </md-button >
-          </div>
-        </form>
+              <md-input-container flex class="md-icon-float md-block md-title">
+                <label>Low Alarm Value</label>
+                <input type="number" />
+              </md-input-container>
+            </div>
+            <div>
+              <md-button ng-click="setLowAlarm()" class="md-rasied">Set
+              </md-button>
+            </div>
+          </form>
+          <form layout layout-align="center" layout-padding>
+            <div layout="row" flex>
+              <md-input-container flex class="md-icon-float md-block md-title">
+                <label>High Alarm Value</label>
+                <input type="number" />
+              </md-input-container>
+            </div>
+            <div>
+              <md-button ng-click="setHighAlarm()" class="md-rasied">Set
+              </md-button>
+            </div>
+          </form>
 
         </md-content>
       </md-tab>
@@ -80,44 +80,46 @@
 
       <md-tab label="LED Mixing">
         <h2 class="md-display-2">RGB Pixels and Sliders</h2>
-        <md-slider-container flex>
-          <md-input-container>
-            <input flex type="number" ng-model="pix" aria-label="pixels" aria-controls="pixel-slider">
-          </md-input-container>
-          <md-slider ng-model="pix" ng-change="updatePixels(pix)" min="0" max="29" aria-label="pixels" id="pixel-slider" class="md-primary" md-vertical md-range></md-slider>
-        </md-slider-container>
-        <md-slider-container>
-          <span class="md-body-1">Red</span>
-          <md-slider class="md-accent md-hue-1" flex min="0" max="255" ng-model="color.red" ng-change="updateColor()" aria-label="red" id="red-slider">
-          </md-slider>
-          <md-input-container>
-            <input flex type="number" ng-model="color.red" aria-label="red" aria-controls="red-slider">
-          </md-input-container>
-        </md-slider-container>
-        <md-slider-container>
-          <span class="md-body-1">Green</span>
-          <md-slider class="md-accent md-hue-2" flex ng-model="color.green" ng-change="updateColor()" min="0" max="255" aria-label="green" id="green-slider" md-colors="{color: 'green-A100'}" class="md-accent">
-          </md-slider>
-          <md-input-container>
-            <input flex type="number" ng-model="color.green" aria-label="green" aria-controls="green-slider">
-          </md-input-container>
-        </md-slider-container>
+        <form layout layout-align="row" layout-padding>
 
-        <md-slider-container>
-          <span class="md-body-1">Blue</span>
-          <md-slider  style="color: rgb(0,0,0)" flex ng-model="color.blue" ng-change="updateColor()" min="0" max="255" aria-label="blue" id="blue-slider">
-          </md-slider>
-          <md-input-container>
-            <input flex type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider">
-          </md-input-container>
-        </md-slider-container>
+          <md-slider-container>
+            <span class="md-body-1">Animate Pixel</span>
+            <md-slider class="md-primary" flex ng-model="pix" ng-change="updatePixels(pix)" min="0" max="29" aria-label="pixels" id="pixel-slider">
+            </md-slider>
+            <md-input-container>
+              <input flex type="number" ng-model="pix" aria-label="pixels" aria-controls="pixel-slider">
+            </md-input-container>
+          </md-slider-container>
 
+          <md-slider-container>
+            <span class="md-body-1">Red</span>
+            <md-slider class="md-accent md-hue-1" flex min="0" max="255" ng-model="color.red" ng-change="updateColor()" aria-label="red" id="red-slider">
+            </md-slider>
+            <md-input-container>
+              <input flex type="number" ng-model="color.red" aria-label="red" aria-controls="red-slider">
+            </md-input-container>
+          </md-slider-container>
 
-        <div md-color-picker="colorPicker.options" ng-model="colorPicker.color"></div>
+          <md-slider-container>
+            <span class="md-body-1">Green</span>
+            <md-slider class="md-accent md-hue-2" flex ng-model="color.green" ng-change="updateColor()" min="0" max="255" aria-label="green" id="green-slider" md-colors="{color: 'green-A100'}" class="md-accent">
+            </md-slider>
+            <md-input-container>
+              <input flex type="number" ng-model="color.green" aria-label="green" aria-controls="green-slider">
+            </md-input-container>
+          </md-slider-container>
+
+          <md-slider-container>
+            <span class="md-body-1">Blue</span>
+            <md-slider style="color: rgb(0,0,0)" flex ng-model="color.blue" ng-change="updateColor()" min="0" max="255" aria-label="blue" id="blue-slider">
+            </md-slider>
+            <md-input-container>
+              <input flex type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider">
+            </md-input-container>
+          </md-slider-container>
+        </form>
       </md-tab>
-
     </md-tabs>
-
   </div>
   <script type="text/javascript">
     var app = angular.module('myApp', ['btford.socket-io', 'ngMaterial', 'mdColorPicker']).
@@ -125,8 +127,8 @@
 
       var rgbMap = $mdThemingProvider.extendPalette('green', {
         'A100': '#ff0000',
-        'A200' : '#00ff00',
-        'A300' : '#0000ff'
+        'A200': '#00ff00',
+        'A300': '#0000ff'
 
       });
       $mdThemingProvider.definePalette('rgb', rgbMap);
@@ -211,11 +213,14 @@
         mySocket.emit('ledstrip:show');
 
       };
-      $scope.setLowAlarm = function(data){
+      $scope.setLowAlarm = function(data) {
         mySocket.emit('temp:setLowAlarm', data);
       };
+      $scope.setHighAlarm = function(data) {
+        mySocket.emit('temp:setHighAlarm', data);
+      };
       mySocket.on('emitting', function(data) {
-        console.log("Emitted temp:",data.curTemp);
+        console.log("Emitted temp:", data.curTemp);
       });
       /*
       	    $scope.colorPicker.options = {
