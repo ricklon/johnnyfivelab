@@ -3,148 +3,145 @@
 <!--<![endif]-->
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
-  <title>MEAN johnny-five and socket.io</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+    <title>MEAN johnny-five and socket.io</title>
 </head>
 
 <body>
-  <script src="/bower_components/socket.io-client/socket.io.js"></script>
-  <script src="/bower_components/angular/angular.js"></script>
-  <script src="/bower_components/angular-socket-io/socket.js"></script>
-  <script src="/bower_components/angular-aria/angular-aria.js"></script>
-  <script src="/bower_components/angular-animate/angular-animate.js"></script>
-  <script src="/bower_components/angular-material/angular-material.js"></script>
+    <script src="/bower_components/socket.io-client/socket.io.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-socket-io/socket.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/bower_components/angular-material/angular-material.js"></script>
 
-  <div ng-app="myApp" ng-controller="ArduController" ng-cloak>
-    <md-toolbar md-scroll-shrink ng-if="true" ng-controller="ArduController">
-      <div class="md-toolbar-tools">
-        <h1 class="md-display-2">Demo: Tying it all together</h1>
-      </div>
-    </md-toolbar>
-    <md-tabs md-dynamic-height md-border-bottom>
-      <md-tab label="Temperature">
-        <md-content class="md-padding">
-          <h2 class="md-display-2">Temperature Commands</h2>
-          <div>
-            <div>Current Temp:{{temperature.curTemp}}</div>
-            <div>min Temp:{{temperature.minTemp}}</div>
-            <div>Max Temp:{{temperature.maxTemp}}</div>
-            <div>Alarm Low Temp:{{temperature.lowAlarm}}</div>
-            <div>Alarm High Temp:{{temperature.highAlarm}}</div>
-          </div>
-          <form layout layout-align="center" layout-padding>
-            <div layout="row" flex>
-
-              <md-input-container flex class="md-icon-float md-block md-title">
-                <label>Low Alarm Value</label>
-                <input type="number">{{temperature.lowAlarm}}</input>
-              </md-input-container>
+    <div ng-app="myApp" ng-controller="ArduController" ng-cloak>
+        <md-toolbar md-scroll-shrink ng-if="true" ng-controller="ArduController">
+            <div class="md-toolbar-tools">
+                <h1 class="md-display-2">Demo: Tying it all together</h1>
             </div>
-            <div layout="row" flex>
-            <md-button ng-click="setLowAlarm()" class="md-rasied">Set
-            </md-button>
-            <md-switch ng-model="temperature.enableLOW" aria-label="enable low">
-              <!--
-                enable: {{ temperature.enableLOW }}
+        </md-toolbar>
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="Temperature">
+                <md-content class="md-padding">
+                    <h2 class="md-display-2">Temperature Commands</h2>
+                    <div>
+                        <div>Current Temp:{{temperature.curTemp}}</div>
+                        <div>min Temp:{{temperature.minTemp}}</div>
+                        <div>Max Temp:{{temperature.maxTemp}}</div>
+                        <div>Alarm Low Temp:{{temperature.lowAlarm}}</div>
+                        <div>Alarm High Temp:{{temperature.highAlarm}}</div>
+                    </div>
+                    <form layout layout-align="center" layout-padding>
+                        <div layout="row" flex>
 
-            -->
-            </md-switch>
-          </div>
-    </form>
-    <form layout layout-align="center" layout-padding>
-      <div layout="row" flex>
-        <md-input-container flex class="md-icon-float md-block md-title">
-          <label>High Alarm Value</label>
-          <input type="number">{{temperature.highAlarm}}</input>
-        </md-input-container>
+                            <md-input-container flex class="md-icon-float md-block md-title">
+                                <label>Low Alarm Value</label>
+                                <input type="number">{{temperature.lowAlarm}}</input>
+                            </md-input-container>
+                        </div>
+                        <div layout="row" flex>
+                            <md-button ng-click="setLowAlarm()" class="md-rasied">Set
+                            </md-button>
+                            <md-switch ng-model="temperature.enableLOW" aria-label="enable low" enable: {{ temperature.enableLOW }} </md-switch>
+                        </div>
+                    </form>
+                    <form layout layout-align="center" layout-padding>
+                        <div layout="row" flex>
+                            <md-input-container flex class="md-icon-float md-block md-title">
+                                <label>High Alarm Value</label>
+                                <input type="number">{{temperature.highAlarm}}</input>
+                            </md-input-container>
 
-      </div>
-      <div layout="row" flex>
-        <md-button ng-click="setHighAlarm()" class="md-rasied">Set
-        </md-button>
-        <md-switch ng-model="temperature.enableHIGH" aria-label="enable high">
-          <!--enable: {{ temperature.enableHIGH }}-->
-        </md-switch>
-      </div>
-    </form>
+                        </div>
+                        <div layout="row" flex>
+                            <md-button ng-click="setHighAlarm()" class="md-rasied">Set
+                            </md-button>
+                            <md-switch ng-model="temperature.enableHIGH" aria-label="enable high">
+                                enable: {{ temperature.enableHIGH }}-->
 
-    </md-content>
-    </md-tab>
-    <md-tab label="Board Commands">
-      <md-content class="md-padding">
-        <h2 class="md-display-2">Fubarino Mini - LED</h2>
-        <button ng-click="ledOn()">On</button>
-        <button ng-click="ledOff()">Off</button>
-      </md-content>
-    </md-tab>
-    <md-tab label="LED Commands">
-      <md-content class="md-padding">
-        <h2 class="md-display-2">Ledstrip Commands</h2>
-        <button ng-click="clear()">clear()</button>
-        <button ng-click="show()">show()</button>
-        <button ng-click="ledstriphello()">ledstriphello()</button>
-        <button ng-click="ledstripsetpixelcolor(3, 255, 255, 255)">ledstripsetpixel()</button>
-      </md-content>
-    </md-tab>
+                            </md-switch>
+                        </div>
+                    </form>
 
-    <md-tab label="LED Mixing">
-      <h2 class="md-display-2">RGB Pixels and Sliders</h2>
-      <form layout layout-align="row" layout-padding>
+                </md-content>
+            </md-tab>
 
-        <md-slider-container>
-          <span class="md-body-1">Animate Pixel</span>
-          <md-slider class="md-primary" flex ng-model="pix" ng-change="updatePixels(pix)" min="0" max="29" aria-label="pixels" id="pixel-slider">
-          </md-slider>
-          <md-input-container>
-            <input flex type="number" ng-model="pix" aria-label="pixels" aria-controls="pixel-slider">
-          </md-input-container>
-        </md-slider-container>
+            <md-tab label="Board Commands">
+                <md-content class="md-padding">
+                    <h2 class="md-display-2">Fubarino Mini - LED</h2>
+                    <button ng-click="ledOn()">On</button>
+                    <button ng-click="ledOff()">Off</button>
+                </md-content>
+            </md-tab>
+            <md-tab label="LED Commands">
+                <md-content class="md-padding">
+                    <h2 class="md-display-2">Ledstrip Commands</h2>
+                    <button ng-click="clear()">clear()</button>
+                    <button ng-click="show()">show()</button>
+                    <button ng-click="ledstriphello()">ledstriphello()</button>
+                    <button ng-click="ledstripsetpixelcolor(3, 255, 255, 255)">ledstripsetpixel()</button>
+                </md-content>
+            </md-tab>
 
-        <md-slider-container>
-          <span class="md-body-1">Red</span>
-          <md-slider class="md-accent md-hue-1" flex min="0" max="255" ng-model="color.red" ng-change="updateColor()" aria-label="red" id="red-slider">
-          </md-slider>
-          <md-input-container>
-            <input flex type="number" ng-model="color.red" aria-label="red" aria-controls="red-slider">
-          </md-input-container>
-        </md-slider-container>
+            <md-tab label="LED Mixing">
+                <h2 class="md-display-2">RGB Pixels and Sliders</h2>
+                <form layout layout-align="row" layout-padding>
 
-        <md-slider-container>
-          <span class="md-body-1">Green</span>
-          <md-slider class="md-accent md-hue-2" flex ng-model="color.green" ng-change="updateColor()" min="0" max="255" aria-label="green" id="green-slider" md-colors="{color: 'green-A100'}" class="md-accent">
-          </md-slider>
-          <md-input-container>
-            <input flex type="number" ng-model="color.green" aria-label="green" aria-controls="green-slider">
-          </md-input-container>
-        </md-slider-container>
+                    <md-slider-container>
+                        <span class="md-body-1">Animate Pixel</span>
+                        <md-slider class="md-primary" flex ng-model="pix" ng-change="updatePixels(pix)" min="0" max="29" aria-label="pixels" id="pixel-slider">
+                        </md-slider>
+                        <md-input-container>
+                            <input flex type="number" ng-model="pix" aria-label="pixels" aria-controls="pixel-slider">
+                        </md-input-container>
+                    </md-slider-container>
 
-        <md-slider-container>
-          <span class="md-body-1">Blue</span>
-          <md-slider style="color: rgb(0,0,0)" flex ng-model="color.blue" ng-change="updateColor()" min="0" max="255" aria-label="blue" id="blue-slider">
-          </md-slider>
-          <md-input-container>
-            <input flex type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider">
-          </md-input-container>
-        </md-slider-container>
-      </form>
-    </md-tab>
-    </md-tabs>
-  </div>
-  <script type="text/javascript">
-    var app = angular.module('myApp', ['btford.socket-io', 'ngMaterial']).
-    config(function($mdThemingProvider) {
+                    <md-slider-container>
+                        <span class="md-body-1">Red</span>
+                        <md-slider class="md-accent md-hue-1" flex min="0" max="255" ng-model="color.red" ng-change="updateColor()" aria-label="red" id="red-slider">
+                        </md-slider>
+                        <md-input-container>
+                            <input flex type="number" ng-model="color.red" aria-label="red" aria-controls="red-slider">
+                        </md-input-container>
+                    </md-slider-container>
 
-      var rgbMap = $mdThemingProvider.extendPalette('green', {
-        'A100': '#ff0000',
-        'A200': '#00ff00',
-        'A300': '#0000ff'
+                    <md-slider-container>
+                        <span class="md-body-1">Green</span>
+                        <md-slider class="md-accent md-hue-2" flex ng-model="color.green" ng-change="updateColor()" min="0" max="255" aria-label="green" id="green-slider" md-colors="{color: 'green-A100'}" class="md-accent">
+                        </md-slider>
+                        <md-input-container>
+                            <input flex type="number" ng-model="color.green" aria-label="green" aria-controls="green-slider">
+                        </md-input-container>
+                    </md-slider-container>
 
-      });
-      $mdThemingProvider.definePalette('rgb', rgbMap);
-      /*
+                    <md-slider-container>
+                        <span class="md-body-1">Blue</span>
+                        <md-slider style="color: rgb(0,0,0)" flex ng-model="color.blue" ng-change="updateColor()" min="0" max="255" aria-label="blue" id="blue-slider">
+                        </md-slider>
+                        <md-input-container>
+                            <input flex type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider">
+                        </md-input-container>
+                    </md-slider-container>
+                </form>
+            </md-tab>
+        </md-tabs>
+    </div>
+    <script type="text/javascript">
+        var app = angular.module('myApp', ['btford.socket-io', 'ngMaterial']).
+        config(function($mdThemingProvider) {
+
+            var rgbMap = $mdThemingProvider.extendPalette('green', {
+                'A100': '#ff0000',
+                'A200': '#00ff00',
+                'A300': '#0000ff'
+
+            });
+            $mdThemingProvider.definePalette('rgb', rgbMap);
+            /*
       $mdThemingProvider.definePalette('rgb', {
         '50': '0000ff',
     '100': '0000ff',
@@ -169,80 +166,82 @@
       });
 */
 
-      $mdThemingProvider.theme('default')
-        .primaryPalette('indigo')
-        .accentPalette('rgb');
-    }).
-    factory('mySocket', function(socketFactory) {
-      return socketFactory();
-    }).
-    controller('ArduController', function($scope, mySocket) {
-      $scope.color = {
-        red: Math.floor(Math.random() * 255),
-        green: Math.floor(Math.random() * 255),
-        blue: Math.floor(Math.random() * 255)
-      };
-      $scope.ledOn = function() {
-        mySocket.emit('led:on');
-        console.log('LED ON');
-      };
-      $scope.ledOff = function() {
-        mySocket.emit('led:off');
-        console.log('LED OFF');
-      };
-      $scope.clear = function() {
-        mySocket.emit('ledstrip:clear');
-        console.log('LED STRIP CLEAR');
-      };
-      $scope.show = function() {
-        mySocket.emit('ledstrip:show');
-        console.log('LED STRIP SHOW');
-      };
-      $scope.ledstriphello = function() {
-        mySocket.emit('ledstrip:hello');
-        console.log('LED STRIP HELLO');
-      };
-      $scope.updateColor = function(cc) {
-        var data = {
-          pixel: $scope.pix,
-          red: $scope.color.red,
-          green: $scope.color.green,
-          blue: $scope.color.blue
-        }
-        mySocket.emit('ledstrip:setpixelcolor', data);
-        mySocket.emit('ledstrip:show');
+            $mdThemingProvider.theme('default')
+                .primaryPalette('indigo')
+                .accentPalette('rgb');
+        }).
+        factory('mySocket', function(socketFactory) {
+            return socketFactory();
+        }).
+        controller('ArduController', function($scope, mySocket) {
+            $scope.color = {
+                red: Math.floor(Math.random() * 255),
+                green: Math.floor(Math.random() * 255),
+                blue: Math.floor(Math.random() * 255)
+            };
+            $scope.ledOn = function() {
+                mySocket.emit('led:on');
+                console.log('LED ON');
+            };
+            $scope.ledOff = function() {
+                mySocket.emit('led:off');
+                console.log('LED OFF');
+            };
+            $scope.clear = function() {
+                mySocket.emit('ledstrip:clear');
+                console.log('LED STRIP CLEAR');
+            };
+            $scope.show = function() {
+                mySocket.emit('ledstrip:show');
+                console.log('LED STRIP SHOW');
+            };
+            $scope.ledstriphello = function() {
+                mySocket.emit('ledstrip:hello');
+                console.log('LED STRIP HELLO');
+            };
+            $scope.updateColor = function(cc) {
+                var data = {
+                    pixel: $scope.pix,
+                    red: $scope.color.red,
+                    green: $scope.color.green,
+                    blue: $scope.color.blue
+                }
+                mySocket.emit('ledstrip:setpixelcolor', data);
+                mySocket.emit('ledstrip:show');
 
-      };
-      $scope.updatePixels = function(pixels) {
-        var data = {
-          pixel: pixels,
-          red: $scope.color.red,
-          green: $scope.color.green,
-          blue: $scope.color.blue
-        }
-        mySocket.emit('ledstrip:clear');
-        mySocket.emit('ledstrip:setpixelcolor', data);
-        mySocket.emit('ledstrip:show');
+            };
+            $scope.updatePixels = function(pixels) {
+                var data = {
+                    pixel: pixels,
+                    red: $scope.color.red,
+                    green: $scope.color.green,
+                    blue: $scope.color.blue
+                }
+                mySocket.emit('ledstrip:clear');
+                mySocket.emit('ledstrip:setpixelcolor', data);
+                mySocket.emit('ledstrip:show');
 
-      };
-      $scope.setLowAlarm = function(data) {
-        mySocket.emit('temp:setLowAlarm', data);
-      };
-      $scope.setHighAlarm = function(data) {
-        mySocket.emit('temp:setHighAlarm', data);
-      };
-      $scope.temperature = {
-        curTemp: 0,
-        highAlarm: 0,
-        lowAlarm: 0,
-        minTemp: 0,
-        maxTemp: 0,
-        enableLOW: false,
-        enableHIGH: false
-      };
-      mySocket.on('emitting', function(data) {
-        console.log("Emitted temp:", data.curTemp);
-      });
-    });
-  </script>
+            };
+            $scope.setLowAlarm = function(data) {
+                mySocket.emit('temp:setLowAlarm', data);
+            };
+            $scope.setHighAlarm = function(data) {
+                mySocket.emit('temp:setHighAlarm', data);
+            };
+            $scope.temperature = {
+                curTemp: 0,
+                highAlarm: 0,
+                lowAlarm: 0,
+                minTemp: 0,
+                maxTemp: 0,
+                enableLOW: false,
+                enableHIGH: false
+            };
+            mySocket.on('emitting', function(data) {
+                console.log("Emitted temp:", data.curTemp);
+            });
+        });
+    </script>
 </body>
+
+</html>
