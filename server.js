@@ -1,15 +1,14 @@
+var config = require('./config.js');
 var express = require('express');
 var app = express();
-
 var five = require("johnny-five");
-var button;
 var led;
 var temp;
 var tempValue;
 var btnStatus;
-var PIN_LED1 = 1; 
-var PIN_BTN1 = 16; 
-var board = new five.Board();
+var PIN_LED1 = 1;
+var PIN_BTN1 = 16;
+var board = new five.Board({port: config.port});var button;
 
 board.on("ready", function() {
     led = new five.Led(PIN_LED1);
