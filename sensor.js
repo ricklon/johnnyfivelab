@@ -15,6 +15,6 @@ board.on("ready", function() {
 
   // When the sensor value changes, log the value
   temp.on("change", function(value) {
-    console.log(value*(3300/1024));
+    console.log(value*330/1024);
   });
 });
