@@ -15,6 +15,7 @@ var button;
 var led;
 var temp;
 var tempValue;
+var tempSensor;
 var btnStatus;
 var PIN_LED1 = 1; //0
 var PIN_BTN1 = 16; //16
@@ -62,7 +63,7 @@ board.on("ready", function(socket) {
         console.log("up");
     });
 
-    temp = new five.Sensor({
+    tempSensor = new five.Sensor({
         pin: "A0",
         freq: 250,
         threshold: 5
@@ -82,10 +83,11 @@ board.on("ready", function(socket) {
 */
 
     console.log("Board is Ready!");
-});
 
 //Socket connection handler
-io.on('connection', function(socket, board) {
+//Order matters Init the board and the socket
+//The Socket resets and you don't want your board to reset too.
+io.on('connection', function(socket) {
     console.log(socket.id);
 
 
@@ -124,7 +126,7 @@ io.on('connection', function(socket, board) {
         //socket.emit('lowalarmset', 'true');
     });
     // When the sensor value changes, log the value
-    temp.on("change", function(value) {
+    tempSensor.on("change", function(value) {
         tempvalue = value * 330 / 1024;
         console.log(tempValue);
         if (socket.isReady) {
@@ -139,6 +141,7 @@ io.on('connection', function(socket, board) {
             console.log("Socket.io disconnect");
         }, 10000);
     });
+});
 });
 
 app.use(express.static(__dirname + '/public'));

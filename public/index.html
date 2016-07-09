@@ -46,7 +46,9 @@
                         <div layout="row" flex>
                             <md-button ng-click="setLowAlarm()" class="md-rasied">Set
                             </md-button>
-                            <md-switch ng-model="temperature.enableLOW" aria-label="enable low" enable: {{ temperature.enableLOW }} </md-switch>
+                            <md-switch ng-model="temperature.enableLOW" aria-label="enable low"
+                            enable: {{ temperature.enableLOW }}
+                          </md-switch>
                         </div>
                     </form>
                     <form layout layout-align="center" layout-padding>
@@ -55,14 +57,11 @@
                                 <label>High Alarm Value</label>
                                 <input type="number">{{temperature.highAlarm}}</input>
                             </md-input-container>
-
                         </div>
                         <div layout="row" flex>
                             <md-button ng-click="setHighAlarm()" class="md-rasied">Set
                             </md-button>
                             <md-switch ng-model="temperature.enableHIGH" aria-label="enable high">
-                                enable: {{ temperature.enableHIGH }}-->
-
                             </md-switch>
                         </div>
                     </form>
