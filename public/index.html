@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-<!--<![endif]-->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
-    <title>MEAN johnny-five and socket.io</title>
+    <title>chipKIT: Lab: chipKIT, Firmata, johnny-five, socket.io, and Angular</title>
 </head>
 
 <body>
@@ -18,7 +16,7 @@
     <script src="/bower_components/angular-animate/angular-animate.js"></script>
     <script src="/bower_components/angular-material/angular-material.js"></script>
 
-    <div ng-app="myApp" ng-controller="ArduController" ng-cloak>
+    <div ng-app="chipKITApp" ng-controller="ArduController" ng-cloak>
         <md-toolbar md-scroll-shrink ng-if="true" ng-controller="ArduController">
             <div class="md-toolbar-tools">
                 <h1 class="md-display-2">Demo: Tying it all together</h1>
@@ -130,7 +128,7 @@
         </md-tabs>
     </div>
     <script type="text/javascript">
-        var app = angular.module('myApp', ['btford.socket-io', 'ngMaterial']).
+        var app = angular.module('chipKITApp', ['btford.socket-io', 'ngMaterial']).
         config(function($mdThemingProvider) {
 
             var rgbMap = $mdThemingProvider.extendPalette('green', {
@@ -169,33 +167,40 @@
                 .primaryPalette('indigo')
                 .accentPalette('rgb');
         }).
-        factory('mySocket', function(socketFactory) {
+        factory('socket', function(socketFactory) {
             return socketFactory();
         }).
-        controller('ArduController', function($scope, mySocket) {
+        controller('ArduController', function($scope, socket) {
+            socket.on('hello',function(data){
+                console.log("MSG HELLO:"+data);
+            });
+            socket.on('sendTemp', function(data) {
+                console.log("RECEIVED temp:", data.curTemp);
+                $scope.temperature.curTemp = data.curTemp;
+            });
             $scope.color = {
                 red: Math.floor(Math.random() * 255),
                 green: Math.floor(Math.random() * 255),
                 blue: Math.floor(Math.random() * 255)
             };
             $scope.ledOn = function() {
-                mySocket.emit('led:on');
+                socket.emit('led:on');
                 console.log('LED ON');
             };
             $scope.ledOff = function() {
-                mySocket.emit('led:off');
+                socket.emit('led:off');
                 console.log('LED OFF');
             };
             $scope.clear = function() {
-                mySocket.emit('ledstrip:clear');
+                socket.emit('ledstrip:clear');
                 console.log('LED STRIP CLEAR');
             };
             $scope.show = function() {
-                mySocket.emit('ledstrip:show');
+                socket.emit('ledstrip:show');
                 console.log('LED STRIP SHOW');
             };
             $scope.ledstriphello = function() {
-                mySocket.emit('ledstrip:hello');
+                socket.emit('ledstrip:hello');
                 console.log('LED STRIP HELLO');
             };
             $scope.updateColor = function(cc) {
@@ -205,8 +210,8 @@
                     green: $scope.color.green,
                     blue: $scope.color.blue
                 }
-                mySocket.emit('ledstrip:setpixelcolor', data);
-                mySocket.emit('ledstrip:show');
+                socket.emit('ledstrip:setpixelcolor', data);
+                socket.emit('ledstrip:show');
 
             };
             $scope.updatePixels = function(pixels) {
@@ -216,16 +221,16 @@
                     green: $scope.color.green,
                     blue: $scope.color.blue
                 }
-                mySocket.emit('ledstrip:clear');
-                mySocket.emit('ledstrip:setpixelcolor', data);
-                mySocket.emit('ledstrip:show');
+                socket.emit('ledstrip:clear');
+                socket.emit('ledstrip:setpixelcolor', data);
+                socket.emit('ledstrip:show');
 
             };
             $scope.setLowAlarm = function(data) {
-                mySocket.emit('temp:setLowAlarm', data);
+                socket.emit('temp:setLowAlarm', data);
             };
             $scope.setHighAlarm = function(data) {
-                mySocket.emit('temp:setHighAlarm', data);
+                socket.emit('temp:setHighAlarm', data);
             };
             $scope.temperature = {
                 curTemp: 0,
@@ -236,10 +241,7 @@
                 enableLOW: false,
                 enableHIGH: false
             };
-            mySocket.on('socket:sendTemp', function(data) {
-                console.log("RECEIVED temp:", data.curTemp);
-                $scope.temperature.curTemp = data.curTemp;
-            });
+
         });
     </script>
 </body>

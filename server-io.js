@@ -8,6 +8,7 @@ var five = require("johnny-five");
 var board = new five.Board({
     port: config.port
 });
+var socket;
 var Ledstrip = require("./ledstrip.js");
 var ledstrip = new Ledstrip(board);
 
@@ -116,12 +117,12 @@ board.on("ready", function(socket) {
             var celsiusValue = value * 330 / 1024;
             var farenValue = celsiusValue * 9 / 5 + 32;
             console.log("Analog: " + value + " , C: " + celsiusValue.toPrecision(3) + ", F: " + farenValue);
-            if (socket.isReady) {
                 socket.emit('sendTemp', {
                     curTemp: farenValue
                 });
-            }
-
+        });
+        socket.emit('hello', {
+            hello: "Hello"
         });
         socket.on('disconnect', function() {
             setTimeout(function() {
@@ -131,8 +132,9 @@ board.on("ready", function(socket) {
     });
 });
 board.on("close", function() {
-    console.log('closed');
+    console.log('BOARD: closed');
 });
+
 
 app.use(express.static(__dirname + '/public'));
 
