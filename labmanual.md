@@ -1,12 +1,12 @@
 !Lab Manual
 
 ###Labs 1: Blink LED
-###Labs 2: 
-###Labs 3
-###Labs 4
-###Labs 5
-###Labs 6
-
+###Labs 2: Sense Analog Read Temperature
+###Labs 3: Hello Serial
+###Labs 4: Control LED Strip
+###Labs 5: Control LED Strip with Firmata and Johnny Five
+###Labs 6: JOhnny Five Temperature
+###Labs 7: DEMO
 
 ##Lab 1: Blink LED
 ###Lab 1 Procedure**
@@ -24,10 +24,10 @@
 //Setup the inputs and outputs and run once  
 void setup() {
 
-**  pinMode(PIN_LED1, OUTPUT); 
+**  pinMode(PIN_LED1, OUTPUT);
 }  
-// the loop function runs over and over again forever 
-void loop() { 
+// the loop function runs over and over again forever
+void loop() {
   digitalWrite(PIN_LED1, HIGH);    
   delay(750);               
   digitalWrite(PIN_LED1, LOW);    
@@ -64,7 +64,7 @@ Delay for specified number of milliseconds
 
 
 
-##Lab 2: Sense anolog Read Temperature
+##Lab 2: Sense Analog Read Temperature
 ###Core Runtime Functions*
 
 ```analogRead(pin)```
