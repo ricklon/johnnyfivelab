@@ -5,7 +5,7 @@
 ###Labs 3: Hello Serial
 ###Labs 4: Control LED Strip
 ###Labs 5: Control LED Strip with Firmata and Johnny Five
-###Labs 6: JOhnny Five Temperature
+###Labs 6: Johnny Five Temperature
 ###Labs 7: DEMO
 
 ##Lab 1: Blink LED

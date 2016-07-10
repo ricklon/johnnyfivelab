@@ -122,7 +122,8 @@ board.on("ready", function(socket) {
             });
         });
         socket.emit('init', {
-            curTemp: tempValue * 330 / 1024 * 9 / 5 + 32
+            curTemp: tempValue * 330 / 1024 * 9 / 5 + 32,
+            board: board.io
         });
         socket.on('disconnect', function() {
             setTimeout(function() {

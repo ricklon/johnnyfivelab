@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/bower_components/ng-json-explorer/dist/angular-json-explorer.css" />
     <title>chipKIT: Lab: chipKIT, Firmata, johnny-five, socket.io, and Angular</title>
 </head>
 
@@ -16,6 +17,7 @@
     <script src="/bower_components/angular-aria/angular-aria.js"></script>
     <script src="/bower_components/angular-animate/angular-animate.js"></script>
     <script src="/bower_components/angular-material/angular-material.js"></script>
+    <script src="/bower_components/ng-json-explorer/dist/angular-json-explorer.min.js"></script>
 
     <div ng-app="chipKITApp" ng-controller="ArduController" ng-cloak>
         <md-toolbar md-scroll-shrink ng-if="true" ng-controller="ArduController">
@@ -124,10 +126,18 @@
                     </md-slider-container>
                 </form>
             </md-tab>
+            <md-tab label="Config">
+                <md-content class="md-padding">
+                    <h2 class="md-display-2">Fubarino Mini -- Board Config</h2>
+                    <json-explorer json-data="board"></json-explorer>
+                    <json-explorer json-data="board"></json-explorer>
+                    <json-explorer data="board"></json-explorer>
+                </md-content>
+            </md-tab>
         </md-tabs>
     </div>
     <script type="text/javascript">
-        var app = angular.module('chipKITApp', ['btford.socket-io', 'ngMaterial']).
+        var app = angular.module('chipKITApp', ['btford.socket-io', 'ngMaterial', 'ngJsonExplorer']).
         config(function($mdThemingProvider) {
 
             var rgbMap = $mdThemingProvider.extendPalette('green', {
@@ -136,32 +146,7 @@
                 'A300': '#0000ff'
 
             });
-            $mdThemingProvider.definePalette('rgb', rgbMap);
-            /*
-      $mdThemingProvider.definePalette('rgb', {
-        '50': '0000ff',
-    '100': '0000ff',
-    '200': '0000ff',
-    '300': '0000ff',
-    '400': '0000ff',
-    '500': '0000ff',
-    '600': '0000ff',
-    '700': '0000ff',
-    '800': '0000ff',
-    '900': '0000ff',
-    'A100': '00ffff',
-    'A200': '333333',
-    'A400': 'ff00ff',
-    'A700': 'ff00ff',
-    'contrastDefaultColor': 'light',    // whether, by default, text (contrast)
-                                        // on this palette should be dark or light
-    'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
-     '200', '300', '400', 'A100'],
-    'contrastLightColors': undefined    // could also specify this if default was 'dark'
-
-      });
-*/
-
+        $mdThemingProvider.definePalette('rgb', rgbMap);
         $mdThemingProvider.theme('default')
                 .primaryPalette('indigo')
                 .accentPalette('rgb');
@@ -172,6 +157,7 @@
         controller('ArduController', function($scope, socket) {
             socket.on('init', function(data) {
                 $scope.temperature.curTemp = data.curTemp;
+                $scope.board = data;
                 console.log("INIT VALUES:" + JSON.stringify(data));
             });
             socket.on('sendTemp', function(data) {
@@ -247,7 +233,6 @@
                 enableLOW: false,
                 enableHIGH: false
             };
-
         });
     </script>
 </body>
