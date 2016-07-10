@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -44,9 +45,7 @@
                         <div layout="row" flex>
                             <md-button ng-click="setLowAlarm()" class="md-rasied">Set
                             </md-button>
-                            <md-switch ng-model="temperature.enableLOW" aria-label="enable low"
-                            enable: {{ temperature.enableLOW }}
-                          </md-switch>
+                            <md-switch ng-model="temperature.enableLOW" aria-label="enable low" enable: {{ temperature.enableLOW }} </md-switch>
                         </div>
                     </form>
                     <form layout layout-align="center" layout-padding>
@@ -117,7 +116,7 @@
 
                     <md-slider-container>
                         <span class="md-body-1">Blue</span>
-                        <md-slider style="color: rgb(0,0,0)" flex ng-model="color.blue" ng-change="updateColor()" min="0" max="255" aria-label="blue" id="blue-slider">
+                        <md-slider  flex class="md-primary" ng-model="color.blue" ng-change="updateColor()" min="0" max="255" aria-label="blue" id="blue-slider">
                         </md-slider>
                         <md-input-container>
                             <input flex type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider">
@@ -163,7 +162,7 @@
       });
 */
 
-            $mdThemingProvider.theme('default')
+        $mdThemingProvider.theme('default')
                 .primaryPalette('indigo')
                 .accentPalette('rgb');
         }).
@@ -171,12 +170,19 @@
             return socketFactory();
         }).
         controller('ArduController', function($scope, socket) {
-            socket.on('hello',function(data){
-                console.log("MSG HELLO:"+data);
+            socket.on('init', function(data) {
+                $scope.temperature.curTemp = data.curTemp;
+                console.log("INIT VALUES:" + JSON.stringify(data));
             });
             socket.on('sendTemp', function(data) {
                 console.log("RECEIVED temp:", data.curTemp);
                 $scope.temperature.curTemp = data.curTemp;
+                if (data.curTemp > $scope.temperature.maxTemp) {
+                    $scope.temperature.maxTemp = data.curTemp;
+                }
+                if (data.curTemp < $scope.temperature.minTemp) {
+                    $scope.temperature.minTemp = data.curTemp;
+                }
             });
             $scope.color = {
                 red: Math.floor(Math.random() * 255),
@@ -236,7 +242,7 @@
                 curTemp: 0,
                 highAlarm: 0,
                 lowAlarm: 0,
-                minTemp: 0,
+                minTemp: 10000,
                 maxTemp: 0,
                 enableLOW: false,
                 enableHIGH: false

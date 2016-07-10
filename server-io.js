@@ -69,6 +69,9 @@ board.on("ready", function(socket) {
         freq: 250,
         threshold: 5
     });
+    tempSensor.on("data", function() {
+        tempValue = this.value;
+    });
     console.log("Board is Ready!");
 
     //Socket connection handler
@@ -76,9 +79,6 @@ board.on("ready", function(socket) {
     //The Socket resets and you don't want your board to reset too.
     io.on('connection', function(socket) {
         console.log(socket.id);
-
-
-
         socket.on('led:on', function(data) {
             led.on();
             console.log('LED ON RECEIVED');
@@ -117,12 +117,12 @@ board.on("ready", function(socket) {
             var celsiusValue = value * 330 / 1024;
             var farenValue = celsiusValue * 9 / 5 + 32;
             console.log("Analog: " + value + " , C: " + celsiusValue.toPrecision(3) + ", F: " + farenValue);
-                socket.emit('sendTemp', {
-                    curTemp: farenValue
-                });
+            socket.emit('sendTemp', {
+                curTemp: farenValue
+            });
         });
-        socket.emit('hello', {
-            hello: "Hello"
+        socket.emit('init', {
+            curTemp: tempValue * 330 / 1024 * 9 / 5 + 32
         });
         socket.on('disconnect', function() {
             setTimeout(function() {
