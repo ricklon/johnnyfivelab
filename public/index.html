@@ -236,8 +236,9 @@
                 enableLOW: false,
                 enableHIGH: false
             };
-            mySocket.on('emitting', function(data) {
-                console.log("Emitted temp:", data.curTemp);
+            mySocket.on('socket:sendTemp', function(data) {
+                console.log("RECEIVED temp:", data.curTemp);
+                $scope.temperature.curTemp = data.curTemp;
             });
         });
     </script>
