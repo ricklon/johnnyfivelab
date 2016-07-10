@@ -158,7 +158,7 @@
             socket.on('init', function(data) {
                 $scope.temperature.curTemp = data.curTemp;
                 $scope.board = data;
-                console.log("INIT VALUES:" + JSON.stringify(data));
+                //console.log("INIT VALUES:" + JSON.stringify(data));
             });
             socket.on('sendTemp', function(data) {
                 console.log("RECEIVED temp:", data.curTemp);
