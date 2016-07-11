@@ -1,6 +1,6 @@
-#Lab Manual
+# Lab Manual
 
-###Table of Contents
+### Table of Contents
 
  * [Lab 1: Blink LED](#Lab-1:-Blink-LED)
  * [Lab 2: Serial Communications]()
@@ -13,20 +13,46 @@
 
 
 
-##Lab 1: Blink LED
-###Lab 1 Procedure
+## Lab 1: Blink LED
+### Lab 1: Procedure
 
-* Start up Arduino IDE**
+* Start up Arduino IDE
 * Open up the ‘blink.ino’ source file from:
  ```C:\MASTERs\20003\arduino\blink\```
 * Connect Fubarino Mini to USB port
 * Put Fubarino Mini in bootloader mode (while holding PRG, press/release RESET)
-* Make sure Tools &gt; Port has the right serial port selected
+* Make sure Menu item Tools --> Port has the correct serial port selected
 * Click Upload button in IDE
 * After compile/upload complete, confirm green LED on FB Mini is blinking
 
-###Lab 1 Code – Blink LED
+
+### Lab 1: Core Runtime Functions
+
+```c
+pinMode(pin, dir)
 ```
+
+Sets pin direction and drive type
+
+```c
+digitalRead(pin)
+```
+
+Reads the state of a digital pin
+
+```c
+digitalWrite(pin, val)```
+
+Sets a digital pin to specified state
+
+```c
+delay(ms)```
+
+Delay for specified number of milliseconds
+
+
+### Lab 1: Code – Blink LED
+```c
 //Setup the inputs and outputs and run once  
 void setup() {
   pinMode(PIN_LED1, OUTPUT);
@@ -40,96 +66,41 @@ void loop() {
 }
 ```
 
-###Lab 1 Summary
+### Lab 1: Summary
 
 * Compile and download source code to chipKIT board
 * Learn basic code template
 * Set pin as output
 * Set output pin states
 * Create a time delay
-* Programming Model
-* Programming Model
-* Core Runtime Functions
-
-```pinMode(pin, dir)```
-
-Sets pin direction and drive type
-
-```digitalRead(pin)```
-
-Reads the state of a digital pin
-
-```digitalWrite(pin, val)```
-
-Sets a digital pin to specified state
-
-```delay(ms)```
-
-Delay for specified number of milliseconds
-
-
-```
-#Lab 2: Serial Communications
-
-```
-#Lab 3: Sense Analog Read Temperature
-###Core Runtime Functions*
-
-```analogRead(pin)```
-
-Returns A/D converter value for specified pin  
-
-```analogWrite(pin, val)```
-
-Pseudo-analog output using PWM. Sets output duty cycle to specified value
-
-**Example (no lab) – Dim an LED**
-
-```int pinLed = 9;   //assume LED on pin 9
-int pinPot = A0;  //assume pot on analog 0
-
-void setup() {   //nothing needed*
-}
-
-void loop() {
- int val;
-
- val = analogRead(pinPot);
-
- analogWrite(pinLed, val/(1024/256));
-
- delay(1000);
-
-}
-```
-
-
-
-#Lab 4: Control LED Strip
-#Lab 5: Arduino Firmata and Node.js: Read Temperature
-#Lab 6: Firmata and LED Strip
-#Lab 7: DEMO
 
 
 
 
+## Lab 2: Serial Communications
+### Lab2: Activity:
+
+Communicate with the serial port using the Arduino IDE builtin serial monitor.
+
+### Lab2: Procedure
+* Load the helloserial sketch from the Arduino folder
+
+### Lab 2: Core Runtime Functions
 
 
+Builtin Library Hardware Serial
 
-##Lab 3: Hello Serial
-
-**Hardware Serial**
-
-**Serial.begin(baud)**
+```c
+Serial.begin(baud)```
 
 Initialize the UART and set the baud rate  
-
-**Serial.print(val)**
-
+```c
+Serial.print(val)
+```
 Print the specified value to UART  
-
-**Serial.read()**
-
+```c
+Serial.read()
+```
 Read characters from UART
 
 **Lab 2 Activity**
@@ -184,6 +155,52 @@ Explore serial data output from chipKIT back to PC over USB, using Arduino IDE S
 
 **Print human-readable output to PC over USB using Serial Monitor**
 
+
+#Lab 3: Sense Analog Read Temperature
+###Core Runtime Functions*
+
+```analogRead(pin)```
+
+Returns A/D converter value for specified pin  
+
+```analogWrite(pin, val)```
+
+Pseudo-analog output using PWM. Sets output duty cycle to specified value
+
+**Example (no lab) – Dim an LED**
+
+```int pinLed = 9;   //assume LED on pin 9
+int pinPot = A0;  //assume pot on analog 0
+
+void setup() {   //nothing needed*
+}
+
+void loop() {
+ int val;
+
+ val = analogRead(pinPot);
+
+ analogWrite(pinLed, val/(1024/256));
+
+ delay(1000);
+
+}
+```
+
+
+
+#Lab 4: Control LED Strip
+#Lab 5: Arduino Firmata and Node.js: Read Temperature
+#Lab 6: Firmata and LED Strip
+#Lab 7: DEMO
+
+
+
+
+
+
+
+##Lab 3:
 **Lab 3 Activity**
 
 **Objective:**
