@@ -139,7 +139,7 @@ Print human-readable output to PC over USB using Serial Monitor.
 
 ## Lab 3: Sense Analog Read Temperature
 ### Lab 3: Activity
-### Lab 3: Core Runtime Functions*
+### Lab 3: Core Runtime Functions
 
 ```c
 analogRead(pin)
