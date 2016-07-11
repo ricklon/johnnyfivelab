@@ -9,14 +9,12 @@
  * [Lab 6: Firmata and LED Strip](#lab-6-firmata-and-led-strip)
  * [Lab 7: DEMO: Tying It All Together](#lab-7-demo-tying-it-all-together)
 
-
-
-
 ## Lab 1: Blink LED
+
 ### Lab 1: Procedure
 
 * Start up Arduino IDE
-* Open up the ‘blink.ino’ source file from:
+* Open up the "blink.ino" source file from:
  ```C:\MASTERs\20003\arduino\blink\```
 * Connect Fubarino Mini to USB port
 * Put Fubarino Mini in bootloader mode (while holding PRG, press/release RESET)
