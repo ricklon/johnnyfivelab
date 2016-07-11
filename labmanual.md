@@ -99,7 +99,8 @@ Explore serial data output from chipKIT back to PC over USB, using Arduino IDE S
 Builtin Library Hardware Serial
 
 ```c
-Serial.begin(baud)```
+Serial.begin(baud)
+```
 
 Initialize the UART and set the baud rate  
 ```c
@@ -141,12 +142,14 @@ Print human-readable output to PC over USB using Serial Monitor.
 ### Lab 3: Core Runtime Functions*
 
 ```c
-analogRead(pin)```
+analogRead(pin)
+```
 
 Returns A/D converter value for specified pin  
 
 ```c
-analogWrite(pin, val)```
+analogWrite(pin, val)
+```
 
 Pseudo-analog output using PWM. Sets output duty cycle to specified value
 
