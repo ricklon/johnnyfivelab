@@ -4,7 +4,11 @@
 * [Quick Setup](../master/setup.md)
 
 ##Presentation
+* Power Point Presentation](https://microchip.box.com/s/3vcrrs3idecakx68nn6wtq8sw1tfbi4m)
+
 ##Lab Manual
+* [Lab Manual](../master/labmanual.md)
+
 
 ###Blink Hello
 First Fubarino_Mini has the LED on pin 0.
