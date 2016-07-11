@@ -1,4 +1,4 @@
-#This is the set up for the chipKIT Masters workshop.
+20003 chipKIT Masters workshop.
 
 ##Setup instructions
 * [Quick Setup](../master/setup.md)
