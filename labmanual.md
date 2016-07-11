@@ -1,7 +1,7 @@
 #Lab Manual
 
 ###Table of Conents
-**[Lab 1: Blink LED](#Lab-1:-Blink-LED)**
+**[Lab 1: Blink LED](#Lab-1:-Blink-LED)
 **Lab 2: Sense Analog Read Temperature
 **Lab 3: Hello Serial
 **Lab 4: Control LED Strip
