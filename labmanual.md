@@ -15,7 +15,8 @@
 
 * Start up Arduino IDE
 * Open up the "blink.ino" source file from:
- ```C:\MASTERs\20003\arduino\blink\```
+ `C:\MASTERs\20003\arduino\blink\`
+
 * Connect Fubarino Mini to USB port
 * Put Fubarino Mini in bootloader mode (while holding PRG, press/release RESET)
 * Make sure Menu item Tools --> Port has the correct serial port selected
