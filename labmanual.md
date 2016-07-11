@@ -1,13 +1,13 @@
 #Lab Manual
 
 ###Table of Contents
-**[Lab 1: Blink LED](#Lab-1:-Blink-LED)**
-**[Lab 2: Sense Analog Read Temperature]()**
-**[Lab 3: Hello Serial]()**
-**[Lab 4: Control LED Strip]()**
-**[Lab 5: Control LED Strip with Firmata and Johnny Five]()**
-**[Lab 6: Johnny Five Temperature]()**
-**[Lab 7: DEMO]()**
+ **[Lab 1: Blink LED](#Lab-1:-Blink-LED)
+ **[Lab 2: Sense Analog Read Temperature]()
+ **[Lab 3: Hello Serial]()
+ **[Lab 4: Control LED Strip]()
+ **[Lab 5: Control LED Strip with Firmata and Johnny Five]()
+ **[Lab 6: Johnny Five Temperature]()
+ **[Lab 7: DEMO]()
 
 ##Lab 1: Blink LED
 ###Lab 1 Procedure**
