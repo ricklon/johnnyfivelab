@@ -1,4 +1,4 @@
-!Lab Manual
+#Lab Manual
 
 ###Labs 1: Blink LED
 ###Labs 2: Sense Analog Read Temperature
