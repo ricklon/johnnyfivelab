@@ -2,8 +2,8 @@
 
 ### Table of Contents
 
- * [Lab 1: Blink LED](#Lab-1:-Blink-LED)
- * [Lab 2: Serial Communications]()
+ * [Lab 1: Blink LED](##-Lab-1:-Blink-LED)
+ * [Lab 2: Serial Communications](##-Lab-2:-Serial-Communications)
  * [Lab 3: Sense Analog Read Temperature]()
  * [Lab 4: Control LED Strip]()
  * [Lab 5: Arduino Firmata and Node.js: Read Temperature]()
