@@ -10,33 +10,26 @@
  * [Lab 6: Firmata and LED Strip]()
  * [Lab 7: DEMO]()
 
-```
-#Lab 2: Serial Communications
-#Lab 3: Sense Analog Read Temperature
-#Lab 4: Control LED Strip
-#Lab 5: Arduino Firmata and Node.js: Read Temperature
-#Lab 6: Firmata and LED Strip
-#Lab 7: DEMO
-```
+
 
 
 ##Lab 1: Blink LED
 ###Lab 1 Procedure
 
-*Start up Arduino IDE**
-*Open up the ‘blink.ino’ source file from:  ****   ****C:\MASTERs\20003\arduino\blink\**
-*Connect Fubarino Mini to USB port**
-*Put Fubarino Mini in bootloader mode (while holding PRG, press/release RESET)**
-*Make sure Tools &gt; Port has the right serial port selected**
-*Click Upload button in IDE**
-*After compile/upload complete, confirm green LED on FB Mini is blinking**
+* Start up Arduino IDE**
+* Open up the ‘blink.ino’ source file from:
+ ```C:\MASTERs\20003\arduino\blink\```
+* Connect Fubarino Mini to USB port
+* Put Fubarino Mini in bootloader mode (while holding PRG, press/release RESET)
+* Make sure Tools &gt; Port has the right serial port selected
+* Click Upload button in IDE
+* After compile/upload complete, confirm green LED on FB Mini is blinking
 
-###Lab 1 Code – Blink LED**
+###Lab 1 Code – Blink LED
 ```
 //Setup the inputs and outputs and run once  
 void setup() {
-
-**  pinMode(PIN_LED1, OUTPUT);
+  pinMode(PIN_LED1, OUTPUT);
 }  
 // the loop function runs over and over again forever
 void loop() {
@@ -49,14 +42,14 @@ void loop() {
 
 ###Lab 1 Summary
 
-*Compile and download source code to chipKIT board**
-*Learn basic code template**
-*Set pin as output**
-*Set output pin states**
-*Create a time delay**
-*Programming Model**
-*Programming Model**
-*Core Runtime Functions**
+* Compile and download source code to chipKIT board
+* Learn basic code template
+* Set pin as output
+* Set output pin states
+* Create a time delay
+* Programming Model
+* Programming Model
+* Core Runtime Functions
 
 ```pinMode(pin, dir)```
 
@@ -75,8 +68,11 @@ Sets a digital pin to specified state
 Delay for specified number of milliseconds
 
 
+```
+#Lab 2: Serial Communications
 
-##Lab 2: Sense Analog Read Temperature
+```
+#Lab 3: Sense Analog Read Temperature
 ###Core Runtime Functions*
 
 ```analogRead(pin)```
@@ -106,6 +102,19 @@ void loop() {
 
 }
 ```
+
+
+
+#Lab 4: Control LED Strip
+#Lab 5: Arduino Firmata and Node.js: Read Temperature
+#Lab 6: Firmata and LED Strip
+#Lab 7: DEMO
+
+
+
+
+
+
 
 ##Lab 3: Hello Serial
 
