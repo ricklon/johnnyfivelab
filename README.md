@@ -1,6 +1,7 @@
 #This is the set up for the chipKIT Masters workshop.
 
 ##Setup instructions
+* [Quick Setup](../blob/master/setup.md)
 ##Presentation
 ##Lab Manual
 
