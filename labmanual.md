@@ -382,6 +382,8 @@ board.on("ready", function() {
 
 ```
 ## Lab 5: Summary
+* Create an analog sensor with Johnny Five
+* Use firmata to read analog data from an Arduno board
 
 # Lab 6: Firmata and LED Strip
 ## Lab 6: Activity
@@ -448,19 +450,25 @@ board.on('ready', function() {
 ```
 
 ## Lab 6: Summary
+* Demonstrated the use of custom firmata commands  
+* Use custom firmata commands from firmata.js
+* These commands control the animation of an led strip from a desktop computer
 
 
-# Lab 7: DEMO
+# Lab 7: DEMO: Tying It All Together
 
+* Firmata code to enable remote access and board level features
+* Web accessible device control for temperature and LED strips
 
+## Lab 7: Activity
+* Use a full stack development framework to interact with  devices connected to t he server.
 
+## Lab 7: Procedure
+From the node.js command line run:
+```node server-io.js```
 
+## Lab 7: Summary
 
-
-**DEMO: Tying It All Together**
-
-**The demo combines:**
-
-Firmata code to enable remote access and board level features
-
-Web accessible device control for temperature and LED strips
+* We can send the board meta data to the client.
+* Create temperature sensing app on the functionality
+* Create a multi user led strip using standard full stack developer resources
