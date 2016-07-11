@@ -3,11 +3,11 @@
 ###Table of Contents
 
  * [Lab 1: Blink LED](#Lab-1:-Blink-LED)
- * [Lab 2: Sense Analog Read Temperature]()
- * [Lab 3: Hello Serial]()
+ * [Lab 2: Serial Communications]()
+ * [Lab 3: Sense Analog Read Temperature]()
  * [Lab 4: Control LED Strip]()
- * [Lab 5: Control LED Strip with Firmata and Johnny Five]()
- * [Lab 6: Johnny Five Temperature]()
+ * [Lab 5: Arduino Firmata and Node.js: Read Temperature]()
+ * [Lab 6: Firmata and LED Strip]()
  * [Lab 7: DEMO]()
 
 ##Lab 1: Blink LED
