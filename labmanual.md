@@ -173,6 +173,65 @@ val = map(val, 0,1023,0,255);
 ```
 
 ## Lab 3: Activity
+* Objective
+
+Explore several different example programs that are available within Arduino IDE to manipulate an LED strip and learn about adding external libraries to your sketch
+
+* Simple LED Strip Control
+
+* Adding Libraries
+
+* You can use the built in Library Manager to search for and easily add libraries to your Arduino IDE install
+
+* Some libraries not available in Library Manager yet, need to download zip file from GitHub repo or website
+
+* Adafruit DotStar Library: We will use this one to control our LED strip
+
+
+### Using Libraries
+
+* Pre-written libraries provide additional functionality
+
+* If you add hardware to your design, there are often libraries already written to help you make use of the hardware
+
+To include a libary:
+* `#include <libraryname.h>`
+This will add it to your sketch.
+
+* chipKIT core includes highly optimized libraries for PIC32
+
+* Example: Library Manager
+
+* Adafruit DotStar Library
+
+### Note: Concerns with Logic Levels
+
+* Many existing Arduino boards are powered with 5v
+
+chipKIT boards are all 3.3v
+
+chipKIT boards are not all 5v tolerant
+
+* Many new Arduino shields are 3.3v
+
+* 5v boards cannot always be triggered by 3.3v logic
+
+* Sending 5v into a 3.3v input can kill the device
+
+
+## Lab 3: Procedure
+
+* Open up the ‘hellodotstar.ino’ source file from: `C:\MASTERs\20003\arduino\hellodotstar\`
+
+* Put Fubarino Mini in bootloader mode (while holding PRG, press/release RESET)
+
+* Click Upload button in IDE
+
+* After compile/upload complete, click watch LED strip, and examine code 
+
+Press RESET button on FB Mini to see pattern start over again
+
+
 ## Lab 3: Code
 ## Lab 3: Summary
 
@@ -202,57 +261,8 @@ val = map(val, 0,1023,0,255);
 
 **Objective:**
 
-Explore several different example programs that are available within Arduino IDE to manipulate an LED strip and learn about adding external libraries to your sketch
-
-**Simple LED Strip Control**
-
-**Adding Libraries**
-
-**You can use the built in Library Manager to search for and easily add libraries to your Arduino IDE install**
-
-**Some libraries not available in Library Manager yet, need to download zip file from GitHub repo or website**
-
-**Adafruit DotStar Library: We will use this one to control our LED strip**
-
-**Using Libraries**
-
-**Pre-written libraries provide additional functionality**
-
-**If you add hardware to your design, there are often libraries already written to help you make use of the hardware**
-
-**#include &lt;libraryname&gt; ****is all you need to add a library to your sketch**
-
-**chipKIT core includes highly optimized libraries for PIC32**
-
-**Example: Library Manager**
-
-**Adafruit DotStar Library**
-
-**Concerns with Logic Levels**
-
-**Many existing Arduino boards are powered with 5v**
-
-chipKIT boards are all 3.3v
-
-chipKIT boards are not all 5v tolerant
-
-**Many new Arduino shields are 3.3v**
-
-**5v boards cannot always be triggered by 3.3v logic**
-
-**Sending 5v into a 3.3v input can kill the device**
 
 **Lab 3 Procedure**
-
-**Open up the ‘hellodotstar.ino’ source file from: ****C:\MASTERs\20003\arduino\hellodotstar\**
-
-**Put Fubarino Mini in bootloader mode (while holding PRG, press/release RESET)**
-
-**Click Upload button in IDE**
-
-**After compile/upload complete, click watch LED strip, and examine code **
-
-Press RESET button on FB Mini to see pattern start over again
 
 **Lab 3 Code – Control LED**
 
