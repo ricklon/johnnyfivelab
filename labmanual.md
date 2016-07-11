@@ -10,8 +10,18 @@
  * [Lab 6: Firmata and LED Strip]()
  * [Lab 7: DEMO]()
 
+```
+#Lab 2: Serial Communications
+#Lab 3: Sense Analog Read Temperature
+#Lab 4: Control LED Strip
+#Lab 5: Arduino Firmata and Node.js: Read Temperature
+#Lab 6: Firmata and LED Strip
+#Lab 7: DEMO
+```
+
+
 ##Lab 1: Blink LED
-###Lab 1 Procedure**
+###Lab 1 Procedure
 
 *Start up Arduino IDE**
 *Open up the ‘blink.ino’ source file from:  ****   ****C:\MASTERs\20003\arduino\blink\**
