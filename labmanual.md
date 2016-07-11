@@ -80,10 +80,19 @@ void loop() {
 ## Lab 2: Serial Communications
 ### Lab2: Activity:
 
-Communicate with the serial port using the Arduino IDE builtin serial monitor.
+Explore serial data output from chipKIT back to PC over USB, using Arduino IDE Serial Monitor
 
 ### Lab2: Procedure
-* Load the helloserial sketch from the Arduino folder
+
+* Open up the ‘helloserial.ino’ source file from:  `C:\MASTERs\20003\arduino\helloserial\`
+
+* Put Fubarino Mini in bootloader mode (while holding PRG, press/release RESET)
+
+* Click Upload button in IDE
+
+* After compile/upload complete click Serial Monitor button in IDE
+
+* Notice serial output on PC
 
 ### Lab 2: Core Runtime Functions
 
@@ -103,73 +112,49 @@ Serial.read()
 ```
 Read characters from UART
 
-**Lab 2 Activity**
-
-**Objective: **
-
-Explore serial data output from chipKIT back to PC over USB, using Arduino IDE Serial Monitor
-
-**Serial Hello World sketch**
-
-**Lab 2 Procedure**
-
-**Open up the ‘helloserial.ino’ source file from: **** C:\MASTERs\20003\arduino\helloserial\**** **
-
-**Put Fubarino Mini in bootloader mode (while holding PRG, press/release RESET)**
-
-**Click Upload button in IDE**
-
-**After compile/upload complete click Serial Monitor button in IDE**
-
-**Notice serial output on PC**
-
-**Lab 2 Code – Hello World**
-
-**void setup() {**
-
-**  Serial.begin(9600);  //init UART**
-
-**  delay(5000); **
-
-**}**
-
-**void loop() {**
-
-**  Serial.println();**
-
-**  Serial.println("Hello World!");**
-
-**  for (int i = 1; i &lt;= 10; i++) {**
-
-**    Serial.print(" i = ");**
-
-**    Serial.println(i, DEC);**
-
-**  }**
-
-**  delay(5000); //wait five seconds**
-
-**}**
-
-**Lab 2 Summary**
-
-**Print human-readable output to PC over USB using Serial Monitor**
 
 
-#Lab 3: Sense Analog Read Temperature
-###Core Runtime Functions*
+### Lab 2: Code – Hello World
+```c
+void setup() {
+  Serial.begin(9600);  //init UART
+  delay(5000);
+}
 
-```analogRead(pin)```
+void loop() {
+  Serial.println();
+  Serial.println("Hello World!");
+  for (int i = 1; i <= 10; i++) {
+    Serial.print(" i = ");
+    Serial.println(i, DEC);
+  }
+  delay(5000); //wait five seconds
+}
+```
+
+### Lab 2: Summary
+
+Print human-readable output to PC over USB using Serial Monitor.
+
+
+## Lab 3: Sense Analog Read Temperature
+### Lab 3: Activity
+### Lab 3: Core Runtime Functions*
+
+```c
+analogRead(pin)```
 
 Returns A/D converter value for specified pin  
 
-```analogWrite(pin, val)```
+```c
+analogWrite(pin, val)```
 
 Pseudo-analog output using PWM. Sets output duty cycle to specified value
 
-**Example (no lab) – Dim an LED**
+* Example (no lab) – Dim an LED
 
-```int pinLed = 9;   //assume LED on pin 9
+```c
+int pinLed = 9;   //assume LED on pin 9
 int pinPot = A0;  //assume pot on analog 0
 
 void setup() {   //nothing needed*
@@ -177,25 +162,37 @@ void setup() {   //nothing needed*
 
 void loop() {
  int val;
-
  val = analogRead(pinPot);
-
  analogWrite(pinLed, val/(1024/256));
-
  delay(1000);
-
 }
 ```
+This code could as use the map function to scale 10 bit input to 8 bit output:
+```c
+val = map(val, 0,1023,0,255);
+```
+
+## Lab 3: Activity
+## Lab 3: Code
+## Lab 3: Summary
 
 
 
-#Lab 4: Control LED Strip
-#Lab 5: Arduino Firmata and Node.js: Read Temperature
-#Lab 6: Firmata and LED Strip
-#Lab 7: DEMO
+# Lab 4: Control LED Strip
+## Lab 4: Activity
+## Lab 4: Code
+## Lab 4: Summary
 
+# Lab 5: Arduino Firmata and Node.js: Read Temperature
+## Lab 5: Activity
+## Lab 5: Code
+## Lab 5: Summary
 
-
+# Lab 6: Firmata and LED Strip
+## Lab 6: Activity
+## Lab 6: Code
+## Lab 6: Summary
+# Lab 7: DEMO
 
 
 
