@@ -16,7 +16,6 @@
 * Start up Arduino IDE
 * Open up the "blink.ino" source file from:
  `C:\MASTERs\20003\arduino\blink\`
-
 * Connect Fubarino Mini to USB port
 * Put Fubarino Mini in bootloader mode (while holding PRG, press/release RESET)
 * Make sure Menu item Tools --> Port has the correct serial port selected
@@ -39,12 +38,14 @@ digitalRead(pin)
 Reads the state of a digital pin
 
 ```c
-digitalWrite(pin, val)```
+digitalWrite(pin, val)
+```
 
 Sets a digital pin to specified state
 
 ```c
-delay(ms)```
+delay(ms)
+```
 
 Delay for specified number of milliseconds
 
