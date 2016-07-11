@@ -2,12 +2,12 @@
 
 ### Table of Contents
  * [Lab 1: Blink LED](#lab-1-blink-led)
- * [Lab 2: Serial Communications](#Lab-2-Serial-Communications)
- * [Lab 3: Sense Analog Read Temperature]()
- * [Lab 4: Control LED Strip]()
- * [Lab 5: Arduino Firmata and Node.js: Read Temperature]()
- * [Lab 6: Firmata and LED Strip]()
- * [Lab 7: DEMO]()
+ * [Lab 2: Serial Communications](#lab-2-serial-communications)
+ * [Lab 3: Sense Analog Read Temperature](#lab-3-sense-analog-read-temperature)
+ * [Lab 4: Control LED Strip](#lab-4-control-led-strip)
+ * [Lab 5: Arduino Firmata and Node.js: Read Temperature](#lab-5-arduino-firmata-and-nodejs-read-temperature)
+ * [Lab 6: Firmata and LED Strip](#lab-6-firmata-and-led-strip)
+ * [Lab 7: DEMO: Tying It All Together](#lab-7-demo-tying-it-all-together)
 
 
 
