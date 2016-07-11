@@ -37,7 +37,7 @@ This configures the project from scratch and all examples will start from here.
   * Should see blinking LED on board
   * Otherwise, edit "config.js" with text editor and put in correct serial port
 1. Final test
-  * ```node server-io.js``
+  * ```node server-io.js```
   * Open Firefox or Chrome with http://localhost:3000
   * You should see the current temperature. Check the on board LED. Check the LED strip animation.
 
