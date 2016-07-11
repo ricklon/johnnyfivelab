@@ -359,12 +359,94 @@ void loop() {
 
 # Lab 5: Arduino Firmata and Node.js: Read Temperature
 ## Lab 5: Activity
+* Set's the event interval and checks the temperature.
+* Can be modified to only show temperature 'on change'
+
 ## Lab 5: Code
+```c
+var config = require('./config.js');
+var five = require("johnny-five");
+var board = new five.Board({
+    port: config.port
+});
+
+board.on("ready", function() {
+    // Assuming a sensor is attached to pin "A0"
+    this.pinMode(0, five.Pin.ANALOG);
+    this.analogRead(0, function(value) {
+        var celsiusValue = value * 330 / 1024;
+        var farenValue = celsiusValue * 9 / 5 + 32;
+        console.log("Analog: " + value + " , C: " + celsiusValue.toPrecision(3) + ", F: " + farenValue);
+    });
+});
+
+```
 ## Lab 5: Summary
 
 # Lab 6: Firmata and LED Strip
 ## Lab 6: Activity
+* Creates a green led and traverse the led strip.
+* Can be modified for color or more pixels added to animation.
+
 ## Lab 6: Code
+```c
+var config = require('./config.js');
+config.port = "/dev/cu.usbmodem1411";
+var Board = require("firmata");
+var board = new Board(config.port);
+var repl = require('repl');
+
+//var board = new Board({port: "COM15"});
+
+var CK_COMMAND = 0x40;
+var CK_PIXEL_SET = 0x10;
+var CK_PIXEL_SHOW = 0x11;
+var CK_PIXEL_CLEAR = 0x12;
+var CK_PIXEL_BRIGHTNESS = 0x13;
+var PIXEL = 1;
+var PIXEL_MAX = 30;
+var RED = 0;
+var GREEN = 0;
+var BLUE = 0;
+
+repl.start('firmata>').context.board = board;
+
+var packColor = function(red, green, blue) {
+    red &= 0xFF;
+    green &= 0xFF;
+    blue &= 0xFF;
+    var b1 = red >> 1;
+    var b2 = ((red & 0x01) << 6) | (green >> 2);
+    var b3 = ((green & 0x03) << 5) | (blue >> 3);
+    var b4 = (blue & 0x07) << 4;
+    var data = [b1, b2, b3, b4];
+    console.log(data);
+    return data;
+};
+
+board.on('ready', function() {
+    console.log("START STRIP");
+    // board.sysexCommand([CK_COMMAND, CK_PIXEL_CLEAR]);
+    // board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
+    // board.sysexCommand([CK_COMMAND]);
+
+    setInterval(function() {
+        board.sysexCommand([CK_COMMAND, CK_PIXEL_CLEAR]);
+        board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
+        board.sysexCommand([CK_COMMAND, CK_PIXEL_SET, PIXEL++].concat(packColor(RED, GREEN, BLUE)));
+        board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
+        console.log(PIXEL);
+        if (GREEN < 255) {
+            GREEN++;
+        }
+        if (PIXEL > PIXEL_MAX) {
+            PIXEL = 0;
+        }
+    }, 25);
+});
+
+```
+
 ## Lab 6: Summary
 
 
