@@ -1,7 +1,29 @@
 
-##Project set up
+#Project set up
 
 This configures the project from scratch and all examples will start from here.
+
+##Quick Setup
+
+1. Windows nodejs version 6.x 
+1. Installed 6.x MSI version
+1. Give permissions as requested
+1. Download johnny five lab
+1. Extract lab
+1. Run Nodejs command prompt
+1. cd Downloads/johnnyfivelab-master/johnnyfivelab-master
+1. type: "npm install"
+1. Allow run to completion
+1. Install Arduino as administrator
+1. Need a local editor in addition to Arduino
+1. Run Arduino
+1. Install chipKIT core
+1. Uploaded arduino/standardFirmatachipKITledstrip to Fubarino Mini
+1. Edit blink.js for correct com port. com4 for me.
+1. node blink.js should work
+1. node server-io.js 
+
+##Setup explanation
 
 ###Useful command line commands:
 * mkdir
