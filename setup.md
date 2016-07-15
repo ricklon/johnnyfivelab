@@ -14,7 +14,7 @@ This configures the project from scratch and all examples will start from here.
 1. Extract lab
   * C:\MASTERs\20003
 1. Run Nodejs command prompt
-  * ```cd C:\MASTERs\20003```
+  * ```cd C:\MASTERs\20003\johnnyfivelab-master```
 1. Install the node.js dependencies
   * ```npm install```
 1. Wait for all files to be doownloaded and installed
