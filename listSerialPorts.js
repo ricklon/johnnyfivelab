@@ -15,9 +15,8 @@ serialport.list(function(err, ports) {
     });
     prompt.get(['num'], function(err, result) {
         console.log("Port Selected: %s", ports[result.num].comName);
-        portName = ports[result.num].comName;
-	config.get('port') = portName;
-	fs.writeFile("config",JSON.stringify(config).replace(/\"([^(\")"]+)\":/g,"$1:"), function(err) {
+        cfg = {port : ports[result.num].comName};
+	fs.writeFile("./config/default.json",JSON.stringify(cfg), function(err) {
     if(err) {
         return console.log(err);
     }
