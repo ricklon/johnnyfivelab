@@ -111,7 +111,11 @@ board.on("ready", function(socket) {
         socket.on('temp:setLowAlarm', function(data) {
             LowAlarm = data;
             console.log('Low Alarm for Temperature set: %d', data);
-            //socket.emit('lowalarmset', 'true');
+        });
+        socket.on('temp:setHighAlarm', function(data) {
+            highAlarm = data;
+            console.log('High Alarm for Temperature set: %d', data);
+            //socket.emit('highalarmset', 'true');
         });
         // When the sensor value changes, log the value
         tempSensor.on("change", function(value) {

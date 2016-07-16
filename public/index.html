@@ -177,6 +177,16 @@
                 if (data.curTemp < $scope.temperature.minTemp) {
                     $scope.temperature.minTemp = data.curTemp;
                 }
+                if ($scope.temperature.enableLOW) {
+                    if (data.curTemp < $scope.temperature.lowAlarm) {
+                        console.log("warning temp too low");
+                    }
+                }
+                if ($scope.temperature.enableHIGH) {
+                    if (data.curTemp > $scope.temperature.highAlarm) {
+                        console.log("warning temp too high");
+                    }
+                }
             });
             $scope.color = {
                 red: Math.floor(Math.random() * 255),
@@ -227,10 +237,10 @@
 
             };
             $scope.setLowAlarm = function(data) {
-                socket.emit('temp:setLowAlarm', data);
+                socket.emit('temp:setLowAlarm', $scope.temperature.lowAlarm);
             };
             $scope.setHighAlarm = function(data) {
-                socket.emit('temp:setHighAlarm', data);
+                socket.emit('temp:setHighAlarm', $scope.temperature.highAlarm);
             };
             $scope.temperature = {
                 curTemp: 0,
