@@ -166,13 +166,13 @@
                 $scope.board = data;
                 var green = 255;
                 for (var pixel = 0; pixel < 30; pixel++) {
-                  var data = {
-                      pixel: pixel,
-                      red: 0,
-                      green: green,
-                      blue: 0
-                  }
-                  socket.emit('ledstrip:setpixelcolor', data);
+                    var data = {
+                        pixel: pixel,
+                        red: 0,
+                        green: green,
+                        blue: 0
+                    }
+                    socket.emit('ledstrip:setpixelcolor', data);
                 }
                 socket.emit('ledstrip:show');
                 //console.log("INIT VALUES:" + JSON.stringify(data));
@@ -186,6 +186,20 @@
                 if (data.curTemp < $scope.temperature.minTemp) {
                     $scope.temperature.minTemp = data.curTemp;
                 }
+                if (data.curTemp > $scope.temperature.lowAlarm && data.curTemp < $scope.temperature.highAlarm) {
+                    var green = 255;
+                    for (var pixel = 0; pixel < 30; pixel++) {
+                        var data = {
+                            pixel: pixel,
+                            red: 0,
+                            green: green,
+                            blue: 0
+                        }
+                        socket.emit('ledstrip:setpixelcolor', data);
+                    }
+                    socket.emit('ledstrip:show');
+                }
+
                 if ($scope.temperature.enableLOW) {
                     if (data.curTemp < $scope.temperature.lowAlarm) {
                         socket.emit('ledstrip:alertLOW');
