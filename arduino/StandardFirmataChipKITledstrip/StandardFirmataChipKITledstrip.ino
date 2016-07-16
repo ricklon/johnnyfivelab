@@ -37,6 +37,8 @@
 #define CK_PIXEL_SHOW 0x11
 #define CK_PIXEL_CLEAR 0x12
 #define CK_PIXEL_BRIGHTNESS 0x13
+#define CK_PIXEL_ALERT_HIGH 0x14
+#define CK_PIXEL_ALERT_LOW 0x15
 
 #define NUMPIXELS 30 // Number of LEDs in strip
 #define DATAPIN    MISO //27
@@ -44,6 +46,7 @@
 #define RED  0xFF0000
 #define GREEN  0x00FF00
 #define BLUE  0x0000FF
+#define ICEBLUE 0x000055
 
 #define I2C_WRITE                   B00000000
 #define I2C_READ                    B00001000
@@ -255,22 +258,25 @@ void dotstarHello() {
   }
   strip.show();
 }
-//----------------------------------------------------------------
-/*
-
-
-  void dotstarShow() {
-  strip.show();
-  }
-
-  void dotstarClear() {
+void dotstarAlertHigh() {
   strip.clear();
+  uint32_t frame[NUMPIXELS];
+  for (int ii = 0; ii < NUMPIXELS; ii++) {
+    frame[ii] = RED; //initialize all to RED
+    strip.setPixelColor(ii, frame[ii]);
   }
+  strip.show();
+}
+void dotstarAlertLow() {
+  strip.clear();
+  uint32_t frame[NUMPIXELS];
+  for (int ii = 0; ii < NUMPIXELS; ii++) {
+    frame[ii] = ICEBLUE; //initialize all to ICEBLUE
+    strip.setPixelColor(ii, frame[ii]);
+  }
+  strip.show();
+}
 
-  void dotstarSetPixel(uint16_t pixel, uint32_t color) {
-  strip.setPixelColor(pixel, color);
-  }
-*/
 
 // -----------------------------------------------------------------------------
 /* Sets a pin that is in Servo mode to a particular output value
@@ -477,6 +483,12 @@ void ckCommand(byte command, byte argc, byte* argv) {
         strip.setPixelColor(pixel, r, g, b);
       }
       break;
+      case CK_PIXEL_ALERT_LOW:
+        dotstarAlertLow();
+        break;
+      case CK_PIXEL_ALERT_HIGH:
+        dotstarAlertHigh();
+        break;
   }
 }
 
