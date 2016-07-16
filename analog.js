@@ -1,6 +1,6 @@
-var config = require('./config.js');
+var config = require('config');
 var five = require("johnny-five");
-var board = new five.Board({port: config.port});
+var board = new five.Board({port: config.get('port')});
 var A0 = 0; //The analogRead() funciton doesn't support the A0 default
 
 board.on("ready", function() {

@@ -1,6 +1,6 @@
-var config = require('./config.json');
+var config = require('config');
 var Board = require("firmata");
-var board = new Board(config.port);
+var board = new Board(config.get('port'));
 var repl = require('repl');
 
 //var board = new Board({port: "COM15"});

@@ -1,4 +1,4 @@
-var config = require('./config.js');
+var config = require('config');
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
@@ -6,7 +6,7 @@ var io = require('socket.io')(server);
 
 var five = require("johnny-five");
 var board = new five.Board({
-    port: config.port
+    port: config.get('port')
 });
 var socket;
 var Ledstrip = require("./ledstrip.js");

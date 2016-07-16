@@ -1,4 +1,4 @@
-var config = require('./config.js');
+var config = require('config');
 var express = require('express');
 var app = express();
 var five = require("johnny-five");
@@ -8,7 +8,8 @@ var tempValue;
 var btnStatus;
 var PIN_LED1 = 1;
 var PIN_BTN1 = 16;
-var board = new five.Board({port: config.port});var button;
+var board = new five.Board({port: config.get('port')});
+var button;
 
 board.on("ready", function() {
     led = new five.Led(PIN_LED1);
@@ -42,7 +43,7 @@ board.on("ready", function() {
     });
     // When the sensor value changes, log the value
     temp.on("change", function(value) {
-        tempvalue = value * 330 / 1024);
+        tempvalue = value * 330 / 1024;
         console.log(value * 330 / 1024);
     });
     console.log("Board is Ready!");

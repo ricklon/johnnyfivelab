@@ -366,10 +366,10 @@ void loop() {
 
 ## Lab 5: Code
 ```c
-var config = require('./config.js');
+var config = require('config');
 var five = require("johnny-five");
 var board = new five.Board({
-    port: config.port
+    port: config.get('port')
 });
 
 board.on("ready", function() {
@@ -394,10 +394,10 @@ board.on("ready", function() {
 
 ## Lab 6: Code
 ```c
-var config = require('./config.js');
-config.port = "/dev/cu.usbmodem1411";
+var config = require('config');
+config.get('port') = "/dev/cu.usbmodem1411";
 var Board = require("firmata");
-var board = new Board(config.port);
+var board = new Board(config.get('port'));
 var repl = require('repl');
 
 //var board = new Board({port: "COM15"});

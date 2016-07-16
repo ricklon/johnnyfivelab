@@ -1,7 +1,8 @@
-var config = require('./config.js');
-config.port = "/dev/cu.usbmodem1411";
+var config = require('config');
+port = config.get('port');
+console.log("port: "+port);
 var Board = require("firmata");
-var board = new Board(config.port);
+var board = new Board(port);
 var repl = require('repl');
 
 //var board = new Board({port: "COM15"});
