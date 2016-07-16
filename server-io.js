@@ -15,6 +15,7 @@ var ledstrip = new Ledstrip(board);
 var button;
 var led;
 var temp;
+var tempVoltage;
 var tempValue;
 var tempSensor;
 var btnStatus;
@@ -114,7 +115,8 @@ board.on("ready", function(socket) {
         });
         // When the sensor value changes, log the value
         tempSensor.on("change", function(value) {
-            var celsiusValue = value * 330 / 1024;
+            var tempVoltage =  value * 3300 / 1024;
+            var celsiusValue = (voltage - 500) / 10;
             var farenValue = celsiusValue * 9 / 5 + 32;
             console.log("Analog: " + value + " , C: " + celsiusValue.toPrecision(3) + ", F: " + farenValue);
             socket.emit('sendTemp', {
@@ -122,7 +124,7 @@ board.on("ready", function(socket) {
             });
         });
         socket.emit('init', {
-            curTemp: tempValue * 330 / 1024 * 9 / 5 + 32,
+            curTemp: ((tempValue * 3300 / 1024) - 500/10) * 9 / 5 + 32,
             board: board.io
         });
         socket.on('disconnect', function() {
