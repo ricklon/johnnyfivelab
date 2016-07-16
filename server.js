@@ -4,7 +4,7 @@ var app = express();
 var five = require("johnny-five");
 var led;
 var temp;
-var tempValue;
+var tempVoltage;
 var btnStatus;
 var PIN_LED1 = 1;
 var PIN_BTN1 = 16;
@@ -43,8 +43,8 @@ board.on("ready", function() {
     });
     // When the sensor value changes, log the value
     temp.on("change", function(value) {
-        tempvalue = value * 330 / 1024;
-        console.log(value * 330 / 1024);
+        tempVoltage = value * 3300 / 1024;
+        console.log(value * 3300 / 1024);
     });
     console.log("Board is Ready!");
 });
