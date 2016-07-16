@@ -29,7 +29,7 @@ Ledstrip = function(board) {
     /*
      * Configure sysex access to led strip.
      */
-     
+
     Ledstrip.prototype.hello = function() {
         board.sysexCommand([CK_COMMAND]);
         console.log("ledstrip hello");
@@ -48,10 +48,12 @@ Ledstrip = function(board) {
     };
     Ledstrip.prototype.alertLOW = function() {
         board.sysexCommand([CK_COMMAND, CK_PIXEL_ALERT_LOW]);
+        board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
         console.log("ledstrip alert low");
     };
     Ledstrip.prototype.alertHIGH = function() {
         board.sysexCommand([CK_COMMAND, CK_PIXEL_ALERT_HIGH]);
+        board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
         console.log("ledstrip alert high");
     };
 };

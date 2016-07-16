@@ -117,6 +117,14 @@ board.on("ready", function(socket) {
             console.log('High Alarm for Temperature set: %d', data);
             //socket.emit('highalarmset', 'true');
         });
+        socket.on('ledstrip:alertLOW', function() {
+            ledstrip.alertLOW();
+            console.log('Alert: Low Alarm');
+        });
+        socket.on('ledstrip:alertHIGH', function() {
+            ledstrip.alertHIGH();
+            console.log('Alert: High Alarm');
+        });
         // When the sensor value changes, log the value
         tempSensor.on("change", function(value) {
             var tempVoltage =  value * 3300 / 1024;

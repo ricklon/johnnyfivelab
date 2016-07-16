@@ -147,12 +147,10 @@
     <script type="text/javascript">
         var app = angular.module('chipKITApp', ['btford.socket-io', 'ngMaterial', 'ngJsonExplorer']).
         config(function($mdThemingProvider) {
-
             var rgbMap = $mdThemingProvider.extendPalette('green', {
                 'A100': '#ff0000',
                 'A200': '#00ff00',
                 'A300': '#0000ff'
-
             });
             $mdThemingProvider.definePalette('rgb', rgbMap);
             $mdThemingProvider.theme('default')
@@ -166,6 +164,17 @@
             socket.on('init', function(data) {
                 $scope.temperature.curTemp = data.curTemp;
                 $scope.board = data;
+                var green = 255;
+                for (var pixel = 0; pixel < 30; pixel++) {
+                  var data = {
+                      pixel: pixel,
+                      red: 0,
+                      green: green,
+                      blue: 0
+                  }
+                  socket.emit('ledstrip:setpixelcolor', data);
+                }
+                socket.emit('ledstrip:show');
                 //console.log("INIT VALUES:" + JSON.stringify(data));
             });
             socket.on('sendTemp', function(data) {
@@ -179,14 +188,19 @@
                 }
                 if ($scope.temperature.enableLOW) {
                     if (data.curTemp < $scope.temperature.lowAlarm) {
+                        socket.emit('ledstrip:alertLOW');
                         console.log("warning temp too low");
+                        return;
                     }
                 }
                 if ($scope.temperature.enableHIGH) {
                     if (data.curTemp > $scope.temperature.highAlarm) {
+                        socket.emit('ledstrip:alertHIGH');
                         console.log("warning temp too high");
+                        return;
                     }
                 }
+
             });
             $scope.color = {
                 red: Math.floor(Math.random() * 255),
