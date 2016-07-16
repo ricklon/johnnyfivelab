@@ -36,33 +36,41 @@
                         <div>Alarm Low Temp:{{temperature.lowAlarm}}</div>
                         <div>Alarm High Temp:{{temperature.highAlarm}}</div>
                     </div>
-                    <form layout layout-align="center" layout-padding>
+                    <md-divider></md-divider>
+                    <br />
+                    <form layout="column" layout-align="center" layout-padding>
                         <div layout="row" flex>
+                            <md-button ng-click="setLowAlarm()" class="md-raised md-primary">Set
+                            </md-button>
 
-                            <md-input-container flex class="md-icon-float md-block md-title">
+                            <md-input-container flex="40" class="md-icon-float md-block md-title">
                                 <label>Low Alarm Value</label>
-                                <input type="number">{{temperature.lowAlarm}}</input>
+                                <input type="number" maxlength="4" ng-model="temperature.lowAlarm" ng-disabled="!temperature.enableLOW"> {{temperature.lowAlarm}}
+                                </input>
                             </md-input-container>
+                            <md-input-container>
+                                <md-switch ng-model="temperature.enableLOW" aria-label="enable low">
+                                    <!--Enable: {{ temperature.enableLOW }}-->
+                                </md-switch>
+                            </md-input-container>
+
                         </div>
                         <div layout="row" flex>
-                            <md-button ng-click="setLowAlarm()" class="md-rasied">Set
+                            <md-button ng-click="setHighAlarm()" class="md-raised md-primary">Set
                             </md-button>
-                            <md-switch ng-model="temperature.enableLOW" aria-label="enable low" enable: {{ temperature.enableLOW }} </md-switch>
-                        </div>
-                    </form>
-                    <form layout layout-align="center" layout-padding>
-                        <div layout="row" flex>
-                            <md-input-container flex class="md-icon-float md-block md-title">
+
+                            <md-input-container flex="40" class="md-icon-float md-block md-title">
                                 <label>High Alarm Value</label>
-                                <input type="number">{{temperature.highAlarm}}</input>
+                                <input type="number" maxlength="4" ng-model="temperature.highAlarm" ng-disabled="!temperature.enableHIGH"> {{temperature.highAlarm}}
+                                </input>
+                            </md-input-container>
+                            <md-input-container>
+                                <md-switch ng-model="temperature.enableHIGH" aria-label="enable high">
+                                    <!--Enable: {{ emperature.enableHIGH }}-->
+                                </md-switch>
                             </md-input-container>
                         </div>
-                        <div layout="row" flex>
-                            <md-button ng-click="setHighAlarm()" class="md-rasied">Set
-                            </md-button>
-                            <md-switch ng-model="temperature.enableHIGH" aria-label="enable high">
-                            </md-switch>
-                        </div>
+
                     </form>
 
                 </md-content>
@@ -118,7 +126,7 @@
 
                     <md-slider-container>
                         <span class="md-body-1">Blue</span>
-                        <md-slider  flex class="md-primary" ng-model="color.blue" ng-change="updateColor()" min="0" max="255" aria-label="blue" id="blue-slider">
+                        <md-slider flex class="md-primary" ng-model="color.blue" ng-change="updateColor()" min="0" max="255" aria-label="blue" id="blue-slider">
                         </md-slider>
                         <md-input-container>
                             <input flex type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider">
@@ -146,8 +154,8 @@
                 'A300': '#0000ff'
 
             });
-        $mdThemingProvider.definePalette('rgb', rgbMap);
-        $mdThemingProvider.theme('default')
+            $mdThemingProvider.definePalette('rgb', rgbMap);
+            $mdThemingProvider.theme('default')
                 .primaryPalette('indigo')
                 .accentPalette('rgb');
         }).
