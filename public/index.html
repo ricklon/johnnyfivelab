@@ -86,10 +86,32 @@
             <md-tab label="LED Commands">
                 <md-content class="md-padding">
                     <h2 class="md-display-2">Ledstrip Commands</h2>
-                    <button ng-click="clear()">clear()</button>
-                    <button ng-click="show()">show()</button>
-                    <button ng-click="ledstriphello()">ledstriphello()</button>
-                    <button ng-click="ledstripsetpixelcolor(3, 255, 255, 255)">ledstripsetpixel()</button>
+                    <button ng-click="clear()">clear()</button><br />
+                    <button ng-click="show()">show()</button><br />
+                    <button ng-click="ledstriphello()">ledstriphello()</button>Automatic: clear() and show()<br />
+                    <button ng-click="updatePixels(3, 255, 255, 255)">updatePixels()</button>Automatic: clear() and show()<br />
+                    <form>
+                      <button  ng-model="ledstrip" ng-click="updatePixel(ledstrip)">
+                        updatePixel(pixel, red, green, blue)</button> Automatic: show() does not clear.
+
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm="" >
+                                <label>Pixel:</label>
+                                <input ng-model="ledstrip.pixel" md-maxlength="3" required>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm="" >
+                                <label>Red:</label>
+                                <input ng-model="ledstrip.red" md-maxlength="3" required>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm="" >
+                                <label>Green:</label>
+                                <input ng-model="ledstrip.green" md-maxlength="3" required>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm="" >
+                                <label>Blue:</label>
+                                <input ng-model="ledstrip.blue" md-maxlength="3" required>
+                            </md-input-container>
+                    </form>
                 </md-content>
             </md-tab>
 
@@ -138,58 +160,33 @@
                 <md-content class="md-padding">
                     <h2 class="md-display-2">Fubarino Mini -- Board Config</h2>
                     <json-explorer json-data="board"></json-explorer>
-                    <json-explorer json-data="board"></json-explorer>
-                    <json-explorer data="board"></json-explorer>
                 </md-content>
             </md-tab>
         </md-tabs>
-    </div>
-    <script type="text/javascript">
-        var app = angular.module('chipKITApp', ['btford.socket-io', 'ngMaterial', 'ngJsonExplorer']).
-        config(function($mdThemingProvider) {
-            var rgbMap = $mdThemingProvider.extendPalette('green', {
-                'A100': '#ff0000',
-                'A200': '#00ff00',
-                'A300': '#0000ff'
-            });
-            $mdThemingProvider.definePalette('rgb', rgbMap);
-            $mdThemingProvider.theme('default')
-                .primaryPalette('indigo')
-                .accentPalette('rgb');
-        }).
-        factory('socket', function(socketFactory) {
-            return socketFactory();
-        }).
-        controller('ArduController', function($scope, socket) {
-            socket.on('init', function(data) {
-                $scope.temperature.curTemp = data.curTemp;
-                $scope.board = data;
-                var green = 255;
-                for (var pixel = 0; pixel < 30; pixel++) {
-                    var data = {
-                        pixel: pixel,
-                        red: 0,
-                        green: green,
-                        blue: 0
-                    }
-                    socket.emit('ledstrip:setpixelcolor', data);
-                }
-                socket.emit('ledstrip:show');
-                //console.log("INIT VALUES:" + JSON.stringify(data));
-            });
-            socket.on('sendTemp', function(data) {
-                console.log("RECEIVED temp:", data.curTemp);
-                $scope.temperature.curTemp = data.curTemp;
-                if (data.curTemp > $scope.temperature.maxTemp) {
-                    $scope.temperature.maxTemp = data.curTemp;
-                }
-                if (data.curTemp < $scope.temperature.minTemp) {
-                    $scope.temperature.minTemp = data.curTemp;
-                }
-                if (data.curTemp > $scope.temperature.lowAlarm && data.curTemp < $scope.temperature.highAlarm) {
+        </div>
+        <script type="text/javascript">
+            var app = angular.module('chipKITApp', ['btford.socket-io', 'ngMaterial', 'ngJsonExplorer']).
+            config(function($mdThemingProvider) {
+                var rgbMap = $mdThemingProvider.extendPalette('green', {
+                    'A100': '#ff0000',
+                    'A200': '#00ff00',
+                    'A300': '#0000ff'
+                });
+                $mdThemingProvider.definePalette('rgb', rgbMap);
+                $mdThemingProvider.theme('default')
+                    .primaryPalette('indigo')
+                    .accentPalette('rgb');
+            }).
+            factory('socket', function(socketFactory) {
+                return socketFactory();
+            }).
+            controller('ArduController', function($scope, socket) {
+                socket.on('init', function(data) {
+                    $scope.temperature.curTemp = data.curTemp;
+                    $scope.board = data;
                     var green = 255;
                     for (var pixel = 0; pixel < 30; pixel++) {
-                        var data = {
+                        let data = {
                             pixel: pixel,
                             red: 0,
                             green: green,
@@ -198,89 +195,130 @@
                         socket.emit('ledstrip:setpixelcolor', data);
                     }
                     socket.emit('ledstrip:show');
-                }
-
-                if ($scope.temperature.enableLOW) {
-                    if (data.curTemp < $scope.temperature.lowAlarm) {
-                        socket.emit('ledstrip:alertLOW');
-                        console.log("warning temp too low");
-                        return;
+                    //console.log("INIT VALUES:" + JSON.stringify(data));
+                });
+                socket.on('sendTemp', function(data) {
+                    console.log("RECEIVED temp:", data.curTemp);
+                    $scope.temperature.curTemp = data.curTemp;
+                    if (data.curTemp > $scope.temperature.maxTemp) {
+                        $scope.temperature.maxTemp = data.curTemp;
                     }
-                }
-                if ($scope.temperature.enableHIGH) {
-                    if (data.curTemp > $scope.temperature.highAlarm) {
-                        socket.emit('ledstrip:alertHIGH');
-                        console.log("warning temp too high");
-                        return;
+                    if (data.curTemp < $scope.temperature.minTemp) {
+                        $scope.temperature.minTemp = data.curTemp;
                     }
-                }
+                    if (data.curTemp > $scope.temperature.lowAlarm && data.curTemp < $scope.temperature.highAlarm) {
+                        var green = 255;
+                        for (var pixel = 0; pixel < 30; pixel++) {
+                            let data = {
+                                pixel: pixel,
+                                red: 0,
+                                green: green,
+                                blue: 0
+                            }
+                            socket.emit('ledstrip:setpixelcolor', data);
+                        }
+                        socket.emit('ledstrip:show');
+                    }
 
+                    if ($scope.temperature.enableLOW) {
+                        if (data.curTemp < $scope.temperature.lowAlarm) {
+                            socket.emit('ledstrip:alertLOW');
+                            console.log("warning temp too low");
+                            return;
+                        }
+                    }
+                    if ($scope.temperature.enableHIGH) {
+                        if (data.curTemp > $scope.temperature.highAlarm) {
+                            socket.emit('ledstrip:alertHIGH');
+                            console.log("warning temp too high");
+                            return;
+                        }
+                    }
+
+                });
+                $scope.color = {
+                    red: Math.floor(Math.random() * 255),
+                    green: Math.floor(Math.random() * 255),
+                    blue: Math.floor(Math.random() * 255)
+                };
+                $scope.ledOn = function() {
+                    socket.emit('led:on');
+                    console.log('LED ON');
+                };
+                $scope.ledOff = function() {
+                    socket.emit('led:off');
+                    console.log('LED OFF');
+                };
+                $scope.clear = function() {
+                    socket.emit('ledstrip:clear');
+                    console.log('LED STRIP CLEAR');
+                };
+                $scope.show = function() {
+                    socket.emit('ledstrip:show');
+                    console.log('LED STRIP SHOW');
+                };
+                $scope.ledstriphello = function() {
+                    socket.emit('ledstrip:hello');
+                    console.log('LED STRIP HELLO');
+                };
+                $scope.updateColor = function(cc) {
+                    let data = {
+                        pixel: $scope.pix,
+                        red: $scope.color.red,
+                        green: $scope.color.green,
+                        blue: $scope.color.blue
+                    }
+                    socket.emit('ledstrip:setpixelcolor', data);
+                    socket.emit('ledstrip:show');
+
+                };
+                $scope.updatePixel = function(data) {
+                  console.log("update pixel");
+                    let ledstrip = {
+                        pixel: data.pixel,
+                        red: data.red,
+                        green: data.green,
+                        blue: data.blue
+                    }
+                    socket.emit('ledstrip:setpixelcolor', ledstrip);
+                    socket.emit('ledstrip:show');
+
+                };
+                $scope.updatePixels = function(pixels) {
+                    let data = {
+                        pixel: pixels,
+                        red: $scope.color.red,
+                        green: $scope.color.green,
+                        blue: $scope.color.blue
+                    }
+                    socket.emit('ledstrip:clear');
+                    socket.emit('ledstrip:setpixelcolor', data);
+                    socket.emit('ledstrip:show');
+
+                };
+                $scope.setLowAlarm = function(data) {
+                    socket.emit('temp:setLowAlarm', $scope.temperature.lowAlarm);
+                };
+                $scope.setHighAlarm = function(data) {
+                    socket.emit('temp:setHighAlarm', $scope.temperature.highAlarm);
+                };
+                $scope.ledstrip = {
+                  pixel: 0,
+                  red: 0,
+                  green: 0,
+                  blue: 0
+                }
+                $scope.temperature = {
+                    curTemp: 0,
+                    highAlarm: 0,
+                    lowAlarm: 0,
+                    minTemp: 10000,
+                    maxTemp: 0,
+                    enableLOW: false,
+                    enableHIGH: false
+                };
             });
-            $scope.color = {
-                red: Math.floor(Math.random() * 255),
-                green: Math.floor(Math.random() * 255),
-                blue: Math.floor(Math.random() * 255)
-            };
-            $scope.ledOn = function() {
-                socket.emit('led:on');
-                console.log('LED ON');
-            };
-            $scope.ledOff = function() {
-                socket.emit('led:off');
-                console.log('LED OFF');
-            };
-            $scope.clear = function() {
-                socket.emit('ledstrip:clear');
-                console.log('LED STRIP CLEAR');
-            };
-            $scope.show = function() {
-                socket.emit('ledstrip:show');
-                console.log('LED STRIP SHOW');
-            };
-            $scope.ledstriphello = function() {
-                socket.emit('ledstrip:hello');
-                console.log('LED STRIP HELLO');
-            };
-            $scope.updateColor = function(cc) {
-                var data = {
-                    pixel: $scope.pix,
-                    red: $scope.color.red,
-                    green: $scope.color.green,
-                    blue: $scope.color.blue
-                }
-                socket.emit('ledstrip:setpixelcolor', data);
-                socket.emit('ledstrip:show');
-
-            };
-            $scope.updatePixels = function(pixels) {
-                var data = {
-                    pixel: pixels,
-                    red: $scope.color.red,
-                    green: $scope.color.green,
-                    blue: $scope.color.blue
-                }
-                socket.emit('ledstrip:clear');
-                socket.emit('ledstrip:setpixelcolor', data);
-                socket.emit('ledstrip:show');
-
-            };
-            $scope.setLowAlarm = function(data) {
-                socket.emit('temp:setLowAlarm', $scope.temperature.lowAlarm);
-            };
-            $scope.setHighAlarm = function(data) {
-                socket.emit('temp:setHighAlarm', $scope.temperature.highAlarm);
-            };
-            $scope.temperature = {
-                curTemp: 0,
-                highAlarm: 0,
-                lowAlarm: 0,
-                minTemp: 10000,
-                maxTemp: 0,
-                enableLOW: false,
-                enableHIGH: false
-            };
-        });
-    </script>
+        </script>
 </body>
 
 </html>
