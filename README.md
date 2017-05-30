@@ -1,4 +1,11 @@
-20003 chipKIT Masters workshop.
+# 20003 chipKIT Masters workshop.
+
+## TODO
+[] Freshen node version and module dependencies
+[] Update to use yarn
+[] Update to use webpack
+[] Add documentation for why yarn and webpack
+[] What changed since last year
 
 ##Setup instructions
 * [Quick Setup](../master/setup.md)
