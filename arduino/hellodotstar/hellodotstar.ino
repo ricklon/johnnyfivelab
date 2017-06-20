@@ -1,8 +1,6 @@
 #include <Adafruit_DotStar.h>
 #include <SPI.h>
 
-#define DATAPIN    MISO
-#define CLOCKPIN   MOSI
 #define NUMPIXELS    30  // Number of LEDs in strip
 
 #define RED    0xFF0000
@@ -11,13 +9,12 @@
 #define WHITE  0xFFFFFF
 
 uint32_t frame[NUMPIXELS];
-uint32_t colors[3] = {RED, GREEN, BLUE };
+uint32_t colors[3] = {RED, GREEN, BLUE};
 
-Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DATAPIN, CLOCKPIN, DOTSTAR_BGR);
+Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DOTSTAR_BGR);
 
 void setup() {
   strip.begin(); // Initialize pins for output
-  strip.show();  // Turn all LEDs off ASAP
 
   //initialize strip array
   for (int i = 0; i < NUMPIXELS; i++) {
@@ -25,7 +22,7 @@ void setup() {
     strip.setPixelColor(i, frame[i]);
   }
   strip.show();
-  delay(5000);
+  delay(1000);
   //initialize strip array
   for (int i = 0; i < NUMPIXELS; i++) {
     frame[i] = GREEN; //initialize all to GREEN
