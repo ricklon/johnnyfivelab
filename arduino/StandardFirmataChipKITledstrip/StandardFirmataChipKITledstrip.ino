@@ -41,8 +41,6 @@
 #define CK_PIXEL_ALERT_LOW 0x15
 
 #define NUMPIXELS 30 // Number of LEDs in strip
-#define DATAPIN    3 //3
-#define CLOCKPIN   18 //18
 #define RED  0xFF0000
 #define GREEN  0x00FF00
 #define BLUE  0x0000FF

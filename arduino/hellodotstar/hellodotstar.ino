@@ -1,8 +1,6 @@
 #include <Adafruit_DotStar.h>
 #include <SPI.h>
 
-#define DATAPIN    MISO
-#define CLOCKPIN   MOSI
 #define NUMPIXELS    30  // Number of LEDs in strip
 
 #define RED    0xFF0000
@@ -12,7 +10,7 @@
 uint32_t frame[NUMPIXELS];
 uint32_t colors[3] = {RED, GREEN, BLUE };
 
-Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DATAPIN, CLOCKPIN, DOTSTAR_BGR);
+Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DOTSTAR_BGR);
 
 void setup() {
   strip.begin(); // Initialize pins for output
