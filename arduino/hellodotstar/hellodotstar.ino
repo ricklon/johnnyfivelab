@@ -1,71 +1,86 @@
 #include <Adafruit_DotStar.h>
 #include <SPI.h>
 
-// Number of LEDs in strip
-#define NUMPIXELS    30  
+#define DATAPIN    MISO
+#define CLOCKPIN   MOSI
+#define NUMPIXELS    30  // Number of LEDs in strip
+
 #define RED    0xFF0000
 #define GREEN  0x00FF00
 #define BLUE   0x0000FF
-#define WHITE  0xFFFFFF
-#define BLACK  0x000000
 
 uint32_t frame[NUMPIXELS];
-uint32_t colors[] = 
-  {RED, GREEN, BLUE, WHITE, BLACK};
+uint32_t colors[3] = {RED, GREEN, BLUE };
 
-Adafruit_DotStar strip = 
-  Adafruit_DotStar(NUMPIXELS, DOTSTAR_BGR);
+Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DATAPIN, CLOCKPIN, DOTSTAR_BGR);
 
 void setup() {
   strip.begin(); // Initialize pins for output
+  strip.show();  // Turn all LEDs off ASAP
 
-  // Write all LEDs to be red
+  //initialize strip array
   for (int i = 0; i < NUMPIXELS; i++) {
-    strip.setPixelColor(i, RED);
+    frame[i] = RED; //initialize all to red
+    strip.setPixelColor(i, frame[i]);
   }
   strip.show();
   delay(1000);
-  // Write all LEDs to be green
+  //initialize strip array
   for (int i = 0; i < NUMPIXELS; i++) {
-    strip.setPixelColor(i, GREEN);
+    frame[i] = GREEN; //initialize all to GREEN
+    strip.setPixelColor(i, frame[i]);
   }
   strip.show();
   delay(1000);
-  // Write all LEDs to be blue
+  //initialize strip array
   for (int i = 0; i < NUMPIXELS; i++) {
-    strip.setPixelColor(i, BLUE);
+    frame[i] = BLUE; //initialize all to BLUE
+    strip.setPixelColor(i, frame[i]);
   }
   strip.show();
   delay(1000);
 }
+
 void loop() {
-  // and so on . . . 
-
-  
-  // Start off with LEDs set to random colors
-  for (int i = 0; i < NUMPIXELS; i++) {
-    frame[i] = colors[random(3)];   // Save the color in the frame
-  }
-  DisplayFrame(frame);
-
-  // Slowly clear the strip, one LED at a time
-  for (int j = 0; j <= NUMPIXELS - 1; j++)
-  {
-    // Slide all colors down one LED
-    for (int i = 0; i <= NUMPIXELS - 1; i++) {
-      frame[i] = frame[i+1];
+  /*
+    for (int ii = 0; ii < NUMPIXELS; ii++) {
+     frame[ii] = colors[ii % 3]; //initialize all to red
+     strip.setPixelColor(ii, frame[ii]);
     }
-    frame[NUMPIXELS-1] = BLACK;
-    DisplayFrame(frame);
-    delay(50);
-  }
-}
+    strip.show();
+  */
 
-// Put a frame's worth of colors out on the LED strip
-void DisplayFrame(uint32_t * NewFrame) {
-  for (int i = 0; i < NUMPIXELS; i++) {
-    strip.setPixelColor(i, NewFrame[i]);
+  for (int i = 0; i <= NUMPIXELS; i++) {
+    if (i == 0) {
+      frame[i] = 0xFFFFFF;
+      strip.setPixelColor(i, frame[i]);
+      strip.show();
+      delay(100);
+    }
+    else {
+      frame[i - 1] = 0x000000;
+      frame[i] = 0xFFFFFF;
+      strip.setPixelColor(i - 1, frame[i - 1]);
+      strip.setPixelColor(i, frame[i]);
+      strip.show();
+      delay(100);
+    }
+
+    for (int i = NUMPIXELS; i < 0; i--) {
+      if (i == 30) {
+        frame[i] = 0xFFFFFF;
+        strip.setPixelColor(i, frame[i]);
+        strip.show();
+        delay(100);
+      }
+      else {
+        frame[i + 1] = 0x000000;
+        frame[i] = 0xFFFFFF;
+        strip.setPixelColor(i + 1, frame[i + 1]);
+        strip.setPixelColor(i, frame[i]);
+        strip.show();
+        delay(100);
+      }
+    }
   }
-  strip.show();
 }
- 

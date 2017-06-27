@@ -1,5 +1,6 @@
+var config = require('config');
 var five = require("johnny-five");
-var board = new five.Board({port: "COM15"});
+var board = new five.Board({port: config.get('port')});
 
 
 board.on("ready", function() {
@@ -14,6 +15,6 @@ board.on("ready", function() {
 
   // When the sensor value changes, log the value
   temp.on("change", function(value) {
-    console.log(value*(3300/1024));
+    console.log(value*330/1024);
   });
 });

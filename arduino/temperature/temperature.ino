@@ -1,5 +1,3 @@
-float tempValue;
-
 void setup() {
   Serial.begin(9600);
   delay(5000);
@@ -7,10 +5,10 @@ void setup() {
 }
 
 void loop() {
-  tempValue = analogRead(A0);
-  tempValue = (tempValue * 3.3) / 1024;
-  Serial.print("Temp: ");
-  Serial.println(tempValue);
+  float sensorValue = analogRead(A0);
+  float voltage = sensorValue * (3300 / 1024);
+  float celsius = (voltage - 500) / 10;
+  Serial.print("Celsius: ");
+  Serial.println(celsius);
   delay(250);
 }
-

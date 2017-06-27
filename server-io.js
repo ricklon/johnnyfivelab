@@ -1,28 +1,39 @@
+var config = require('config');
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 var five = require("johnny-five");
+var board = new five.Board({
+    port: config.get('port')
+});
+var socket;
+var Ledstrip = require("./ledstrip.js");
+var ledstrip = new Ledstrip(board);
+
 var button;
 var led;
 var temp;
+var tempVoltage;
 var tempValue;
+var tempSensor;
 var btnStatus;
 var PIN_LED1 = 1; //0
 var PIN_BTN1 = 16; //16
-var board = new five.Board();
-var Ledstrip = require("./ledstrip.js");
-var ledstrip = new Ledstrip(board);
+
 var pixels = 30;
 var pixel_cur = 0;
+var LowAlarm;
+var highAlarm;
 
-board.on("ready", function() {
-  ledstrip.hello();
-  ledstrip.clear();
-  ledstrip.show();
-  ledstrip.setPixelColor();
-  ledstrip.hello();
+
+board.on("ready", function(socket) {
+    ledstrip.hello();
+    ledstrip.clear();
+    ledstrip.show();
+    ledstrip.setPixelColor();
+    ledstrip.hello();
 
     led = new five.Led(PIN_LED1);
     button = new five.Button({
@@ -36,8 +47,8 @@ board.on("ready", function() {
         ledstrip.setPixelColor(pixel_cur++, 255, 0, 0);
         ledstrip.show();
         if (pixel_cur >= 30) {
-          pixel_cur = 0;
-          ledstrip.clear();
+            pixel_cur = 0;
+            ledstrip.clear();
         }
         console.log("down");
     });
@@ -54,57 +65,96 @@ board.on("ready", function() {
         console.log("up");
     });
 
-    temp = new five.Sensor({
+    tempSensor = new five.Sensor({
         pin: "A0",
         freq: 250,
         threshold: 5
     });
-    // When the sensor value changes, log the value
-    temp.on("change", function(value) {
-        tempvalue = value * (3300 / 1024);
-        console.log(value * (3300 / 1024));
+    tempSensor.on("data", function() {
+        tempValue = this.value;
     });
     console.log("Board is Ready!");
+
+    //Socket connection handler
+    //Order matters Init the board and the socket
+    //The Socket resets and you don't want your board to reset too.
+    io.on('connection', function(socket) {
+        console.log(socket.id);
+        socket.on('led:on', function(data) {
+            led.on();
+            console.log('LED ON RECEIVED');
+        });
+        socket.on('led:off', function(data) {
+            led.off();
+            console.log('LED OFF RECEIVED');
+
+        });
+        socket.on('ledstrip:clear', function(data) {
+            ledstrip.clear();
+            console.log('LEDSTRIP CLEAR RECEIVED');
+
+        });
+        socket.on('ledstrip:show', function(data) {
+            ledstrip.show();
+            console.log('LEDSTRIP SHOW RECEIVED');
+
+        });
+        socket.on('ledstrip:hello', function(data) {
+            ledstrip.hello();
+            console.log('LEDSTRIP HELLO RECEIVED');
+
+        });
+        socket.on('ledstrip:setpixelcolor', function(data) {
+            ledstrip.setPixelColor(data.pixel, data.red, data.green, data.blue);
+            console.log('LEDSTRIP SETPIXELCOLOR pixel: %d, red: %d, green: %d, blue: %d', data.pixel, data.red, data.green, data.blue);
+        });
+        socket.on('temp:setLowAlarm', function(data) {
+            LowAlarm = data;
+            console.log('Low Alarm for Temperature set: %d', data);
+        });
+        socket.on('temp:setHighAlarm', function(data) {
+            highAlarm = data;
+            console.log('High Alarm for Temperature set: %d', data);
+            //socket.emit('highalarmset', 'true');
+        });
+        socket.on('ledstrip:alertLOW', function() {
+            ledstrip.alertLOW();
+            console.log('Alert: Low Alarm');
+        });
+        socket.on('ledstrip:alertHIGH', function() {
+            ledstrip.alertHIGH();
+            console.log('Alert: High Alarm');
+        });
+        // When the sensor value changes, log the value
+        tempSensor.on("change", function(value) {
+            var tempVoltage =  value * 3300 / 1024;
+            var celsiusValue = (tempVoltage - 500) / 10;
+            var farenValue = celsiusValue * 9 / 5 + 32;
+            console.log("Analog: " + value + " , C: " + celsiusValue.toPrecision(3) + ", F: " + farenValue);
+            socket.emit('sendTemp', {
+                curTemp: farenValue
+            });
+        });
+        socket.emit('init', {
+            curTemp: ((tempValue * 3300 / 1024) - 500/10) * 9 / 5 + 32,
+            board: board.io
+        });
+        socket.on('disconnect', function() {
+            setTimeout(function() {
+                console.log("Socket.io disconnect");
+            }, 10000);
+        });
+    });
+});
+board.on("close", function() {
+    console.log('BOARD: closed');
 });
 
-//Socket connection handler
-io.on('connection', function(socket) {
-    console.log(socket.id);
-
-    socket.on('led:on', function(data) {
-        led.on();
-        console.log('LED ON RECEIVED');
-    });
-    socket.on('led:off', function(data) {
-        led.off();
-        console.log('LED OFF RECEIVED');
-
-    });
-    socket.on('ledstrip:clear', function(data) {
-      ledstrip.clear();
-        console.log('LEDSTRIP CLEAR RECEIVED');
-
-    });
-    socket.on('ledstrip:show', function(data) {
-      ledstrip.show();
-      console.log('LEDSTRIP SHOW RECEIVED');
-
-    });
-    socket.on('ledstrip:hello', function(data) {
-      ledstrip.hello();
-      console.log('LEDSTRIP HELLO RECEIVED');
-
-    });
-    socket.on('ledstrip:setpixelcolor', function(data) {
-      ledstrip.setPixelColor(data.pixel, data.red, data.green, data.blue);
-      console.log('LEDSTRIP SETPIXELCOLOR pixel: %d, red: %d, green: %d, blue: %d',data.pixel, data.red, data.green, data.blue);
-    });
-});
 
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
-        res.sendFile(__dirname + '/public/index.html');
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 
@@ -129,9 +179,7 @@ app.get('/led/off', function(req, res) {
 app.get('/temp', function(req, res) {
     var val = "not ready";
     if (board.isReady) {
-        val = tempvalue;
-        //res.status(status).send(body);
-        res.send('Temperature:' + val);
+        res.send('Temperature:' + tempValue);
     } else {
         res.status(status).send("Board not ready");
     }
@@ -146,6 +194,7 @@ app.get('/button', function(req, res) {
     }
 });
 
+//server.listen(3000, "0.0.0.0", function() {
 server.listen(3000, function() {
-    console.log('Example app listening on port 3000!');
+    console.log('Listening on: http://localhost:3000');
 });
