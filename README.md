@@ -10,6 +10,14 @@
 ##Setup instructions
 * [Quick Setup](../master/setup.md)
 
+## Upload code to Fubarino_Mini
+
+```
+pio run -e fubarino_mini -t  upl
+oad
+
+```
+
 ##Presentation
 * [Power Point Presentation](https://microchip.box.com/s/3vcrrs3idecakx68nn6wtq8sw1tfbi4m)
 

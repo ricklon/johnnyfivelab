@@ -41,8 +41,8 @@
 #define CK_PIXEL_ALERT_LOW 0x15
 
 #define NUMPIXELS 30 // Number of LEDs in strip
-#define DATAPIN    MISO //27
-#define CLOCKPIN   MOSI //29
+#define DATAPIN    3 //3
+#define CLOCKPIN   18 //18
 #define RED  0xFF0000
 #define GREEN  0x00FF00
 #define BLUE  0x0000FF
@@ -65,7 +65,7 @@
    GLOBAL VARIABLES
   ============================================================================*/
 /* apa102c rgb led strip */
-Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DATAPIN, CLOCKPIN, DOTSTAR_BGR);
+Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS,  DOTSTAR_BGR);
 
 
 /* analog inputs */
