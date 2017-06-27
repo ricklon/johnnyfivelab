@@ -13,29 +13,29 @@
   "author": "Rick Anderson",
   "license": "Apache-2.0",
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "config": "^1.26.1",
-    "ejs": "^2.5.6",
-    "express": "^4.15.3",
-    "firmata": "^0.16.0",
-    "johnny-five": "^0.10.13",
+    "body-parser": "^1.15.1",
+    "ejs": "^2.4.2",
+    "express": "^4.13.4",
+    "firmata": "^0.12.0",
+    "johnny-five": "^0.9.58",
     "prompt": "^1.0.0",
-    "serialport": "^4.0.7",
-    "socket.io": "^2.0.1"
+    "socket.io": "^1.4.6"
   },
   "devDependencies": {
-    "del": "^2.2.2",
+    "del": "^2.2.0",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.0.0",
-    "gulp-cache": "^0.4.6",
-    "gulp-concat": "^2.6.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-cache": "^0.4.5",
+    "gulp-concat": "^2.6.0",
     "gulp-cssnano": "^2.1.2",
-    "gulp-imagemin": "^3.2.0",
-    "gulp-jshint": "^2.0.4",
-    "gulp-notify": "^3.0.0",
+    "gulp-imagemin": "^3.0.1",
+    "gulp-jshint": "^2.0.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
-    "gulp-ruby-sass": "^2.1.1",
-    "gulp-uglify": "^3.0.0",
-    "jshint": "^2.9.4"
+    "gulp-ruby-sass": "^2.0.6",
+    "gulp-uglify": "^1.5.3",
+    "jshint": "^2.9.2",
+    "l": "0.0.1"
   }
 }

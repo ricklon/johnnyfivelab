@@ -1,7 +1,6 @@
-var config = require('config');
 var five = require("johnny-five");
-var board = new five.Board({port: config.get('port')});
-var PIN_LED1 = 21; //0
+var board = new five.Board({port: "COM12"});
+var PIN_LED1 = 1; //0
 
 board.on("ready", function() {
   // Create an Led on pin 0

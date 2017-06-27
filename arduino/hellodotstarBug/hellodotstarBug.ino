@@ -1,8 +1,8 @@
 #include <Adafruit_DotStar.h>
 #include <SPI.h>
 
-// Number of LEDs in strip
-#define NUMPIXELS    30  
+#define NUMPIXELS    30  // Number of LEDs in strip
+
 #define RED    0xFF0000
 #define GREEN  0x00FF00
 #define BLUE   0x0000FF
@@ -10,12 +10,10 @@
 #define BLACK  0x000000
 
 uint32_t frame[NUMPIXELS];
-uint32_t colors[] = 
-  {RED, GREEN, BLUE, WHITE, BLACK};
+uint32_t colors[] = {RED, GREEN, BLUE, WHITE, BLACK};
 
-Adafruit_DotStar strip = 
-  Adafruit_DotStar(NUMPIXELS, DOTSTAR_BGR);
-
+Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DOTSTAR_BGR);
+void DisplayFrame(uint32_t NewFrame[NUMPIXELS]);
 void setup() {
   strip.begin(); // Initialize pins for output
 
@@ -38,10 +36,8 @@ void setup() {
   strip.show();
   delay(1000);
 }
-void loop() {
-  // and so on . . . 
 
-  
+void loop() {
   // Start off with LEDs set to random colors
   for (int i = 0; i < NUMPIXELS; i++) {
     frame[i] = colors[random(3)];   // Save the color in the frame
@@ -49,20 +45,20 @@ void loop() {
   DisplayFrame(frame);
 
   // Slowly clear the strip, one LED at a time
-  for (int j = 0; j <= NUMPIXELS - 1; j++)
+  for (int j = 0; j <= NUMPIXELS; j++)
   {
     // Slide all colors down one LED
-    for (int i = 0; i <= NUMPIXELS - 1; i++) {
+    for (int i = 0; i <= NUMPIXELS - 2; i++) {
       frame[i] = frame[i+1];
     }
-    frame[NUMPIXELS-1] = BLACK;
+    frame[NUMPIXELS] = BLACK;
     DisplayFrame(frame);
     delay(50);
   }
 }
 
 // Put a frame's worth of colors out on the LED strip
-void DisplayFrame(uint32_t * NewFrame) {
+void DisplayFrame(uint32_t NewFrame[NUMPIXELS]) {
   for (int i = 0; i < NUMPIXELS; i++) {
     strip.setPixelColor(i, NewFrame[i]);
   }
