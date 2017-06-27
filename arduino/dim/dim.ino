@@ -1,12 +1,17 @@
-int pinLed = 9;		//Needs a PWM pin for analogWrite()
-int pinPot = A0;	//assume pot on analog 0
+#include "SoftPWMServo.h"
 
-void setup() {	//nothing needed
+// LED on pin 1 (built-in green LED on FBMini)
+const int pinLed = LED_BUILTIN;
+//assume pot on analog 2 (pin 4 on FBMini)
+const int pinPot = A2;  
+
+void setup() {   //nothing needed
 }
+
 void loop() {
   int val;
   val = analogRead(pinPot);
-  analogWrite(pinLed, val / (1024 / 256));
-  delay(1000);
+  SoftPWMServoPWMWrite(pinLed, val/(1024/256));
+  delay(100);
 }
 

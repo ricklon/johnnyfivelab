@@ -13,7 +13,7 @@ uint32_t frame[NUMPIXELS];
 uint32_t colors[] = {RED, GREEN, BLUE, WHITE, BLACK};
 
 Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, DOTSTAR_BGR);
-
+void DisplayFrame(uint32_t NewFrame[NUMPIXELS]);
 void setup() {
   strip.begin(); // Initialize pins for output
 
@@ -48,7 +48,7 @@ void loop() {
   for (int j = 0; j <= NUMPIXELS; j++)
   {
     // Slide all colors down one LED
-    for (int i = 0; i <= NUMPIXELS - 1; i++) {
+    for (int i = 0; i <= NUMPIXELS - 2; i++) {
       frame[i] = frame[i+1];
     }
     frame[NUMPIXELS] = BLACK;
@@ -58,7 +58,7 @@ void loop() {
 }
 
 // Put a frame's worth of colors out on the LED strip
-void DisplayFrame(uint32_t * NewFrame) {
+void DisplayFrame(uint32_t NewFrame[NUMPIXELS]) {
   for (int i = 0; i < NUMPIXELS; i++) {
     strip.setPixelColor(i, NewFrame[i]);
   }
