@@ -49,7 +49,7 @@ board.on('ready', function() {
     board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
     board.sysexCommand([CK_COMMAND, CK_PIXEL_ALERT_HIGH]);
     board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
-
+/*
     setInterval(function() {
         board.sysexCommand([CK_COMMAND, CK_PIXEL_CLEAR]);
         board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
@@ -67,4 +67,6 @@ board.on('ready', function() {
             PIXEL = 0;
         }
     }, 25);
+    */
+
 });

@@ -6,7 +6,7 @@ var board = new five.Board({
 
 var button;
 var btnStatus;
-var PIN_LED1 = 1; //0
+var PIN_LED1 = 1; //1
 var PIN_BTN1 = 16; //16
 
 var Ledstrip = require("./ledstrip.js");
@@ -22,6 +22,8 @@ board.on("ready", function(socket) {
   ledstrip.setPixelColor();
   ledstrip.hello();
   led = new five.Led(PIN_LED1);
+  led.on();
+
   button = new five.Button({
     pin: PIN_BTN1,
     invert: true

@@ -26,11 +26,11 @@
   Last updated by Brian Schmalz: August 9th, 2015
 */
 #include <SPI.h>
+#include <Adafruit_DotStar.h>
+
 #include <SoftPWMServo.h>  // Gives us PWM and Servo on every pin
 #include <Wire.h>
 #include <Firmata.h>
-#include <Adafruit_DotStar.h>
-
 
 #define CK_COMMAND 0x40
 #define CK_PIXEL_SET 0x10
@@ -64,6 +64,7 @@
   ============================================================================*/
 /* apa102c rgb led strip */
 Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS,  DOTSTAR_BGR);
+//Adafruit_DotStar strip = Adafruit_DotStar(NUMPIXELS, 18, 3  ,DOTSTAR_BGR);
 
 
 /* analog inputs */
@@ -802,6 +803,7 @@ void setup()
   Firmata.begin(57600);
 #endif
   systemResetCallback();  // reset to default config
+  strip.begin();
 }
 
 /*==============================================================================
