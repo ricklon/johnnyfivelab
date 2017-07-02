@@ -27,46 +27,50 @@ console.log("[" + CK_COMMAND + ", " + CK_PIXEL_SET + ", " + cmd + "]");
 repl.start('firmata>').context.board = board;
 
 var packColor = function(red, green, blue) {
-    red &= 0xFF;
-    green &= 0xFF;
-    blue &= 0xFF;
-    var b1 = red >> 1;
-    var b2 = ((red & 0x01) << 6) | (green >> 2);
-    var b3 = ((green & 0x03) << 5) | (blue >> 3);
-    var b4 = (blue & 0x07) << 4;
-    var data = [b1, b2, b3, b4];
-    console.log(data);
-    return data;
+  red &= 0xFF;
+  green &= 0xFF;
+  blue &= 0xFF;
+  var b1 = red >> 1;
+  var b2 = ((red & 0x01) << 6) | (green >> 2);
+  var b3 = ((green & 0x03) << 5) | (blue >> 3);
+  var b4 = (blue & 0x07) << 4;
+  var data = [b1, b2, b3, b4];
+  console.log(data);
+  return data;
 };
 
 
 board.on('ready', function() {
 
-    console.log("START");
-    board.sysexCommand([CK_COMMAND, CK_PIXEL_CLEAR]);
+  console.log("START");
+  board.sysexCommand([CK_COMMAND, CK_PIXEL_CLEAR]);
+  board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
+  board.sysexCommand([CK_COMMAND, CK_PIXEL_ALERT_LOW]);
+  board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
+  board.sysexCommand([CK_COMMAND, CK_PIXEL_ALERT_HIGH]);
+  board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
+  for (let ii = 0; ii < 256; ii++) {
+    board.sysexCommand([CK_COMMAND, CK_PIXEL_BRIGHTNESS, ii]);
     board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
-    board.sysexCommand([CK_COMMAND, CK_PIXEL_ALERT_LOW]);
-    board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
-    board.sysexCommand([CK_COMMAND, CK_PIXEL_ALERT_HIGH]);
-    board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
-/*
-    setInterval(function() {
-        board.sysexCommand([CK_COMMAND, CK_PIXEL_CLEAR]);
-        board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
-        //board.sysexCommand([CK_COMMAND,CK_PIXEL_SET,PIXEL++,0x7F, 0,128, 128]);
-        //board.sysexCommand([CK_COMMAND,CK_PIXEL_SET,PIXEL++, 127, 127, 127, 112]);
-        board.sysexCommand([CK_COMMAND, CK_PIXEL_SET, PIXEL++].concat(packColor(RED, GREEN, BLUE)));
-        //board.sysexCommand([CK_COMMAND,CK_PIXEL_SET,cmd]);
-        board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
-        console.log(PIXEL);
-        if (GREEN < 255) {
-            GREEN++;
-        }
+  }
+  /*
+      setInterval(function() {
+          board.sysexCommand([CK_COMMAND, CK_PIXEL_CLEAR]);
+          board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
+          //board.sysexCommand([CK_COMMAND,CK_PIXEL_SET,PIXEL++,0x7F, 0,128, 128]);
+          //board.sysexCommand([CK_COMMAND,CK_PIXEL_SET,PIXEL++, 127, 127, 127, 112]);
+          board.sysexCommand([CK_COMMAND, CK_PIXEL_SET, PIXEL++].concat(packColor(RED, GREEN, BLUE)));
+          //board.sysexCommand([CK_COMMAND,CK_PIXEL_SET,cmd]);
+          board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);
+          console.log(PIXEL);
+          if (GREEN < 255) {
+              GREEN++;
+          }
 
-        if (PIXEL > PIXEL_MAX) {
-            PIXEL = 0;
-        }
-    }, 25);
-    */
+          if (PIXEL > PIXEL_MAX) {
+              PIXEL = 0;
+          }
+      }, 25);
+      */
 
 });

@@ -46,6 +46,10 @@ Ledstrip = function(board) {
         board.sysexCommand([CK_COMMAND, CK_PIXEL_SET, pixel].concat(packColor(red, green, blue)));
         console.log("ledstrip setPixelColor: r %d, g: %d, b:%d", red, green, blue);
     };
+    Ledstrip.prototype.setBrightness = function(data) {
+        board.sysexCommand([CK_COMMAND, CK_PIXEL_BRIGHTNESS, data]);
+        console.log("ledstrip brightness");
+    };
     Ledstrip.prototype.alertLOW = function() {
         board.sysexCommand([CK_COMMAND, CK_PIXEL_ALERT_LOW]);
         board.sysexCommand([CK_COMMAND, CK_PIXEL_SHOW]);

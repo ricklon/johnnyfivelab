@@ -482,12 +482,17 @@ void ckCommand(byte command, byte argc, byte* argv) {
         strip.setPixelColor(pixel, r, g, b);
       }
       break;
-      case CK_PIXEL_ALERT_LOW:
-        dotstarAlertLow();
-        break;
-      case CK_PIXEL_ALERT_HIGH:
-        dotstarAlertHigh();
-        break;
+    case CK_PIXEL_BRIGHTNESS:
+      uint8_t data;
+      data = argv[0] & 0x7F;
+      strip.setBrightness(data);
+      break;
+    case CK_PIXEL_ALERT_LOW:
+      dotstarAlertLow();
+      break;
+    case CK_PIXEL_ALERT_HIGH:
+      dotstarAlertHigh();
+      break;
   }
 }
 

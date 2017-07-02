@@ -280,13 +280,16 @@
               for (var pixel = 0; pixel < 30; pixel++) {
                   let data = {
                       pixel: pixel,
-                      red: color[2],
-                      green: color[1],
+                      red: color[1],
+                      green: color[2],
                       blue: color[0]
                   }
                   socket.emit('ledstrip:setpixelcolor', data);
               }
               socket.emit('ledstrip:show');
+              socket.emit('ledstrip:setbrightness', 16);
+              socket.emit('ledstrip:show');
+
 
               console.log(`color: ${color}`);
             }
@@ -303,13 +306,15 @@
                 //color data is in BGR order for strip
                   let data = {
                       pixel: pixel,
-                      red: color[2],
-                      green: color[1],
+                      red: color[1],
+                      green: color[2],
                       blue: color[0]
                   }
                   socket.emit('ledstrip:setpixelcolor', data);
               }
+              socket.emit('ledstrip:setbrightness', 16);
               socket.emit('ledstrip:show');
+
 
               console.log(`palette: ${palette}`);
             }

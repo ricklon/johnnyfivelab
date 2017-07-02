@@ -108,6 +108,11 @@ board.on("ready", function(socket) {
             ledstrip.setPixelColor(data.pixel, data.red, data.green, data.blue);
             console.log('LEDSTRIP SETPIXELCOLOR pixel: %d, red: %d, green: %d, blue: %d', data.pixel, data.red, data.green, data.blue);
         });
+        socket.on('ledstrip:setbrightness', function(data) {
+            ledstrip.setBrightness(data);
+            console.log(`LEDSTRIP BRIGHTNESS RECEIVED: ${data}`);
+
+        });
         socket.on('temp:setLowAlarm', function(data) {
             LowAlarm = data;
             console.log('Low Alarm for Temperature set: %d', data);
