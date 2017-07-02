@@ -193,7 +193,9 @@ app.get('/button', function(req, res) {
         res.status(status).send("button not ready");
     }
 });
-
+process.on('uncaughtException', function (exception) {
+  console.log(exception); // to see your exception details in the console
+});
 //server.listen(3000, "0.0.0.0", function() {
 server.listen(3000, function() {
     console.log('Listening on: http://localhost:3000');

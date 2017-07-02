@@ -18,6 +18,7 @@
     <script src="/bower_components/angular-animate/angular-animate.js"></script>
     <script src="/bower_components/angular-material/angular-material.js"></script>
     <script src="/bower_components/ng-json-explorer/dist/angular-json-explorer.min.js"></script>
+    <script src="/bower_components/color-thief/dist/color-thief.min.js"></script>
 
     <div ng-app="chipKITApp" ng-controller="ArduController" ng-cloak>
         <md-toolbar md-scroll-shrink ng-if="true" ng-controller="ArduController">
@@ -83,6 +84,19 @@
                     <button ng-click="ledOff()">Off</button>
                 </md-content>
             </md-tab>
+
+            <md-tab label="Color Display">
+                <md-content class="md-padding">
+                    <h2 class="md-display-2">Image to Color<h2>
+                    <button ng-click="showDominantColor()">Show Dominant Color</button>
+                    <button ng-click="showColorPalette()">Show Color Palette</button>
+                    <br />
+                    <!--  <img id="imgSample" src="chipKIT-Fubarino-Mini-Pin-Diagram.png" />-->
+                    <img id="imgSample" src="image-2.png" />
+                </md-content>
+            </md-tab>
+
+
             <md-tab label="LED Commands">
                 <md-content class="md-padding">
                     <h2 class="md-display-2">Ledstrip Commands</h2>
@@ -174,6 +188,9 @@
         </md-tabs>
     </div>
     <script type="text/javascript">
+
+        var colorThief = new ColorThief();
+
         var app = angular.module('chipKITApp', ['btford.socket-io', 'ngMaterial', 'ngJsonExplorer']).
         config(function($mdThemingProvider) {
             var rgbMap = $mdThemingProvider.extendPalette('green', {
@@ -258,6 +275,43 @@
                 socket.emit('led:off');
                 console.log('LED OFF');
             };
+            $scope.showDominantColor = function() {
+              var color = colorThief.getColor(document.getElementById("imgSample"));
+              for (var pixel = 0; pixel < 30; pixel++) {
+                  let data = {
+                      pixel: pixel,
+                      red: color[2],
+                      green: color[1],
+                      blue: color[0]
+                  }
+                  socket.emit('ledstrip:setpixelcolor', data);
+              }
+              socket.emit('ledstrip:show');
+
+              console.log(`color: ${color}`);
+            }
+            $scope.showColorPalette = function() {
+              var palette = colorThief.getPalette(document.getElementById("imgSample"));
+              var numColors = palette.length;
+              var index = 0;
+              var range = Math.ceil(30 / numColors);
+              for (var pixel = 0; pixel < 30; pixel++) {
+                  if ((pixel % range) === 0 ) {
+                  var color = palette[index];
+                  index++;
+                }
+                  let data = {
+                      pixel: pixel,
+                      red: color[2],
+                      green: color[1],
+                      blue: color[0]
+                  }
+                  socket.emit('ledstrip:setpixelcolor', data);
+              }
+              socket.emit('ledstrip:show');
+
+              console.log(`palette: ${palette}`);
+            }
             $scope.clear = function() {
                 socket.emit('ledstrip:clear');
                 console.log('LED STRIP CLEAR');
