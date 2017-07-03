@@ -1,0 +1,10 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "func-names": ["error", "never"],
+    "linebreak-style": ["error", "windows"],
+    "prefer-arrow-callback": 0,
+    "no-bitwise": 0,
+
+  }
+}
