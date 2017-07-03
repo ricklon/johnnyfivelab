@@ -286,10 +286,6 @@
           socket.emit('ledstrip:setpixelcolor', data);
         }
         socket.emit('ledstrip:show');
-        socket.emit('ledstrip:setbrightness', 16);
-        socket.emit('ledstrip:show');
-
-
         console.log(`color: ${color}`);
       }
       $scope.showColorPalette = function() {
@@ -311,7 +307,6 @@
           }
           socket.emit('ledstrip:setpixelcolor', data);
         }
-        socket.emit('ledstrip:setbrightness', 16);
         socket.emit('ledstrip:show');
         console.log(`palette: ${palette}`);
       }
@@ -342,9 +337,7 @@
           green: $scope.color.green,
           blue: $scope.color.blue
         }
-        socket.emit('ledstrip:setpixelcolor', data);
-        socket.emit('ledstrip:show');
-
+        socket.emit('ledstrip:setclearshowpixelcolor', data);
       };
       $scope.updatePixel = function(data) {
         console.log("update pixel");
@@ -354,10 +347,8 @@
           green: data.green,
           blue: data.blue
         }
-
           socket.emit('ledstrip:setpixelcolor', ledstrip);
           socket.emit('ledstrip:show');
-
       };
       $scope.updatePixels = function(pixels) {
         let data = {
@@ -367,9 +358,9 @@
           blue: $scope.color.blue
         }
         setTimeout(function() {
-        socket.emit('ledstrip:clear');
-        socket.emit('ledstrip:setpixelcolor', data);
-        socket.emit('ledstrip:show');
+        //socket.emit('ledstrip:clear');
+         socket.emit('ledstrip:setclearshowpixelcolor', data);
+        //socket.emit('ledstrip:show');
         }, 0);
 
 

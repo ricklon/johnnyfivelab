@@ -16,6 +16,7 @@ const Ledstrip = require('./ledstrip.js');
 
 const ledstrip = new Ledstrip(board);
 
+
 let button;
 let led;
 
@@ -32,7 +33,6 @@ let LowAlarm;
 let highAlarm;
 
 board.on('ready', function () {
-  io.on('connection', function (socket) {
     ledstrip.hello();
     ledstrip.clear();
     ledstrip.show();
@@ -83,10 +83,12 @@ board.on('ready', function () {
       console.log('BOARD: closed');
     });
     console.log('Board is Ready!');
+});
 
     // Socket connection handler
     // Order matters Init the board and the socket
     // The Socket resets and you don't want your board to reset too.
+    io.on('connection', function (socket) {
 
     console.log(socket.id);
     socket.on('led:on', function (data) {
@@ -113,6 +115,10 @@ board.on('ready', function () {
       ledstrip.setPixelColor(data.pixel, data.red, data.green, data.blue);
       console.log('LEDSTRIP SETPIXELCOLOR pixel: %d, red: %d, green: %d, blue: %d', data.pixel, data.red, data.green, data.blue);
     });
+    socket.on('ledstrip:setclearshowpixelcolor', function (data) {
+      ledstrip.setClearShowPixelColor(data.pixel, data.red, data.green, data.blue);
+      console.log('LEDSTRIP SETPIXELCOLOR pixel: %d, red: %d, green: %d, blue: %d', data.pixel, data.red, data.green, data.blue);
+    });
     socket.on('ledstrip:setbrightness', function (data) {
       ledstrip.setBrightness(data);
       console.log(`LEDSTRIP BRIGHTNESS RECEIVED: ${data}`);
@@ -128,13 +134,13 @@ board.on('ready', function () {
     });
     socket.on('ledstrip:alertLOW', function () {
       ledstrip.alertLOW();
-      console.log('Alert: Low Alarm');
+    //  console.log('Alert: Low Alarm');
     });
     socket.on('ledstrip:alertHIGH', function () {
       ledstrip.alertHIGH();
-      console.log('Alert: High Alarm');
+    //  console.log('Alert: High Alarm');
     });
-
+/*
     // When the sensor value changes, log the value
     tempSensor.on('change', function (value) {
       let tempVoltage = value * (3300 / 1024);
@@ -151,13 +157,16 @@ board.on('ready', function () {
       curTemp: (((tempValue * (3300 / 1024)) - 500) / 10),
       board: board.io,
     });
+
+    */
+
     socket.on('disconnect', function () {
       setTimeout(function () {
         console.log('Socket.io disconnect');
       }, 10000);
     });
   });
-});
+
 
 
 app.use(express.static(path.join(__dirname, '/public')));
