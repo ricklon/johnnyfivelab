@@ -1,4 +1,5 @@
 const config = require('config');
+const logger = require('winston');
 const five = require('johnny-five');
 
 const board = new five.Board({
@@ -8,11 +9,10 @@ const ANALOG_PIN = 0;
 
 board.on('ready', function() {
   // Assuming a sensor is attached to pin "A0"
-  this.pinMode(ANALOG_PIN, five.Pin.ANALOG);
   this.analogRead(ANALOG_PIN, function(value) {
-    let voltage = value * (3300 / 1024);
-    let celsiusValue = (voltage - 500) / 10;
-    let farenValue = celsiusValue * 9 / 5 + 32;
-    console.log(`Analog: ${value}, C: ${celsiusValue.toPrecision(3)}, F: ${farenValue}`);
+    const voltage = value * (3300 / 1024);
+    const celsiusValue = (voltage - 500) / 10;
+    const farenValue = (celsiusValue * (9 / 5)) + 32;
+    logger.log('info', `Analog: ${value}, C: ${celsiusValue.toPrecision(3)}, F: ${farenValue}`);
   });
 });
