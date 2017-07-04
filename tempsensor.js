@@ -7,6 +7,7 @@ THis can be a problem of assumptions of the devices.
 const config = require('config');
 const five = require('johnny-five');
 
+const A0 = 0;
 const board = new five.Board({
   port: config.get('port'),
 });
@@ -15,7 +16,7 @@ const board = new five.Board({
 board.on('ready', function() {
   const temperature = new five.Thermometer({
     controller: 'TMP36',
-    pin: 'A0',
+    pin: A0,
   });
 
   temperature.on('data', function() {

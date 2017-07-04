@@ -19,13 +19,12 @@ const ledstrip = new Ledstrip(board);
 
 let button;
 let led;
-
-
 let tempValue;
 let tempSensor;
 let btnStatus;
 const PIN_LED1 = 1; // 0
 const PIN_BTN1 = 16; // 16
+const A0 = 0;
 const MAX_PIXEL = 30;
 
 // let pixels = 30;
@@ -47,7 +46,7 @@ board.on('ready', function() {
   });
 
   tempSensor = new five.Sensor({
-    pin: 'A0',
+    pin: A0,
     freq: 250,
     threshold: 5,
   });
