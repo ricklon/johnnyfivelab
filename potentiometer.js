@@ -1,22 +1,27 @@
 const config = require('config');
+const logger = require('winston');
 const five = require('johnny-five');
 
 const A2 = 4;
-const board = new five.Board({
-  port: config.get('port'),
-});
+const board = new five.Board();
+let potentiometer;
 
 board.on('ready', function() {
-  // Create a new generic  temperature sensor instance for
-  // a sensor connected to an analog (ADC) pin
-  const tempSensor = new five.Sensor({
-    pin: A2, // sensor pin number
+  // Create a new `potentiometer` hardware instance.
+  potentiometer = new five.Sensor({
+    pin: A2,
     freq: 250,
-    threshold: 5,
   });
 
-  // When the sensor value changes, log the value
-  tempSensor.on('change', function(value) {
-    console.log(`sensor: ${value}`);
+  // Inject the `sensor` hardware into
+  // the Repl instance's context;
+  // allows direct command line access
+  board.repl.inject({
+    pot: potentiometer,
+  });
+
+  // 'data' get the current reading from the potentiometer
+  potentiometer.on('data', function() {
+    logger.log('info', `${this.value}, ${this.raw}`);
   });
 });

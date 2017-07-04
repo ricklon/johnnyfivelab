@@ -1,27 +1,28 @@
-/*
-
-This fails to convert the 3.3v logic instead of the 5v logic.
-THis can be a problem of assumptions of the devices.
-
-*/
 const config = require('config');
+const logger = require('winston');
 const five = require('johnny-five');
 
 const A0 = 0;
 const board = new five.Board({
   port: config.get('port'),
 });
-
+let tSensor;
 
 board.on('ready', function() {
-  const temperature = new five.Thermometer({
+  tSensor = new five.Thermometer({
     controller: 'TMP36',
     pin: A0,
+    freq: 250,
+    aref: 3.3,
   });
 
-  temperature.on('data', function() {
-    console.log('celsius: %d', this.C);
-    console.log('fahrenheit: %d', this.F);
-    console.log('kelvin: %d', this.K);
+  tSensor.on('data', function() {
+    logger.log('info', 'celsius: %d', this.C);
+    logger.log('info', 'fahrenheit: %d', this.F);
+    logger.log('info', 'kelvin: %d', this.K);
+  });
+
+  board.repl.inject({
+    tmp36: tSensor,
   });
 });
