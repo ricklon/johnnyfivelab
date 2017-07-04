@@ -276,16 +276,7 @@
       };
       $scope.showDominantColor = function() {
         var color = colorThief.getColor(document.getElementById("imgSample"));
-        for (var pixel = 0; pixel < 30; pixel++) {
-          let data = {
-            pixel: pixel,
-            red: color[1],
-            green: color[2],
-            blue: color[0]
-          }
-          socket.emit('ledstrip:setpixelcolor', data);
-        }
-        socket.emit('ledstrip:show');
+        socket.emit('ledstrip:setframecolor',color);
         console.log(`color: ${color}`);
       }
       $scope.showColorPalette = function() {
@@ -293,6 +284,8 @@
         var numColors = palette.length;
         var index = 0;
         var range = Math.ceil(30 / numColors);
+        var frame = [];
+
         for (var pixel = 0; pixel < 30; pixel++) {
           if ((pixel % range) === 0) {
             var color = palette[index];
@@ -305,9 +298,9 @@
             green: color[2],
             blue: color[0]
           }
-          socket.emit('ledstrip:setpixelcolor', data);
+          frame.push(data);
         }
-        socket.emit('ledstrip:show');
+        socket.emit('ledstrip:updatepixelframe',frame);
         console.log(`palette: ${palette}`);
       }
       $scope.clear = function() {
