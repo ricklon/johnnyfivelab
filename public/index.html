@@ -182,7 +182,7 @@
       <md-tab label="Config">
         <md-content class="md-padding">
           <h2 class="md-display-2">Fubarino Mini -- Board Config</h2>
-          <json-explorer json-data="{{board}}"></json-explorer>
+          <json-explorer json-data="board"></json-explorer>
         </md-content>
       </md-tab>
     </md-tabs>
@@ -208,7 +208,7 @@
     controller('ArduController', function($scope, socket) {
       socket.on('init', function(data) {
         $scope.temperature.curTemp = data.curTemp;
-        $scope.board = data;
+        $scope.board = data.board;
         var green = 255;
         for (var pixel = 0; pixel < 30; pixel++) {
           let data = {
