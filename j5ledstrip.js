@@ -1,44 +1,44 @@
-var config = require("config");
-var five = require("johnny-five");
-var board = new five.Board({
-  port: config.get('port')
+const config = require('config');
+const logger = require('winston');
+const five = require('johnny-five');
+
+const board = new five.Board({
+  port: config.get('port'),
 });
 
-var button;
-var btnStatus;
-var PIN_LED1 = 1; //1
-var PIN_BTN1 = 16; //16
+const Ledstrip = require('./ledstrip.js');
 
-var Ledstrip = require("./ledstrip.js");
-var ledstrip = new Ledstrip(board);
+const ledstrip = new Ledstrip(board);
+const PIN_LED1 = 1; // 1
+const PIN_BTN1 = 16; // 16
+const MAX_PIXELS = 30;
+let button;
+let btnStatus;
+let pixelCur = 0;
 
-var pixels = 30;
-var pixel_cur = 0;
-
-board.on("ready", function(socket) {
+board.on('ready', function() {
   ledstrip.hello();
   ledstrip.clear();
   ledstrip.show();
   ledstrip.setPixelColor();
   ledstrip.hello();
-  led = new five.Led(PIN_LED1);
+  const led = new five.Led(PIN_LED1);
   led.on();
 
   button = new five.Button({
     pin: PIN_BTN1,
-    invert: true
+    invert: true,
   });
 
-  button.on("down", function() {
-    btnStatus = "down";
+  button.on('down', function() {
+    btnStatus = 'down';
     led.on();
-    ledstrip.setPixelColor(pixel_cur++, 255, 0, 0);
+    ledstrip.setPixelColor(pixelCur += 1, 255, 0, 0);
     ledstrip.show();
-    if (pixel_cur >= 30) {
-      pixel_cur = 0;
+    if (pixelCur >= MAX_PIXELS) {
+      pixelCur = 0;
       ledstrip.clear();
     }
-    console.log("down");
+    logger.log('info', 'down');
   });
-
 });
