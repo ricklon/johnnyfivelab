@@ -1,9 +1,9 @@
 # 20003 chipKIT Masters workshop.
 
 ## TODO
-[] Freshen node version and module dependencies
-[] Update to use yarn
-[] Update to use webpack
+[x] Freshen node version and module dependencies
+[x] Update to use yarn
+[x] Update to use webpack
 [] Add documentation for why yarn and webpack
 [] What changed since last year
 
@@ -12,9 +12,11 @@
 
 ## Upload code to Fubarino_Mini
 
+Use Arduino and chipKIT-core 1.4.1
+
+Check if PlatformIO has updated the to chipKIT-core 1.4.1
 ```
-pio run -e fubarino_mini -t  upl
-oad
+pio run -e fubarino_mini -t  upload
 
 ```
 
@@ -28,14 +30,15 @@ oad
 ###Blink Hello
 First Fubarino_Mini has the LED on pin 0.
 ```
-var five = require("johnny-five");
-var board = new five.Board();
-var led;
+const config = require('config');
+const five = require('johnny-five');
 
-board.on("ready", function() {
-  // Create an Led on pin 13
-  led = new five.Led(0);
+const board = new five.Board({ port: config.get('port') });
+const PIN_LED1 = 1; // Fubarino_mini pin 1
 
+board.on('ready', function() {
+  // Create an Led on LED_PIN
+  const led = new five.Led(PIN_LED1);
   // Strobe the pin on/off, defaults to 100ms phases
   led.strobe();
 });
@@ -44,57 +47,66 @@ board.on("ready", function() {
 ###Hello Button
 The button for the Fubarion_Mini is on pin 16.
 ```
-var five = require("johnny-five"),board;
-var button;
-var board = new five.Board();
+const config = require('config');
+const logger = require('winston');
+const five = require('johnny-five');
+const board = new five.Board({
+  port: config.get('port'),
+});
+const PIN_BTN1 = 16;
 
-board.on("ready", function() {
-  var ledAnalog = five.Led(1);
-
-  button = new five.Button({
-          pin: 16,
-          invert: true
+board.on('ready', function() {
+  const button = new five.Button({
+    pin: PIN_BTN1,
+    invert: true,
   });
-
-  board.repl.inject({
-          button: button
+  // Make button accessible from the command line
+  board.repl.inject({ button, button });
+  // 'down' event the button is pressed
+  button.on('down', function() {
+    logger.log('info', 'down');
   });
-
- // "down" the button is pressed
-  button.on("down", function() {
-    console.log("down");
-  });
-
-  // "hold" the button is pressed for specified time.
+  // 'hold' event the button is pressed for specified time.
   //        defaults to 500ms (1/2 second)
-  //        set
-  button.on("hold", function() {
-    console.log("hold");
+  button.on('hold', function() {
+    logger.log('info', 'hold');
   });
-
-  // "up" the button is released
-  button.on("up", function() {
-    console.log("up");
-  });   
-
-  led.blink(250);
-//  ledAnalog.fadeIn();
-
+  // 'up' event the button is released
+  button.on('up', function() {
+    logger.log('info', 'up');
+  });
 });
 
 ```
 
 ###HelloPotentiometer
-We'll put this one on A)
+We'll put this one on A2, pin 4
 ```
-var five = require("johnny-five"),
-var board = new five.Board();
+const config = require('config');
+const logger = require('winston');
+const five = require('johnny-five');
 
-board.on("ready", function() {
-  // Assuming a sensor is attached to pin "A1"
-  this.pinMode(A0, five.Pin.ANALOG);
-  this.analogRead(A0, function(value) {
-    console.log(value);
+const A2 = 4;
+const board = new five.Board();
+let potentiometer;
+
+board.on('ready', function() {
+  // Create a new `potentiometer` hardware instance.
+  potentiometer = new five.Sensor({
+    pin: A2,
+    freq: 250,
+  });
+
+  // Inject the `sensor` hardware into
+  // the Repl instance's context;
+  // allows direct command line access
+  board.repl.inject({
+    pot: potentiometer,
+  });
+
+  // 'data' get the current reading from the potentiometer
+  potentiometer.on('data', function() {
+    logger.log('info', `${this.value}, ${this.raw}`);
   });
 });
 
@@ -103,22 +115,32 @@ board.on("ready", function() {
 ###HelloTemperature
 We'll read temperature from A0 as well
 ```
-var five = require("johnny-five");
-var board = new five.Board();
-var temp;
-board.on("ready", function() {
+const config = require('config');
+const logger = require('winston');
+const five = require('johnny-five');
 
-  // Create a new generic sensor instance for
-  // a sensor connected to an analog (ADC) pin
-  temp = new five.Sensor({
-            pin: "A0",
-        freq: 250,
-        threshold: 5
+const A0 = 0;
+const board = new five.Board({
+  port: config.get('port'),
+});
+let tSensor;
+
+board.on('ready', function() {
+  tSensor = new five.Thermometer({
+    controller: 'TMP36',
+    pin: A0,
+    freq: 250,
+    aref: 3.3,
   });
 
-  // When the sensor value changes, log the value
-  temp.on("change", function(value) {
-    console.log(value*330/1024);
+  tSensor.on('data', function() {
+    logger.log('info', 'celsius: %d', this.C);
+    logger.log('info', 'fahrenheit: %d', this.F);
+    logger.log('info', 'kelvin: %d', this.K);
+  });
+
+  board.repl.inject({
+    tmp36: tSensor,
   });
 });
 ```
