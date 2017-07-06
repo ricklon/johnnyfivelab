@@ -47,6 +47,8 @@ info: Board exit
 
 ## Variable declarations:
 
+These are not strong typed but you can conrol how the values are reassigned. `const` binds the variable name to the value and it can't be changed. `let` allows for the reassignment of the value. Values can be functions, objects, and base types. An example is in C/C++ you can have a pointers to functions and pointers to objects.
+
 ### Constants:
 ```Javascript
 const BTN_PIN = 16; // It's a constant
@@ -119,3 +121,8 @@ board.on()
 
 button.on()
 ```
+
+
+## Appendix
+
+* The details on: https://mathiasbynens.be/notes/es6-const
