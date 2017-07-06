@@ -1,10 +1,7 @@
-# 20003 chipKIT Masters workshop.
+# 20009 Advanced Arduino Masters workshop.
 
 ## TODO
 [x] Freshen node version and module dependencies
-[x] Update to use yarn
-[x] Update to use webpack
-[] Add documentation for why yarn and webpack
 [] What changed since last year
 
 ##Setup instructions
