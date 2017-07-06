@@ -78,17 +78,44 @@ let sensorValue; // declaration without type is normal
 
 ### Functions
 
-Javascript functions look and feel just like c/c++ functions. Except loosely type including return types.
+Using Javascript functions look and feel just like c/c++ functions. Except loosely type including return types.
+
+Function usage:
+
+```Javascript
+const setFrameColor = function(color) {
+  for (let pixel = 0; pixel < MAX_PIXEL; pixel += 1) {
+    ledstrip.setPixelColor(pixel, color[1], color[2], color[0]);
+  }
+  ledstrip.show();
+}
+
+```
+
+Usage:
 
 ```javascript
 
+setFrameColor(colorFrameArray);
 
 ```
 
 Special function the anonymous function:
 
-```Javsascript
+```Javascript
 function (data) {
 
 }
+```
+
+#### Event Functions
+
+These are triggers or similar to interrupts. As events they can always happen asynchronously.
+
+```
+board.reay()
+
+board.on()
+
+button.on()
 ```
