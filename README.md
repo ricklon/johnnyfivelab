@@ -17,14 +17,14 @@ pio run -e fubarino_mini -t  upload
 
 ```
 
-##Presentation
+## Presentation
 * [Power Point Presentation](https://microchip.box.com/s/3vcrrs3idecakx68nn6wtq8sw1tfbi4m)
 
 ##Lab Manual
 * [Lab Manual](../master/labmanual.md)
 
 
-###Blink Hello
+### Blink Hello
 First Fubarino_Mini has the LED on pin 0.
 ```
 const config = require('config');
@@ -41,7 +41,7 @@ board.on('ready', function() {
 });
 ```
 
-###Hello Button
+### Hello Button
 The button for the Fubarion_Mini is on pin 16.
 ```
 const config = require('config');
@@ -76,7 +76,7 @@ board.on('ready', function() {
 
 ```
 
-###HelloPotentiometer
+### HelloPotentiometer
 We'll put this one on A2, pin 4
 ```
 const config = require('config');
@@ -109,7 +109,7 @@ board.on('ready', function() {
 
 ```
 
-###HelloTemperature
+### HelloTemperature
 We'll read temperature from A0 as well
 ```
 const config = require('config');
@@ -142,7 +142,7 @@ board.on('ready', function() {
 });
 ```
 
-###Exploring the REPL: Command line for Johnny-five
+### Exploring the REPL: Command line for Johnny-five
 Read, Evaluate, Print Loop (REPL)
 This is a command line interface to the objects created using Johnny-five.
 ```
@@ -151,7 +151,7 @@ This is a command line interface to the objects created using Johnny-five.
 ```
 
 
-###Connect Johnny-five devices to a RESTful application
+### Connect Johnny-five devices to a RESTful application
 Connect the LED, button, and temperature sensor to a CRUD Rest Application.
 
 What is a RESTful application?
