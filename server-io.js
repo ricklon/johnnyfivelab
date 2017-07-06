@@ -105,7 +105,6 @@ board.on('ready', function() {
 // Order matters Init the board and the socket
 // The Socket resets and you don't want your board to reset too.
 io.on('connection', function(socket) {
-
   logger.log('info', socket.id);
   // logger.log('info', board);
   socket.emit('init', board.pins);
