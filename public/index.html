@@ -20,179 +20,222 @@
   <script src="/bower_components/ng-json-explorer/dist/angular-json-explorer.min.js"></script>
   <script src="/bower_components/color-thief/dist/color-thief.min.js"></script>
 
-  <div ng-app="chipKITApp" ng-controller="ArduController" ng-cloak>
-    <md-toolbar md-scroll-shrink ng-if="true" ng-controller="ArduController">
-      <div class="md-toolbar-tools">
-        <h1 class="md-display-2">Demo: Tying it all together</h1>
+  <div ng-app="chipKITApp" ng-controller="ArduController" ng-cloak flex flex-gt-xs="75">>
+    <md-toolbar md-scroll-shrink ng-if="true " ng-controller="ArduController ">
+      <div class="md-toolbar-tools ">
+        <h1 class="md-display-2 ">Demo: Tying it all together</h1>
       </div>
     </md-toolbar>
     <md-tabs md-dynamic-height md-border-bottom>
-      <md-tab label="Temperature">
-        <md-content class="md-padding">
-          <h2 class="md-display-2">Temperature Commands</h2>
-          <div>
-            <div>Current Temp:{{temperature.curTemp}}</div>
-            <div>min Temp:{{temperature.minTemp}}</div>
-            <div>Max Temp:{{temperature.maxTemp}}</div>
-            <div>Alarm Low Temp:{{temperature.lowAlarm}}</div>
-            <div>Alarm High Temp:{{temperature.highAlarm}}</div>
-          </div>
-          <md-divider></md-divider>
-          <br />
-          <form layout="column" layout-align="center" layout-padding>
-            <div layout="row" flex>
-              <md-button ng-click="setLowAlarm()" class="md-raised md-primary">Set
-              </md-button>
-
-              <md-input-container flex="40" class="md-icon-float md-block md-title">
-                <label>Low Alarm Value</label>
-                <input type="number" maxlength="4" ng-model="temperature.lowAlarm" ng-disabled="!temperature.enableLOW"> {{temperature.lowAlarm}}
-                </input>
-              </md-input-container>
-              <md-input-container>
-                <md-switch ng-model="temperature.enableLOW" aria-label="enable low">
-                  <!--Enable: {{ temperature.enableLOW }}-->
-                </md-switch>
-              </md-input-container>
-
+      <md-tab label="Temperature ">
+        <md-content class="md-padding " layout-xs="column">
+          <md-card flex flex-gt-xs="30">
+            <h2 class="md-headline">Temperature Commands</h2>
+            <div>
+              <div class="md-subhead">Current Temperature (C): {{temperature.curTemp}}</div>
+              <div class="md-subhead">Temperature Min: {{temperature.minTemp}}</div>
+              <div class="md-subhead">Temperature Max: {{temperature.maxTemp}}</div>
+              <div class="md-subhead">Alarm Low Temp: {{temperature.lowAlarm}}</div>
+              <div class="md-subhead">Alarm High Temp: {{temperature.highAlarm}}</div>
             </div>
-            <div layout="row" flex>
-              <md-button ng-click="setHighAlarm()" class="md-raised md-primary">Set
-              </md-button>
+            <md-divider></md-divider>
+            <form layout="column " layout-align="center " layout-padding>
+              <div layout="row " flex>
+                <md-button ng-click="setLowAlarm() " class="md-raised md-primary ">Set
+                </md-button>
 
-              <md-input-container flex="40" class="md-icon-float md-block md-title">
-                <label>High Alarm Value</label>
-                <input type="number" maxlength="4" ng-model="temperature.highAlarm" ng-disabled="!temperature.enableHIGH"> {{temperature.highAlarm}}
-                </input>
-              </md-input-container>
-              <md-input-container>
-                <md-switch ng-model="temperature.enableHIGH" aria-label="enable high">
-                  <!--Enable: {{ emperature.enableHIGH }}-->
-                </md-switch>
-              </md-input-container>
-            </div>
+                <md-input-container flex="40 " class="md-icon-float md-block md-title ">
+                  <label>Low Alarm Value</label>
+                  <input type="number " maxlength="4 " ng-model="temperature.lowAlarm " ng-disabled="!temperature.enableLOW "> {{temperature.lowAlarm}}
+                  </input>
+                </md-input-container>
+                <md-input-container>
+                  <md-switch ng-model="temperature.enableLOW " aria-label="enable low ">
+                    <!--Enable: {{ temperature.enableLOW }}-->
+                  </md-switch>
+                </md-input-container>
 
-          </form>
+              </div>
+              <div layout="row " flex>
+                <md-button ng-click="setHighAlarm() " class="md-raised md-primary ">Set
+                </md-button>
 
+                <md-input-container flex="40 " class="md-icon-float md-block md-title ">
+                  <label>High Alarm Value</label>
+                  <input type="number " maxlength="4 " ng-model="temperature.highAlarm " ng-disabled="!temperature.enableHIGH "> {{temperature.highAlarm}}
+                  </input>
+                </md-input-container>
+                <md-input-container>
+                  <md-switch ng-model="temperature.enableHIGH " aria-label="enable high ">
+                    <!--Enable: {{ emperature.enableHIGH }}-->
+                  </md-switch>
+                </md-input-container>
+              </div>
+
+            </form>
+          </md-card>
         </md-content>
       </md-tab>
 
-      <md-tab label="Board Commands">
-        <md-content class="md-padding">
-          <h2 class="md-display-2">Fubarino Mini - LED</h2>
-          <md-button class="md-primary md-raised" ng-click="ledOn()">On</md-button>
-          <md-button class="md-primary md-raised" ng-click="ledOff()">Off</md-button>
-          <h2 class="md-display-2">Fubarino Mini Reference</h2>
-          <img id="imgFubarino" src="chipKIT-Fubarino-Mini-Pin-Diagram.png" />
+      <md-tab label="Board Commands ">
+        <md-content class="md-padding ">
+          <md-card flex flex-gt-xs="30">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline ">Fubarino Mini - LED</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-actions layout="row " layout-align="start center ">
+              <md-button class="md-primary md-raised " ng-click="ledOn() ">On</md-button>
+              <md-button class="md-primary md-raised " ng-click="ledOff() ">Off</md-button>
+            </md-card-actions>
+          </md-card>
+      </md-tab>
+
+      <md-tab label="Color Display ">
+        <md-content class="md-padding ">
+          <md-card flex flex-gt-xs="30">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline ">Image to Color</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-actions layout="row " layout-align="start center ">
+              <md-button class="md-primary md-raised " ng-click="showDominantColor() ">Show Dominant Color</md-button>
+              <md-button class="md-primary md-raised " ng-click="showColorPalette() ">Show Color Palette</md-button>
+              <!-- <img id="imgSample " src="ResistorColorCode.jpg " /> -->
+            </md-card-actions>
+            <img id="imgSample " src="image-2.png " />
+          </md-card>
         </md-content>
       </md-tab>
 
-      <md-tab label="Color Display">
-        <md-content class="md-padding">
-          <h2 class="md-display-2">Image to Color<h2>
-                    <md-button class="md-primary md-raised" ng-click="showDominantColor()">Show Dominant Color</md-button>
-                    <md-button class="md-primary md-raised" ng-click="showColorPalette()">Show Color Palette</md-button>
-                    <br />
-                    <!--  <img id="imgSample" src="chipKIT-Fubarino-Mini-Pin-Diagram.png" />-->
-                    <img id="imgSample" src="image-2.png" />
-                    <!-- <img id="imgSample" src="ResistorColorCode.jpg" /> -->
-
-                </md-content>
-            </md-tab>
-
-
-            <md-tab label="LED Commands">
-                <md-content class="md-padding">
-                    <h2 class="md-display-2">Ledstrip Commands</h2>
-          <md-button class="md-primary md-raised" ng-click="clear()">clear()</md-button>Clear all pixels.
-          <br />
-          <md-button class="md-primary md-raised" ng-click="show()">show()</md-button>Show active pixels.
-          <br />
-          <md-button class="md-primary md-raised" ng-click="ledstriphello()">ledstriphello()</md-button>Automatic: clear() and show().
-          <br />
-          <md-button class="md-primary md-raised" ng-click="alertHIGH()">alertHIGH()</md-button>clear() and show() in Firmata command.
-          <br />
-          <md-button class="md-primary md-raised" ng-click="alertLOW()">alertLOW()</md-button>clear() and show() in Firmata command.
-          <br />
-          <form>
-            <md-button class="md-primary md-raised" ng-model="ledstrip" ng-click="updatePixel(ledstrip)">
-                            updatePixel(pixel, red, green, blue)</md-button> Automatic: show() does not clear.
-
-            <div layout-gt-sm="row">
-              <md-input-container class="md-block" flex-gt-sm="">
-                <label>Pixel:</label>
-                <input ng-model="ledstrip.pixel" md-maxlength="3" required>
-              </md-input-container>
-              <md-input-container class="md-block" flex-gt-sm="">
-                <label>Red:</label>
-                <input ng-model="ledstrip.red" md-maxlength="3" required>
-              </md-input-container>
-              <md-input-container class="md-block" flex-gt-sm="">
-                <label>Green:</label>
-                <input ng-model="ledstrip.green" md-maxlength="3" required>
-              </md-input-container>
-              <md-input-container class="md-block" flex-gt-sm="">
-                <label>Blue:</label>
-                <input ng-model="ledstrip.blue" md-maxlength="3" required>
-              </md-input-container>
+      <md-tab label="LED Strip Commands ">
+        <md-content class="md-padding ">
+          <md-card flex flex-gt-xs="50">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline ">Ledstrip Commands</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-actions>
+              <md-button class="md-primary md-raised " ng-click="clear() ">clear()</md-button>Clear all pixels.
               <br />
-            </div>
+              <md-button class="md-primary md-raised " ng-click="show() ">show()</md-button>Show active pixels.
+              <br />
+              <md-button class="md-primary md-raised " ng-click="ledstriphello() ">ledstriphello()</md-button>Automatic: clear() and show().
+              <br />
+              <md-button class="md-primary md-raised " ng-click="alertHIGH() ">alertHIGH()</md-button>clear() and show() in Firmata command.
+              <br />
+              <md-button class="md-primary md-raised " ng-click="alertLOW() ">alertLOW()</md-button>clear() and show() in Firmata command.
+              <br />
+              <form>
+                <md-button class="md-primary md-raised " ng-model="ledstrip " ng-click="updatePixel(ledstrip) ">
+                  updatePixel(pixel, red, green, blue)</md-button> Automatic: show() does not clear.
 
-          </form>
+                <div layout-gt-sm="row ">
+                  <md-input-container class="md-block " flex-gt-sm=" ">
+                    <label>Pixel:</label>
+                    <input ng-model="ledstrip.pixel " md-maxlength="3 " required>
+                  </md-input-container>
+                  <md-input-container class="md-block " flex-gt-sm=" ">
+                    <label>Red:</label>
+                    <input ng-model="ledstrip.red " md-maxlength="3 " required>
+                  </md-input-container>
+                  <md-input-container class="md-block " flex-gt-sm=" ">
+                    <label>Green:</label>
+                    <input ng-model="ledstrip.green " md-maxlength="3 " required>
+                  </md-input-container>
+                  <md-input-container class="md-block " flex-gt-sm=" ">
+                    <label>Blue:</label>
+                    <input ng-model="ledstrip.blue " md-maxlength="3 " required>
+                  </md-input-container>
+                  <br />
+                </div>
+              </form>
+
+            </md-card-actions>
+          </md-card>
         </md-content>
       </md-tab>
 
-      <md-tab label="LED Mixing">
-        <h2 class="md-display-2">RGB Pixels and Sliders</h2>
-        <form layout layout-align="row" layout-padding>
-          <div flex-gt-sm="50 flex">
-          <md-slider-container>
-            <span class="md-body-1">Animate Pixel</span>
-            <md-slider class="md-primary" flex ng-model="pix" ng-change="updatePixels(pix)" min="0" max="29" aria-label="pixels" id="pixel-slider">
-            </md-slider>
-            <md-input-container>
-              <input flex type="number" ng-model="pix" aria-label="pixels" aria-controls="pixel-slider">
-            </md-input-container>
-          </md-slider-container>
+      <md-tab label="LED Mixing ">
+        <md-card flex flex-gt-xs="50">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline ">RGB Pixels and Sliders</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-actions>
+            <form layout layout-align="row " layout-padding>
+              <div flex-gt-sm="50 flex ">
+                <md-slider-container>
+                  <span class="md-body-1 ">Animate Pixel</span>
+                  <md-slider class="md-primary " flex ng-model="pix " ng-change="updatePixels(pix) " min="0 " max="29 " aria-label="pixels " id="pixel-slider ">
+                  </md-slider>
+                  <md-input-container>
+                    <input flex type="number " ng-model="pix " aria-label="pixels " aria-controls="pixel-slider ">
+                  </md-input-container>
+                </md-slider-container>
 
-          <md-slider-container>
-            <span class="md-body-1">Red</span>
-            <md-slider class="md-accent md-hue-1" flex min="0" max="255" ng-model="color.red" ng-change="updateColor()" aria-label="red" id="red-slider">
-            </md-slider>
-            <md-input-container>
-              <input flex type="number" ng-model="color.red" aria-label="red" aria-controls="red-slider">
-            </md-input-container>
-          </md-slider-container>
+                <md-slider-container>
+                  <span class="md-body-1 ">Red</span>
+                  <md-slider class="md-accent md-hue-1 " flex min="0 " max="255 " ng-model="color.red " ng-change="updateColor() " aria-label="red " id="red-slider ">
+                  </md-slider>
+                  <md-input-container>
+                    <input flex type="number " ng-model="color.red " aria-label="red " aria-controls="red-slider ">
+                  </md-input-container>
+                </md-slider-container>
 
-          <md-slider-container>
-            <span class="md-body-1">Green</span>
-            <md-slider class="md-accent md-hue-2" flex ng-model="color.green" ng-change="updateColor()" min="0" max="255" aria-label="green" id="green-slider" md-colors="{color: 'green-A100'}" class="md-accent">
-            </md-slider>
-            <md-input-container>
-              <input flex type="number" ng-model="color.green" aria-label="green" aria-controls="green-slider">
-            </md-input-container>
-          </md-slider-container>
+                <md-slider-container>
+                  <span class="md-body-1 ">Green</span>
+                  <md-slider class="md-accent md-hue-2 " flex ng-model="color.green " ng-change="updateColor() " min="0 " max="255 " aria-label="green " id="green-slider " md-colors="{color: 'green-A100'} " class="md-accent ">
+                  </md-slider>
+                  <md-input-container>
+                    <input flex type="number " ng-model="color.green " aria-label="green " aria-controls="green-slider ">
+                  </md-input-container>
+                </md-slider-container>
 
-          <md-slider-container>
-            <span class="md-body-1">Blue</span>
-            <md-slider flex class="md-primary" ng-model="color.blue" ng-change="updateColor()" min="0" max="255" aria-label="blue" id="blue-slider">
-            </md-slider>
-            <md-input-container>
-              <input flex type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider">
-            </md-input-container>
-          </md-slider-container>
-        </form>
-      </div>
+                <md-slider-container>
+                  <span class="md-body-1 ">Blue</span>
+                  <md-slider flex class="md-primary " ng-model="color.blue " ng-change="updateColor() " min="0 " max="255 " aria-label="blue " id="blue-slider ">
+                  </md-slider>
+                  <md-input-container>
+                    <input flex type="number " ng-model="color.blue " aria-label="blue " aria-controls="blue-slider ">
+                  </md-input-container>
+                </md-slider-container>
+            </form>
+            </div>
+          </md-card-actions>
+        </md-card>
       </md-tab>
-      <md-tab label="Config">
-        <md-content class="md-padding">
-          <h2 class="md-display-2">Fubarino Mini -- Board Config</h2>
-          <json-explorer json-data="board"></json-explorer>
+      <md-tab label="Config ">
+        <md-content class="md-padding ">
+          <md-card flex flex-gt-xs="30">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline ">Fubarino Mini -- Board Config</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <json-explorer json-data="board "></json-explorer>
+        </md-content>
+        </md-card>
+        <md-card flex flex-gt-xs="35">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline ">Fubarino Mini Reference</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <img ng-src="chipKIT-Fubarino-Mini-Pin-Diagram.png " class="md-card-image ">
+            </md-content>
+        </md-card>
         </md-content>
       </md-tab>
     </md-tabs>
   </div>
-  <script type="text/javascript">
+  <script type="text/javascript ">
     var colorThief = new ColorThief();
 
     var app = angular.module('chipKITApp', ['btford.socket-io', 'ngMaterial', 'ngJsonExplorer']).
@@ -225,10 +268,10 @@
           socket.emit('ledstrip:setpixelcolor', data);
         }
         socket.emit('ledstrip:show');
-        //console.log("INIT VALUES:" + JSON.stringify(data));
+        //console.log("INIT VALUES: " + JSON.stringify(data));
       });
       socket.on('sendTemp', function(data) {
-        console.log("RECEIVED temp:", data.curTemp);
+        console.log("RECEIVED temp: ", data.curTemp);
         $scope.temperature.curTemp = data.curTemp;
         if (data.curTemp > $scope.temperature.maxTemp) {
           $scope.temperature.maxTemp = data.curTemp;
@@ -253,14 +296,14 @@
         if ($scope.temperature.enableLOW) {
           if (data.curTemp < $scope.temperature.lowAlarm) {
             socket.emit('ledstrip:alertLOW');
-            console.log("warning temp too low");
+            console.log("warning temp too low ");
             return;
           }
         }
         if ($scope.temperature.enableHIGH) {
           if (data.curTemp > $scope.temperature.highAlarm) {
             socket.emit('ledstrip:alertHIGH');
-            console.log("warning temp too high");
+            console.log("warning temp too high ");
             return;
           }
         }
@@ -280,12 +323,12 @@
         console.log('LED OFF');
       };
       $scope.showDominantColor = function() {
-        var color = colorThief.getColor(document.getElementById("imgSample"));
-        socket.emit('ledstrip:setframecolor',color);
+        var color = colorThief.getColor(document.getElementById("imgSample "));
+        socket.emit('ledstrip:setframecolor', color);
         console.log(`color: ${color}`);
       }
       $scope.showColorPalette = function() {
-        var palette = colorThief.getPalette(document.getElementById("imgSample"));
+        var palette = colorThief.getPalette(document.getElementById("imgSample "));
         var numColors = palette.length;
         var index = 0;
         var range = Math.ceil(30 / numColors);
@@ -305,7 +348,7 @@
           }
           frame.push(data);
         }
-        socket.emit('ledstrip:updatepixelframe',frame);
+        socket.emit('ledstrip:updatepixelframe', frame);
         console.log(`palette: ${palette}`);
       }
       $scope.clear = function() {
@@ -338,15 +381,15 @@
         socket.emit('ledstrip:setclearshowpixelcolor', data);
       };
       $scope.updatePixel = function(data) {
-        console.log("update pixel");
+        console.log("update pixel ");
         let ledstrip = {
           pixel: data.pixel,
           red: data.red,
           green: data.green,
           blue: data.blue
         }
-          socket.emit('ledstrip:setpixelcolor', ledstrip);
-          socket.emit('ledstrip:show');
+        socket.emit('ledstrip:setpixelcolor', ledstrip);
+        socket.emit('ledstrip:show');
       };
       $scope.updatePixels = function(pixels) {
         let data = {
@@ -356,9 +399,9 @@
           blue: $scope.color.blue
         }
         setTimeout(function() {
-        //socket.emit('ledstrip:clear');
-         socket.emit('ledstrip:setclearshowpixelcolor', data);
-        //socket.emit('ledstrip:show');
+          //socket.emit('ledstrip:clear');
+          socket.emit('ledstrip:setclearshowpixelcolor', data);
+          //socket.emit('ledstrip:show');
         }, 0);
 
 
