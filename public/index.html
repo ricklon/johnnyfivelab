@@ -80,8 +80,8 @@
       <md-tab label="Board Commands">
         <md-content class="md-padding">
           <h2 class="md-display-2">Fubarino Mini - LED</h2>
-          <button ng-click="ledOn()">On</button>
-          <button ng-click="ledOff()">Off</button>
+          <md-button class="md-primary md-raised" ng-click="ledOn()">On</md-button>
+          <md-button class="md-primary md-raised" ng-click="ledOff()">Off</md-button>
           <h2 class="md-display-2">Fubarino Mini Reference</h2>
           <img id="imgFubarino" src="chipKIT-Fubarino-Mini-Pin-Diagram.png" />
         </md-content>
@@ -90,8 +90,8 @@
       <md-tab label="Color Display">
         <md-content class="md-padding">
           <h2 class="md-display-2">Image to Color<h2>
-                    <button ng-click="showDominantColor()">Show Dominant Color</button>
-                    <button ng-click="showColorPalette()">Show Color Palette</button>
+                    <md-button class="md-primary md-raised" ng-click="showDominantColor()">Show Dominant Color</md-button>
+                    <md-button class="md-primary md-raised" ng-click="showColorPalette()">Show Color Palette</md-button>
                     <br />
                     <!--  <img id="imgSample" src="chipKIT-Fubarino-Mini-Pin-Diagram.png" />-->
                     <img id="imgSample" src="image-2.png" />
@@ -104,19 +104,19 @@
             <md-tab label="LED Commands">
                 <md-content class="md-padding">
                     <h2 class="md-display-2">Ledstrip Commands</h2>
-          <button ng-click="clear()">clear()</button>Clear all pixels.
+          <md-button class="md-primary md-raised" ng-click="clear()">clear()</md-button>Clear all pixels.
           <br />
-          <button ng-click="show()">show()</button>Show active pixels.
+          <md-button class="md-primary md-raised" ng-click="show()">show()</md-button>Show active pixels.
           <br />
-          <button ng-click="ledstriphello()">ledstriphello()</button>Automatic: clear() and show().
+          <md-button class="md-primary md-raised" ng-click="ledstriphello()">ledstriphello()</md-button>Automatic: clear() and show().
           <br />
-          <button ng-click="alertHIGH()">alertHIGH()</button>clear() and show() in Firmata command.
+          <md-button class="md-primary md-raised" ng-click="alertHIGH()">alertHIGH()</md-button>clear() and show() in Firmata command.
           <br />
-          <button ng-click="alertLOW()">alertLOW()</button>clear() and show() in Firmata command.
+          <md-button class="md-primary md-raised" ng-click="alertLOW()">alertLOW()</md-button>clear() and show() in Firmata command.
           <br />
           <form>
-            <button ng-model="ledstrip" ng-click="updatePixel(ledstrip)">
-                            updatePixel(pixel, red, green, blue)</button> Automatic: show() does not clear.
+            <md-button class="md-primary md-raised" ng-model="ledstrip" ng-click="updatePixel(ledstrip)">
+                            updatePixel(pixel, red, green, blue)</md-button> Automatic: show() does not clear.
 
             <div layout-gt-sm="row">
               <md-input-container class="md-block" flex-gt-sm="">

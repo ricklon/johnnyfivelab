@@ -22,6 +22,7 @@
     "angular-material-icons": "^0.7.0",
     "md-color-picker": "^0.2.6",
     "ng-json-explorer": "*",
-    "color-thief": "^2.0.1"
+    "color-thief": "^2.0.1",
+    "angular-chart.js": "^1.1.1"
   }
 }
