@@ -3,10 +3,27 @@ const fs = require('fs');
 const os = require('os');
 const prompt = require('prompt');
 
+let myConfig = {};
+
 const ifaces = os.networkInterfaces();
 let adresses = [];
 
+
+if (config.has('ip')) {
 console.log('Current IP Address: %s', config.get('ip'));
+  myConfig.ip = config.get('ip');
+} else {
+  myConfig.ip = "";
+  console.log('No ip selected yet.');
+}
+if (config.has('port')) {
+  console.log('Current Serial Port: %s', config.get('port'));
+  myConfig.port = config.get('port');
+} else {
+  console.log('No port selected yet.');
+  myConfig.port = "";
+}
+
 prompt.start();
 // list ip addresses:
 console.log('Select IP Address by typing it\'s number into the prompt.');
@@ -31,9 +48,8 @@ Object.keys(ifaces).forEach(function(ifname) {
     }
     prompt.get(['num'], function(err, result) {
       console.log('IP Selected: %s', adresses[result.num]);
-      console.dir(config);
-      config.ip = adresses[result.num];
-      fs.writeFile("./config/default.json", JSON.stringify(config), function (err) {
+      myConfig.ip = adresses[result.num];
+      fs.writeFile("./config/default.json", JSON.stringify(myConfig), function (err) {
         if (err) {
           return console.log(err);
         }

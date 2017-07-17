@@ -1,14 +1,24 @@
-let config = require('config');
+const config = require('config');
+const writeFile = require( 'write-file-bluebird' );
 const fs = require('fs');
 const serialport = require('serialport');
 const prompt = require('prompt');
-//const SerialPort = serialport.SerialPort;
-let portName;
+
+let myConfig = {};
 
 if (config.has('port')) {
   console.log('Current port: %s', config.get('port'));
+  myConfig.port = config.get('port');
 } else {
   console.log('No port selected yet.');
+  myConfig.port = "";
+}
+if (config.has('ip')) {
+  console.log('Current ip: %s', config.get('ip'));
+  myConfig.ip = config.get('ip');
+} else {
+  myConfig.ip = "";
+  console.log('No ip selected yet.');
 }
 prompt.start();
 // list serial ports:
@@ -19,12 +29,16 @@ serialport.list(function(err, ports) {
   });
   prompt.get(['num'], function(err, result) {
     console.log('Port Selected: %s', ports[result.num].comName);
-    config.port = ports[result.num].comName;
-    fs.writeFile('./config/default.json', JSON.stringify(config), function(err) {
-      if (err) {
-        return console.log(err);
-      }
+    myConfig.port = ports[result.num].comName;
+    writeFile('./config/default.json', JSON.stringify(myConfig))
+	.then( function (result) {
+	  console.log("Selection Saved.");
+	})
+	.catch ( function (err) {
+	  console.log('Could not write file: %s', err);
+	});
     });
     // console.log('Port Selected: %s, ', portName);
   });
-});
+
+
