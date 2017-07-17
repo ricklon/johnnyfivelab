@@ -39,9 +39,6 @@ void setup() {
   delay(1000);
 }
 void loop() {
-  // and so on . . . 
-
-  
   // Start off with LEDs set to random colors
   for (int i = 0; i < NUMPIXELS; i++) {
     frame[i] = colors[random(3)];   // Save the color in the frame
