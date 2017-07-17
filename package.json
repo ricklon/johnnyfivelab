@@ -21,7 +21,8 @@
     "prompt": "^1.0.0",
     "serialport": "^4.0.7",
     "socket.io": "^2.0.1",
-    "winston": "^2.3.1"
+    "winston": "^2.3.1",
+    "write-file-bluebird": "^1.0.5"
   },
   "devDependencies": {
     "del": "^2.2.2",
