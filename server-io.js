@@ -10,7 +10,7 @@ const io = require('socket.io')(server);
 const five = require('johnny-five');
 
 const board = new five.Board(
-  // { port: config.get('port'), }
+   { port: config.get('port') }
 );
 
 const Ledstrip = require('./ledstrip.js');
