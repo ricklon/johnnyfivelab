@@ -2,8 +2,8 @@ const config = require('config');
 const logger = require('winston');
 const five = require('johnny-five');
 
-const A2 = 4;
-const board = new five.Board();
+const A2 = 6;
+let board = new five.Board();
 let potentiometer;
 
 board.on('ready', function() {
@@ -11,6 +11,7 @@ board.on('ready', function() {
   potentiometer = new five.Sensor({
     pin: A2,
     freq: 250,
+    threshold: 2,
   });
 
   // Inject the `sensor` hardware into
@@ -21,7 +22,10 @@ board.on('ready', function() {
   });
 
   // 'data' get the current reading from the potentiometer
-  potentiometer.on('data', function() {
-    logger.log('info', `${this.value}, ${this.raw}`);
+  // potentiometer.on('data', function(data) {
+  //  logger.log('info', `${data}, ${this.raw}`);
+  // });
+  potentiometer.on("change", function() {
+    logger.log('info', this.value);
   });
 });
