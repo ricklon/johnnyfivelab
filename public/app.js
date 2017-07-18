@@ -1,8 +1,8 @@
-var colorThief = new ColorThief();
+const colorThief = new ColorThief();
 
-var app = angular.module('chipKITApp', ['btford.socket-io', 'ngMaterial', 'ngJsonExplorer', 'chart.js']).
+const app = angular.module('chipKITApp', ['btford.socket-io', 'ngMaterial', 'ngJsonExplorer', 'chart.js']).
 config(function($mdThemingProvider) {
-  var rgbMap = $mdThemingProvider.extendPalette('green', {
+  const rgbMap = $mdThemingProvider.extendPalette('green', {
     'A100': '#ff0000',
     'A200': '#00ff00',
     'A300': '#0000ff'
@@ -19,8 +19,8 @@ controller('ArduController', function($scope, socket) {
   socket.on('init', function(data) {
     $scope.temperature.curTemp = data.curTemp;
     $scope.board = data.board;
-    var green = 255;
-    for (var pixel = 0; pixel < 30; pixel++) {
+    let green = 255;
+    for (let pixel = 0; pixel < 30; pixel++) {
       let data = {
         pixel: pixel,
         red: 0,
@@ -42,8 +42,8 @@ controller('ArduController', function($scope, socket) {
       $scope.temperature.minTemp = data.curTemp;
     }
     if (data.curTemp > $scope.temperature.lowAlarm && data.curTemp < $scope.temperature.highAlarm) {
-      var green = 255;
-      for (var pixel = 0; pixel < 30; pixel++) {
+      let green = 255;
+      for (let pixel = 0; pixel < 30; pixel++) {
         let data = {
           pixel: pixel,
           red: 0,
@@ -66,15 +66,13 @@ controller('ArduController', function($scope, socket) {
       if (data.curTemp > $scope.temperature.highAlarm) {
         socket.emit('ledstrip:alertHIGH');
         console.log("warning temp too high ");
-        return;
       }
     }
-
   });
   $scope.color = {
     red: Math.floor(Math.random() * 255),
     green: Math.floor(Math.random() * 255),
-    blue: Math.floor(Math.random() * 255)
+    blue: Math.floor(Math.random() * 255),
   };
   $scope.ledOn = function() {
     socket.emit('led:on');
@@ -85,20 +83,20 @@ controller('ArduController', function($scope, socket) {
     console.log('LED OFF');
   };
   $scope.showDominantColor = function() {
-    var color = colorThief.getColor(document.getElementById("imgSample "));
+    let color = colorThief.getColor(document.getElementById("imgSample "));
     socket.emit('ledstrip:setframecolor', color);
     console.log(`color: ${color}`);
   }
   $scope.showColorPalette = function() {
-    var palette = colorThief.getPalette(document.getElementById("imgSample "));
-    var numColors = palette.length;
-    var index = 0;
-    var range = Math.ceil(30 / numColors);
-    var frame = [];
+    let palette = colorThief.getPalette(document.getElementById("imgSample "));
+    const numColors = palette.length;
+    let index = 0;
+    const range = Math.ceil(30 / numColors);
+    const frame = [];
 
-    for (var pixel = 0; pixel < 30; pixel++) {
+    for (let pixel = 0; pixel < 30; pixel++) {
       if ((pixel % range) === 0) {
-        var color = palette[index];
+        let color = palette[index];
         index++;
       }
       //color data is in BGR order for strip
@@ -190,8 +188,8 @@ controller('ArduController', function($scope, socket) {
 });
 
 app.controller("lineCtrl", function($scope, socket) {
-  var timeFormat = 'MM/DD/YYYY HH:mm:ss';
-  var color = Chart.helpers.color;
+  const timeFormat = 'MM/DD/YYYY HH:mm:ss';
+  const color = Chart.helpers.color;
 
   function newDateString(seconds) {
     return moment().add(seconds, 's').format();
