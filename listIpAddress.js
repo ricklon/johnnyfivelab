@@ -49,7 +49,7 @@ Object.keys(ifaces).forEach(function(ifname) {
     prompt.get(['num'], function(err, result) {
       console.log('IP Selected: %s', adresses[result.num]);
       myConfig.ip = adresses[result.num];
-      fs.writeFile("./config/default.json", JSON.stringify(myConfig), function (err) {
+      fs.writeFile('./config/default.json', JSON.stringify(myConfig), function (err) {
         if (err) {
           return console.log(err);
         }

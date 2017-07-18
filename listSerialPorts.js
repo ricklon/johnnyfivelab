@@ -1,5 +1,4 @@
 const config = require('config');
-const writeFile = require( 'write-file-bluebird' );
 const fs = require('fs');
 const serialport = require('serialport');
 const prompt = require('prompt');
@@ -30,15 +29,11 @@ serialport.list(function(err, ports) {
   prompt.get(['num'], function(err, result) {
     console.log('Port Selected: %s', ports[result.num].comName);
     myConfig.port = ports[result.num].comName;
-    writeFile('./config/default.json', JSON.stringify(myConfig))
-	.then( function (result) {
-	  console.log("Selection Saved.");
-	})
-	.catch ( function (err) {
-	  console.log('Could not write file: %s', err);
-	});
+    fs.writeFile("./config/default.json", JSON.stringify(myConfig), function(err) {
+      if (err) {
+        return console.log(err);
+      }
     });
     // console.log('Port Selected: %s, ', portName);
   });
-
-
+});
