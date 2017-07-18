@@ -23,6 +23,7 @@
     "md-color-picker": "^0.2.6",
     "ng-json-explorer": "*",
     "color-thief": "^2.0.1",
-    "angular-chart.js": "^1.1.1"
+    "angular-chart.js": "^1.1.1",
+    "moment": "^2.18.1"
   }
 }

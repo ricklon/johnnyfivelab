@@ -4,7 +4,6 @@ const path = require('path');
 const extend = require('util')._extend;
 const express = require('express');
 
-
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
@@ -31,7 +30,7 @@ const MAX_PIXEL = 30;
 let pixelCur = 0;
 let LowAlarm;
 let highAlarm;
-let state = {
+const state = {
   curTemp:  curTemp,
   board: {},
 };
