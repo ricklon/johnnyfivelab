@@ -83,7 +83,7 @@ board.on('ready', function() {
 
   // When the sensor value changes, log the value
   tSensor.on('change', function(value) {
-    logger.log('info', `Analog: ${value} , C: ${value.C}, F: ${value.F}`);
+    logger.log('info', `C: ${value.C}, F: ${value.F}`);
     io.emit('sendTemp', {
       curTemp: value.C,
     });

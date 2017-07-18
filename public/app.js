@@ -221,6 +221,9 @@ app.controller("lineCtrl", function($scope, socket) {
   };
   $scope.options = {
     responsive: true,
+    animation: {
+            duration: 0, // general animation time
+        },
     title: {
       display: true,
       text: "Temperature Monitoring Data"
