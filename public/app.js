@@ -201,7 +201,7 @@ app.controller("lineCtrl", function($scope, socket) {
     return moment().add(days, 'd').unix();
   }
   $scope.labels = [];
-  $scope.series = ['Temp', 'High', 'Low'];
+  $scope.series = ['Temp', 'Low', 'High'];
   $scope.data = [
     [],
     [],
@@ -215,6 +215,12 @@ app.controller("lineCtrl", function($scope, socket) {
     $scope.data[1].push($scope.temperature.lowAlarm);
     $scope.data[2].push($scope.temperature.highAlarm);
     $scope.labels.push(moment().format());
+    if ($scope.data[0].length > 20) {
+      $scope.data[0].shift();
+      $scope.data[1].shift();
+      $scope.data[2].shift();
+      $scope.labels.shift();
+    }
   });
   $scope.onClick = function(points, evt) {
     console.log(points, evt);
@@ -222,11 +228,14 @@ app.controller("lineCtrl", function($scope, socket) {
   $scope.options = {
     responsive: true,
     animation: {
-            duration: 0, // general animation time
-        },
+      duration: 0, // general animation time
+    },
     title: {
       display: true,
       text: "Temperature Monitoring Data"
+    },
+    legend: {
+      display: true,
     },
     scales: {
       xAxes: [{
@@ -239,6 +248,10 @@ app.controller("lineCtrl", function($scope, socket) {
       }],
       yAxes: [{
         display: true,
+        ticks: {
+          suggestedMin: 20,
+          suggestedMax: 40
+        },
         scaleLabel: {
           display: true,
           labelString: 'Temp (C)'
