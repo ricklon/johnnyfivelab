@@ -3,6 +3,8 @@ const logger = require('winston');
 const path = require('path');
 const extend = require('util')._extend;
 const express = require('express');
+const util = require('util');
+const cycle = require('cycle');
 
 const app = express();
 const server = require('http').Server(app);
@@ -42,6 +44,8 @@ board.on('ready', function() {
   ledstrip.setPixelColor();
   ledstrip.hello();
   state.board = board.pins;
+  // console.log(util.inspect(board, {depth: 1}));
+  const brd = new Buffer(JSON.stringify(cycle.decycle(util.inspect(board, {depth: 1}))), 'utf-8');
 
   led = new five.Led(PIN_LED1);
   button = new five.Button({
@@ -91,7 +95,7 @@ board.on('ready', function() {
   // emit the init data to client
   io.emit('init', {
     curTemp: curTemp,
-    board: board.pins,
+    board: brd,
   });
 
   board.on('close', function() {
