@@ -16,7 +16,7 @@ board.on('ready', function() {
     aref: 3.3,
   });
 
-  tSensor.on('data', function() {
+  tSensor.on('change', function() {
     logger.log('info', 'celsius: %d', this.C);
     logger.log('info', 'fahrenheit: %d', this.F);
     logger.log('info', 'kelvin: %d', this.K);
