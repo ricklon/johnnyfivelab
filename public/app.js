@@ -89,14 +89,15 @@ controller('ArduController', function($scope, socket) {
   }
   $scope.showColorPalette = function() {
     let palette = colorThief.getPalette(document.getElementById("imgSample "));
-    const numColors = palette.length;
+    let numColors = palette.length;
     let index = 0;
     const range = Math.ceil(30 / numColors);
     const frame = [];
+    let color = [];
 
-    for (let pixel = 0; pixel < 30; pixel++) {
+    for (let pixel = 0; pixel < 30; pixel += 1) {
       if ((pixel % range) === 0) {
-        let color = palette[index];
+        color = palette[index];
         index++;
       }
       //color data is in BGR order for strip
