@@ -86,9 +86,7 @@
             </md-card-title>
             <md-card-content>
 
-              <canvas id="line" class="chart chart-line" chart-data="data"
-chart-labels="labels" chart-series="series" chart-options="options"
-chart-dataset-override="datasetOverride" chart-click="onClick">
+              <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick">
 </canvas>
             </md-card-content>
           </md-card>
@@ -137,41 +135,43 @@ chart-dataset-override="datasetOverride" chart-click="onClick">
               </md-card-title-text>
             </md-card-title>
             <md-card-actions>
-              <md-button class="md-primary md-raised " ng-click="clear() ">clear()</md-button>Clear all pixels.
-              <br />
-              <md-button class="md-primary md-raised " ng-click="show() ">show()</md-button>Show active pixels.
-              <br />
-              <md-button class="md-primary md-raised " ng-click="ledstriphello() ">ledstriphello()</md-button>Automatic: clear() and show().
-              <br />
-              <md-button class="md-primary md-raised " ng-click="alertHIGH() ">alertHIGH()</md-button>clear() and show() in Firmata command.
-              <br />
-              <md-button class="md-primary md-raised " ng-click="alertLOW() ">alertLOW()</md-button>clear() and show() in Firmata command.
-              <br />
-              <form>
-                <md-button class="md-primary md-raised " ng-model="ledstrip " ng-click="updatePixel(ledstrip) ">
-                  updatePixel(pixel, red, green, blue)</md-button> Automatic: show() does not clear.
+              <section layout="column" layout-sm="column" layout-align="start start">
+                Clear all pixels.
+                <md-button class="md-primary md-raised " ng-click="clear() ">clear()</md-button>
+                Show active pixels.
+                <md-button class="md-primary md-raised " ng-click="show() ">show()</md-button>
+                Automatic: clear() and show().
+                <md-button class="md-primary md-raised " ng-click="ledstriphello() ">ledstriphello()</md-button>
+                clear() and show() in Firmata command.
+                <md-button class="md-primary md-raised " ng-click="alertHIGH() ">alertHIGH()</md-button>
+                clear() and show() in Firmata command.
+                <md-button class="md-primary md-raised " ng-click="alertLOW() ">alertLOW()</md-button>
+                Automatic: show() does not clear.
+                <form>
+                  <md-button class="md-primary md-raised " ng-model="ledstrip " ng-click="updatePixel(ledstrip) ">
+                    updatePixel(pixel, red, green, blue)</md-button>
 
-                <div layout-gt-sm="row ">
-                  <md-input-container class="md-block " flex-gt-sm=" ">
-                    <label>Pixel:</label>
-                    <input ng-model="ledstrip.pixel " md-maxlength="3 " required>
-                  </md-input-container>
-                  <md-input-container class="md-block " flex-gt-sm=" ">
-                    <label>Red:</label>
-                    <input ng-model="ledstrip.red " md-maxlength="3 " required>
-                  </md-input-container>
-                  <md-input-container class="md-block " flex-gt-sm=" ">
-                    <label>Green:</label>
-                    <input ng-model="ledstrip.green " md-maxlength="3 " required>
-                  </md-input-container>
-                  <md-input-container class="md-block " flex-gt-sm=" ">
-                    <label>Blue:</label>
-                    <input ng-model="ledstrip.blue " md-maxlength="3 " required>
-                  </md-input-container>
-                  <br />
-                </div>
-              </form>
-
+                  <div layout-gt-sm="row ">
+                    <md-input-container class="md-block " flex-gt-sm=" ">
+                      <label>Pixel:</label>
+                      <input ng-model="ledstrip.pixel " md-maxlength="3 " required>
+                    </md-input-container>
+                    <md-input-container class="md-block " flex-gt-sm=" ">
+                      <label>Red:</label>
+                      <input ng-model="ledstrip.red " md-maxlength="3 " required>
+                    </md-input-container>
+                    <md-input-container class="md-block " flex-gt-sm=" ">
+                      <label>Green:</label>
+                      <input ng-model="ledstrip.green " md-maxlength="3 " required>
+                    </md-input-container>
+                    <md-input-container class="md-block " flex-gt-sm=" ">
+                      <label>Blue:</label>
+                      <input ng-model="ledstrip.blue " md-maxlength="3 " required>
+                    </md-input-container>
+                    <br />
+                  </div>
+                </form>
+              </section>
             </md-card-actions>
           </md-card>
         </md-content>
