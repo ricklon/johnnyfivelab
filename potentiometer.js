@@ -2,7 +2,7 @@ const config = require('config');
 const logger = require('winston');
 const five = require('johnny-five');
 
-const A2 = 6;
+const A2 = 4;
 let board = new five.Board();
 let potentiometer;
 
