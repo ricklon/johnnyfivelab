@@ -6,8 +6,8 @@ void setup() {
 
 void loop() {
   float sensorValue = analogRead(A0);
-  float voltage = sensorValue * (3300 / 1024);
-  float celsius = (voltage - 500) / 10;
+  float voltage = sensorValue * (3300.0 / 1024.0);
+  float celsius = (voltage - 500) / 10.0;
   Serial.print("Celsius: ");
   Serial.println(celsius);
   delay(250);
