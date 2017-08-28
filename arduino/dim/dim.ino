@@ -11,7 +11,7 @@ void setup() {   //nothing needed
 void loop() {
   int val;
   val = analogRead(pinPot);
-  SoftPWMServoPWMWrite(pinLed, val/(1024/256));
+  SoftPWMServoPWMWrite(pinLed, val/(1024.0/256.0));
   delay(100);
 }
 
